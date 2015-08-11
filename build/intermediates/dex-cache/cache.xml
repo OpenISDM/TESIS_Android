@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/classes-cb305fe4e570bd731658f5df925b2fb70fb11bb5.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.android.support/support-v13/22.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b6f3fd41dae8c43531192af02ddf5429a1c44446">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/classes-53969903cd03051a48290786aa7e99836cf5a112.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/libs/joda-time-2.7.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/joda-time-2.7-d92cc219b7d727c4ef17a6483fa1db76a108fb2a.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.0/support-annotations-22.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/support-annotations-22.1.0-4e7fccf588e3523ba0c8e9aa8eabf7c8da944f59.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/classes-0d38a4c6ccea4256dce7459005348da37c44a804.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/classes-760ecba07e04982600a74319ecb8816b561b3762.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.android.support/support-v13/22.1.0/libs/internal_impl-22.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="50c645d80504c40e34e6bb88360b9a5c1df99b0b">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/internal_impl-22.1.0-914fc011b2a337062e3231fd1cafbd051cb6b846.jar" />
+    </item>
+    <item
+        jar="/Users/developer/Dropbox/TESIS.v3/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/libs/internal_impl-22.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
+        <dex dex="/Users/developer/Dropbox/TESIS.v3/build/intermediates/pre-dexed/debug/internal_impl-22.1.0-57d63de9d61784eb99f6bc8b802e1676910f6687.jar" />
+    </item>
+
+</items>
