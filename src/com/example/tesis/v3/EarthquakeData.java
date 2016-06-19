@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.internal.is;
+//import com.google.android.gms.internal.is;
 
 import android.R.integer;
 import android.app.ProgressDialog;

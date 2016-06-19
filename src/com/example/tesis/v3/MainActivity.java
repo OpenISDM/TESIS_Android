@@ -64,8 +64,9 @@ public class MainActivity extends ActionBarActivity {
 
 		if (showInfo) {
 
-			infoDialog = new Dialog(MainActivity.this,
-					R.style.Theme_Base_AppCompat_Dialog_FixedSize);
+//			infoDialog = new Dialog(MainActivity.this,
+//					R.style.Theme_Base_AppCompat_Dialog_FixedSize);
+			infoDialog = new Dialog(MainActivity.this);
 			infoDialog.setContentView(R.layout.dialog_info);
 			infoDialog.setTitle("通知");
 			

@@ -101,8 +101,9 @@ public class SettingActivity extends ActionBarActivity {
 				int[] settingValue = ConstantVariables
 						.loadSetting(settingActivity);
 
-				settingDialog = new Dialog(SettingActivity.this,
-						R.style.Theme_Base_AppCompat_Dialog_Light_FixedSize);
+//				settingDialog = new Dialog(SettingActivity.this,
+//						R.style.Theme_Base_AppCompat_Dialog_Light_FixedSize);
+				settingDialog = new Dialog(SettingActivity.this);
 				if (mAdapter.getItem(position).equals(SETTING_ML)) {
 					settingDialog
 							.setContentView(R.layout.setting_number_picker);

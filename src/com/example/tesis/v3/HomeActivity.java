@@ -28,8 +28,8 @@ import com.example.tesis.v3.summaryActivity.downloadComments;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.internal.ig;
-import com.google.android.gms.internal.of;
+//import com.google.android.gms.internal.ig;
+//import com.google.android.gms.internal.of;
 
 import android.R.anim;
 import android.R.integer;
