@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tesis.v3"
+    package="sinica.earth.tesis"
     android:versionCode="2"
     android:versionName="2.0" > <!-- change version ID on 0416 because of new sender ID -->
     <uses-sdk
@@ -39,10 +39,10 @@
 
     <!-- 使用GCM -->
     <permission
-        android:name="com.example.tesis.v3.permission.C2D_MESSAGE"
+        android:name="sinica.earth.tesis.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.tesis.v3.permission.C2D_MESSAGE" />
+    <uses-permission android:name="sinica.earth.tesis.permission.C2D_MESSAGE" />
 
     <!-- 存取 internet -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
@@ -59,7 +59,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.tesis.v3.MainActivity"
+            android:name="sinica.earth.tesis.MainActivity"
             android:label="@string/title"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -69,28 +69,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.tesis.v3.HomeActivity"
+            android:name="sinica.earth.tesis.HomeActivity"
             android:label="@string/title"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.tesis.v3.summaryActivity"
+            android:name="sinica.earth.tesis.summaryActivity"
             android:label="@string/title"
-            android:parentActivityName="com.example.tesis.v3.HomeActivity"
+            android:parentActivityName="sinica.earth.tesis.HomeActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.tesis.v3.HomeActivity" />
+                android:value="sinica.earth.tesis.HomeActivity" />
         </activity>
         <activity
-            android:name="com.example.tesis.v3.SettingActivity"
+            android:name="sinica.earth.tesis.SettingActivity"
             android:label="@string/action_settings"
-            android:parentActivityName="com.example.tesis.v3.HomeActivity"
+            android:parentActivityName="sinica.earth.tesis.HomeActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.tesis.v3.HomeActivity" />
+                android:value="sinica.earth.tesis.HomeActivity" />
         </activity>
         <!--
         <service
@@ -98,16 +98,16 @@
             android:enabled="true" />
         -->
         <receiver
-            android:name="com.example.tesis.v3.GcmBroadcastReceiver"
+            android:name="sinica.earth.tesis.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.example.tesis.v3" />
+                <category android:name="sinica.earth.tesis" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.example.tesis.v3.GcmIntentService" />
+        <service android:name="sinica.earth.tesis.GcmIntentService" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -130,7 +130,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.tesis.v3.firebaseinitprovider"
+            android:authorities="sinica.earth.tesis.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -166,7 +166,7 @@ Service handling Google Sign-In user revocation. For apps that do not integrate 
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.example.tesis.v3" />
+                <category android:name="sinica.earth.tesis" />
             </intent-filter>
         </receiver>
         <!--
@@ -226,7 +226,7 @@ Service handling Google Sign-In user revocation. For apps that do not integrate 
             android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity"
             android:noHistory="true" > <!-- optional, removes the previewActivity from the activity stack. -->
             <intent-filter>
-                <data android:scheme="tagmanager.c.com.example.tesis.v3" />
+                <data android:scheme="tagmanager.c.sinica.earth.tesis" />
 
                 <action android:name="android.intent.action.VIEW" />
 

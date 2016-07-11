@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         class="com.google.android.gms.maps.SupportMapFragment" />
-    <!-- class="com.example.tesis.v3.mySupportMapFragment" /> -->
+    <!-- class="sinica.earth.tesis.mySupportMapFragment" /> -->
 
     <Button
         android:id="@+id/button1"

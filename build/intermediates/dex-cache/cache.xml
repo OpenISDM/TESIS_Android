@@ -30,34 +30,6 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-9.0.2_d04de74e088b67aeeb7268f93954aa1906bf98db/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-23.0.0_5d8e42110b400cef376f06057074666023567a0f/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="a511c684ea4c2cf31a3377d51e7677cb76696e07">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.0.2_da72b98520b4a1231fcc67a108591f392418f4a9/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v13/24.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="c87270a9d828773c296fadde93e939c8190a6b1b">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v13-24.0.0_e86b6a7c54457870c796067463b8d57569408dcf/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="53f10fcd322a3931495d6ca2078a81f4957cdbce">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-9.0.2_10c808958c7c5799445b45b7c75d520cf6e878a8/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
@@ -72,39 +44,11 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-safetynet-9.0.2_f9ea0403e25ed162b2cbe725a7ae97870e9c918f/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="4022261eeea0d92eb2997a68d2c1f084a16abad9">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.0.2_f0f3ffb741da8d8d2cc55acadce7392ed244ed10/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="cf16220db9128d91a215aedc739584181d5ca6a4">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.0.2_859e5d004e628002304d5dcd320fd52d860c65d8/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.0.0_2bd3062b37e99800b523c6c928b45a205efb6307/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
         sha1="8c0fc9b1ea0bac0cb31d60c8b1bf2feb0518e3a9">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-panorama-9.0.2_297d5f79277bd5bf2f776bee13af5382bb6f7948/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="d9ea4cdaafa29ec4651d6e4715788d3fcaa7b913">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-9.0.2_aae282267e83222ed7cbc78c923724a6239e587d/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/9.0.2/jars/classes.jar"
@@ -119,13 +63,6 @@
         revision="23.0.1"
         sha1="92a1d5f71b0fc8938f1d3f2e6ef984b52b894b4d">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-9.0.2_76d0dc813ec06f725248128608cbb178c71ce796/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v13/24.0.0/jars/libs/internal_impl-24.0.0.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="61fd2644ca586288d0e733377d12b5f6da18c4ca">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_979a5e752a2cf0edbc7840c682e22266c6b33877/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
@@ -149,13 +86,6 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.0.0_4cc31777b136837f6908fba0d55602d5279c9a9f/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="da08e5e5ed373e98dde32f730a687839b4a1057b">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_334bd24d27dc4e3a8d8f2eced43bafddedc75c9a/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
@@ -175,13 +105,6 @@
         revision="23.0.1"
         sha1="143813b18381b28de1e04aae1d92fcb374a0add9">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-9.0.2_a0f73ec4e197733d1656db96c9efc2a632bfb36c/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="c96952c162c9f6076f44c5939982cb35491442ea">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-9.0.2_2dd4d68e733b3476906bd232e8f480f886dfcae9/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.0.2/jars/classes.jar"
@@ -205,39 +128,11 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_08bbd8018be1e43228d85ee676dd11936a505ea9/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/libs/joda-time-2.7.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/2/joda-time-2.7_fcae169acd8c4963b04368b458f052645b8a75c4/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="51a11c41a08f099a204e1b8dcc04f27217de50ec">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.0.2_21e2a42c51868c77d0f3b8ddd3d54852baf60104/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-api/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="f399a2fde7888450cadcaec4974bfd169d8cce43">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-9.0.2_340b8ec8a15eb4d318e6ce7979d9392c0d9acf77/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.1"
-        sha1="556160e203dcfcfbaf179bb4a01331f5f75b61ed">
+        sha1="7b77f83141febf1f89e43093cb9e8aa01f093478">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_518d9ea3ae629029791f57c789c1ecfee77adfe1/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="9819419ce8d79f3f81a0fc70f9345ac8c843af9c">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-9.0.2_d2f4690a49da0ba934bb4868f46967dd3e8c8b31/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.0.2/jars/classes.jar"
@@ -268,32 +163,11 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-9.0.2_f56964355450375ffd23d4f5cf3dd534f73dc3fe/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-common/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="568d5bda0b4d51f90d978ace369bb9ad024d2057">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-common-9.0.2_b3fdd12fdf5ac4e3fc19f4b7580a87fdbfc712b8/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-config/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
         sha1="604ecf403feb0084dc6d0c12f1677a490cf45e4c">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-config-9.0.2_a4a563d53918c6114dd92b0a1ba81c9e6a1b3957/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="060a7157438a0b1b0706b99c430fb3ecbc5a79a4">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.0.2_ee68a4c2a5891a7126e8758da8b2bb00ed7a93d7/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="cd4c7c54e15d9ccbc448384fa2c4684d69ca73f0">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-9.0.2_bd4c5c5ed78815b5e885d8572969cd4283ae27d8/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/9.0.2/jars/classes.jar"
@@ -310,20 +184,6 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-9.0.2_e81696ba9eda52c1e28c86fefe18c522f8d33fc6/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="94d9cedd04b124aed044ac71c451a292856d854c">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.0.2_b8110c1eecb4eb87facd3939f07b8f9269c9cd17/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="6ff48ef26bc539c78af4aa061cb9bad6abcbf5e8">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-9.0.2_fef8008382b07d8c69b2296c61490b99229ae39c/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-module/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
@@ -331,25 +191,11 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-module-9.0.2_2ddf945dd50f102bfaddb78d4ca108fb408e59ee/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="922c24fbfc4247947fcfaf2b95f295a16a8c3d17">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-9.0.2_384194240bc16839260c9cddbff856f544ce0b8c/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
         sha1="bc156efaaee99f1ef6bf471347373a4cbb28e2a1">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-9.0.2_6f3ba7b0a906aef0a2b03db7ca73aabed4b81734/classes.dex" />
-    </item>
-    <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="d900f2a1ff098cac8befe6c023d723e9afb154be">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-9.0.2_ade50ad4ac0940a1847f76c310c612f55dc7425b/classes.dex" />
     </item>
     <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/9.0.2/jars/classes.jar"
@@ -366,13 +212,6 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-9.0.2_3f248fabfdef6b37e9b47a7c39bb78d99b1528dd/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="b3d0809a742c5f768c6aa9efc6decd5c1d6cd227">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.0.2_9b7dff8ca74bd35206d82f9ebd0ef6d5f92464ef/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/9.0.2/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
@@ -387,18 +226,179 @@
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-9.0.2_928cdb3b095c45cd527729b38876252b5e348a2d/classes.dex" />
     </item>
     <item
-        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/9.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="764d32faf85bc6f7bd2cdcb3a70a482c1884fdd2">
-        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-9.0.2_bb3912b8779a798670ef985eaa7eb720c7f3314b/classes.dex" />
-    </item>
-    <item
         jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.0.0/jars/classes.jar"
         jumboMode="true"
         revision="23.0.1"
         sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
         <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.0.0_5b184839d9b90500c671fd044bc2ac3d18ad6936/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-23.0.0_5d8e42110b400cef376f06057074666023567a0f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="a511c684ea4c2cf31a3377d51e7677cb76696e07">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.0.2_da72b98520b4a1231fcc67a108591f392418f4a9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v13/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="c87270a9d828773c296fadde93e939c8190a6b1b">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v13-24.0.0_e86b6a7c54457870c796067463b8d57569408dcf/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="53f10fcd322a3931495d6ca2078a81f4957cdbce">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-9.0.2_10c808958c7c5799445b45b7c75d520cf6e878a8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="4022261eeea0d92eb2997a68d2c1f084a16abad9">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.0.2_f0f3ffb741da8d8d2cc55acadce7392ed244ed10/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="cf16220db9128d91a215aedc739584181d5ca6a4">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-9.0.2_859e5d004e628002304d5dcd320fd52d860c65d8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.0.0_2bd3062b37e99800b523c6c928b45a205efb6307/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d9ea4cdaafa29ec4651d6e4715788d3fcaa7b913">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-9.0.2_aae282267e83222ed7cbc78c923724a6239e587d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v13/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="61fd2644ca586288d0e733377d12b5f6da18c4ca">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_979a5e752a2cf0edbc7840c682e22266c6b33877/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="4b9cdfd34e8176f5fd4102c787bc30aab37c5533">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_334bd24d27dc4e3a8d8f2eced43bafddedc75c9a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="c96952c162c9f6076f44c5939982cb35491442ea">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-9.0.2_2dd4d68e733b3476906bd232e8f480f886dfcae9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/libs/joda-time-2.7.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/2/joda-time-2.7_fcae169acd8c4963b04368b458f052645b8a75c4/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="51a11c41a08f099a204e1b8dcc04f27217de50ec">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.0.2_21e2a42c51868c77d0f3b8ddd3d54852baf60104/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-api/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="f399a2fde7888450cadcaec4974bfd169d8cce43">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-9.0.2_340b8ec8a15eb4d318e6ce7979d9392c0d9acf77/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="9819419ce8d79f3f81a0fc70f9345ac8c843af9c">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-9.0.2_d2f4690a49da0ba934bb4868f46967dd3e8c8b31/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-common/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="568d5bda0b4d51f90d978ace369bb9ad024d2057">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-common-9.0.2_b3fdd12fdf5ac4e3fc19f4b7580a87fdbfc712b8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="060a7157438a0b1b0706b99c430fb3ecbc5a79a4">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.0.2_ee68a4c2a5891a7126e8758da8b2bb00ed7a93d7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="cd4c7c54e15d9ccbc448384fa2c4684d69ca73f0">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-9.0.2_bd4c5c5ed78815b5e885d8572969cd4283ae27d8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="94d9cedd04b124aed044ac71c451a292856d854c">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.0.2_b8110c1eecb4eb87facd3939f07b8f9269c9cd17/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="6ff48ef26bc539c78af4aa061cb9bad6abcbf5e8">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-9.0.2_fef8008382b07d8c69b2296c61490b99229ae39c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="922c24fbfc4247947fcfaf2b95f295a16a8c3d17">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-9.0.2_384194240bc16839260c9cddbff856f544ce0b8c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d900f2a1ff098cac8befe6c023d723e9afb154be">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-9.0.2_ade50ad4ac0940a1847f76c310c612f55dc7425b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="b3d0809a742c5f768c6aa9efc6decd5c1d6cd227">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.0.2_9b7dff8ca74bd35206d82f9ebd0ef6d5f92464ef/classes.dex" />
+    </item>
+    <item
+        jar="/Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/9.0.2/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="764d32faf85bc6f7bd2cdcb3a70a482c1884fdd2">
+        <dex dex="/Users/JanSu/Development/TESIS_Android/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-9.0.2_bb3912b8779a798670ef985eaa7eb720c7f3314b/classes.dex" />
     </item>
 
 </items>

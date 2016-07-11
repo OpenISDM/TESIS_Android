@@ -2,7 +2,7 @@
 manifest
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:2:1-119:12
 	package
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:3:5-35
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:3:5-33
 		INJECTED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml
 		INJECTED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml
 	android:versionName
@@ -1260,7 +1260,7 @@ uses-permission#android.permission.VIBRATE
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:40:5-66
 	android:name
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:40:22-63
-permission#com.example.tesis.v3.permission.C2D_MESSAGE
+permission#sinica.earth.tesis.permission.C2D_MESSAGE
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:43:5-45:47
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:25:5-26:47
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:25:5-26:47
@@ -1274,9 +1274,9 @@ MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TE
 	android:protectionLevel
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:45:9-44
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:44:9-67
-uses-permission#com.example.tesis.v3.permission.C2D_MESSAGE
-ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:46:5-83
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:44:9-65
+uses-permission#sinica.earth.tesis.permission.C2D_MESSAGE
+ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:46:5-81
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:28:5-79
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:28:5-79
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:28:5-79
@@ -1287,7 +1287,7 @@ MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TE
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:28:5-79
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:28:5-79
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:46:22-80
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:46:22-78
 uses-permission#com.google.android.c2dm.permission.RECEIVE
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:51:5-82
 MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.0.2/AndroidManifest.xml:23:5-82
@@ -2441,14 +2441,14 @@ MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TES
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:59:9-45
 	android:theme
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:61:9-40
-activity#com.example.tesis.v3.MainActivity
+activity#sinica.earth.tesis.MainActivity
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:62:9-71:20
 	android:screenOrientation
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:65:13-49
 	android:label
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:64:13-42
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:63:13-61
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:63:13-59
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:66:13-70:29
 action#android.intent.action.MAIN
@@ -2459,7 +2459,7 @@ category#android.intent.category.LAUNCHER
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:69:17-77
 	android:name
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:69:27-74
-activity#com.example.tesis.v3.HomeActivity
+activity#sinica.earth.tesis.HomeActivity
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:72:9-77:20
 	android:screenOrientation
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:76:13-49
@@ -2468,53 +2468,53 @@ ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:72:9-77:20
 	android:launchMode
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:75:13-43
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:73:13-61
-activity#com.example.tesis.v3.summaryActivity
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:73:13-59
+activity#sinica.earth.tesis.summaryActivity
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:78:9-86:20
 	android:screenOrientation
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:82:13-49
 	android:label
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:80:13-42
 	android:parentActivityName
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:81:13-75
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:81:13-73
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:79:13-64
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:79:13-62
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:83:13-85:69
+ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:83:13-85:67
 	android:value
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:85:17-66
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:85:17-64
 	android:name
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:84:17-63
-activity#com.example.tesis.v3.SettingActivity
+activity#sinica.earth.tesis.SettingActivity
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:87:9-95:20
 	android:screenOrientation
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:91:13-49
 	android:label
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:89:13-52
 	android:parentActivityName
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:90:13-75
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:90:13-73
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:88:13-64
-receiver#com.example.tesis.v3.GcmBroadcastReceiver
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:88:13-62
+receiver#sinica.earth.tesis.GcmBroadcastReceiver
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:101:9-108:20
 	android:permission
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:103:13-73
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:102:13-69
-intent-filter#com.example.tesis.v3+com.google.android.c2dm.intent.RECEIVE
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:102:13-67
+intent-filter#com.google.android.c2dm.intent.RECEIVE+sinica.earth.tesis
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:104:13-107:29
 action#com.google.android.c2dm.intent.RECEIVE
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:105:17-81
 	android:name
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:105:25-78
-category#com.example.tesis.v3
-ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:106:17-65
+category#sinica.earth.tesis
+ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:106:17-63
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:106:27-62
-service#com.example.tesis.v3.GcmIntentService
-ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:109:9-73
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:106:27-60
+service#sinica.earth.tesis.GcmIntentService
+ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:109:9-71
 	android:name
-		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:109:18-70
+		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:109:18-68
 meta-data#com.google.android.gms.version
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:111:9-113:69
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:21:9-23:69

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tesis.v3"
+    package="sinica.earth.tesis"
     android:versionCode="2"
     android:versionName="2.0" >
     <!--change version ID on 0416 because of new sender ID-->
@@ -41,9 +41,9 @@
 
     <!-- 使用GCM -->
     <permission
-        android:name="com.example.tesis.v3.permission.C2D_MESSAGE"
+        android:name="sinica.earth.tesis.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.example.tesis.v3.permission.C2D_MESSAGE" />
+    <uses-permission android:name="sinica.earth.tesis.permission.C2D_MESSAGE" />
 
     <!-- 存取 internet -->
     <!--  <uses-permission android:name="android.permission.INTERNET" />-->
@@ -60,7 +60,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.tesis.v3.MainActivity"
+            android:name="sinica.earth.tesis.MainActivity"
             android:label="@string/title"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -70,28 +70,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.tesis.v3.HomeActivity"
+            android:name="sinica.earth.tesis.HomeActivity"
             android:label="@string/title"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.example.tesis.v3.summaryActivity"
+            android:name="sinica.earth.tesis.summaryActivity"
             android:label="@string/title"
-            android:parentActivityName="com.example.tesis.v3.HomeActivity"
+            android:parentActivityName="sinica.earth.tesis.HomeActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.tesis.v3.HomeActivity" />
+                android:value="sinica.earth.tesis.HomeActivity" />
         </activity>
         <activity
-            android:name="com.example.tesis.v3.SettingActivity"
+            android:name="sinica.earth.tesis.SettingActivity"
             android:label="@string/action_settings"
-            android:parentActivityName="com.example.tesis.v3.HomeActivity"
+            android:parentActivityName="sinica.earth.tesis.HomeActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.tesis.v3.HomeActivity" />
+                android:value="sinica.earth.tesis.HomeActivity" />
         </activity>
 <!-- 
         <service
@@ -99,14 +99,14 @@
             android:enabled="true" />
  -->
         <receiver
-            android:name="com.example.tesis.v3.GcmBroadcastReceiver"
+            android:name="sinica.earth.tesis.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.example.tesis.v3" />
+                <category android:name="sinica.earth.tesis" />
             </intent-filter>
         </receiver>
-        <service android:name="com.example.tesis.v3.GcmIntentService" />
+        <service android:name="sinica.earth.tesis.GcmIntentService" />
         
         <meta-data
             android:name="com.google.android.gms.version"
