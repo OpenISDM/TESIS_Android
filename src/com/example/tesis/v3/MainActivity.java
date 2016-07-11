@@ -56,11 +56,7 @@ public class MainActivity extends ActionBarActivity {
 		actionBar.setSubtitle("台灣地震科學資訊系統");
 
 		File infoFile = getFileStreamPath(infoFilename);
-		if (infoFile.exists()) {
-			showInfo = false;
-		} else {
-			showInfo = true;
-		}
+		showInfo = !infoFile.exists();
 
 		if (showInfo) {
 

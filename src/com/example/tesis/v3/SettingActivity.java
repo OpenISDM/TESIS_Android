@@ -110,19 +110,19 @@ public class SettingActivity extends ActionBarActivity {
 					settingDialog.setTitle("規模範圍 (0.0-10.0)");
 					np1 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker1);
-					np1.setMaxValue(nums_ML.length - 1);
+					np1.setMaxValue(SETTING_PREFERENCE_ML.length - 1);
 					np1.setMinValue(0);
 					np1.setWrapSelectorWheel(false);
-					np1.setDisplayedValues(nums_ML);
+					np1.setDisplayedValues(SETTING_PREFERENCE_ML);
 					np1.setValue(settingValue[0]);
 					np1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
 					np2 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker2);
-					np2.setMaxValue(nums_ML.length - 1);
+					np2.setMaxValue(SETTING_PREFERENCE_ML.length - 1);
 					np2.setMinValue(0);
 					np2.setWrapSelectorWheel(false);
-					np2.setDisplayedValues(nums_ML);
+					np2.setDisplayedValues(SETTING_PREFERENCE_ML);
 					np2.setValue(settingValue[1]);
 					np2.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
@@ -167,8 +167,8 @@ public class SettingActivity extends ActionBarActivity {
 							TextView tx = (TextView) listView.getChildAt(
 									currentPosition).findViewById(
 									R.id.textViewSettingListItem2);
-							tx.setText(nums_ML[np1.getValue()] + " - "
-									+ nums_ML[np2.getValue()] + " ML");
+							tx.setText(SETTING_PREFERENCE_ML[np1.getValue()] + " - "
+									+ SETTING_PREFERENCE_ML[np2.getValue()] + " ML");
 							np1 = null;
 							np2 = null;
 							settingDialog.dismiss();
@@ -183,19 +183,19 @@ public class SettingActivity extends ActionBarActivity {
 					settingDialog.setTitle("深度範圍 (0-500)");
 					np1 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker1);
-					np1.setMaxValue(nums_Depth.length - 1);
+					np1.setMaxValue(SETTING_PREFERENCE_DEPTH.length - 1);
 					np1.setMinValue(0);
 					np1.setWrapSelectorWheel(false);
-					np1.setDisplayedValues(nums_Depth);
+					np1.setDisplayedValues(SETTING_PREFERENCE_DEPTH);
 					np1.setValue(settingValue[2]);
 					np1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
 					np2 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker2);
-					np2.setMaxValue(nums_Depth.length - 1);
+					np2.setMaxValue(SETTING_PREFERENCE_DEPTH.length - 1);
 					np2.setMinValue(0);
 					np2.setWrapSelectorWheel(false);
-					np2.setDisplayedValues(nums_Depth);
+					np2.setDisplayedValues(SETTING_PREFERENCE_DEPTH);
 					np2.setValue(settingValue[3]);
 					np2.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
@@ -238,8 +238,8 @@ public class SettingActivity extends ActionBarActivity {
 							TextView tx = (TextView) listView.getChildAt(
 									currentPosition).findViewById(
 									R.id.textViewSettingListItem2);
-							tx.setText(nums_Depth[np1.getValue()] + " - "
-									+ nums_Depth[np2.getValue()] + " km 之內");
+							tx.setText(SETTING_PREFERENCE_DEPTH[np1.getValue()] + " - "
+									+ SETTING_PREFERENCE_DEPTH[np2.getValue()] + " km 之內");
 							np1 = null;
 							np2 = null;
 							settingDialog.dismiss();
@@ -254,10 +254,10 @@ public class SettingActivity extends ActionBarActivity {
 					settingDialog.setTitle("距離現在時間");
 					np1 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker1);
-					np1.setMaxValue(nums_Date.length - 1);
+					np1.setMaxValue(SETTING_PREFERENCE_DATE.length - 1);
 					np1.setMinValue(0);
 					np1.setWrapSelectorWheel(false);
-					np1.setDisplayedValues(nums_Date);
+					np1.setDisplayedValues(SETTING_PREFERENCE_DATE);
 					np1.setValue(settingValue[5]);
 					np1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
@@ -278,7 +278,7 @@ public class SettingActivity extends ActionBarActivity {
 							TextView tx = (TextView) listView.getChildAt(
 									currentPosition).findViewById(
 									R.id.textViewSettingListItem2);
-							tx.setText(nums_Date[np1.getValue()] + " 之內");
+							tx.setText(SETTING_PREFERENCE_DATE[np1.getValue()] + " 之內");
 							np1 = null;
 							settingDialog.dismiss();
 						}
@@ -291,10 +291,10 @@ public class SettingActivity extends ActionBarActivity {
 					settingDialog.setTitle("距離現在位置 (km)");
 					np1 = (NumberPicker) settingDialog
 							.findViewById(R.id.numberPicker1);
-					np1.setMaxValue(nums_Distance.length - 1);
+					np1.setMaxValue(SETTING_PREFERENCE_DISTANCE.length - 1);
 					np1.setMinValue(0);
 					np1.setWrapSelectorWheel(false);
-					np1.setDisplayedValues(nums_Distance);
+					np1.setDisplayedValues(SETTING_PREFERENCE_DISTANCE);
 					np1.setValue(settingValue[4]);
 					np1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
@@ -315,7 +315,7 @@ public class SettingActivity extends ActionBarActivity {
 							TextView tx = (TextView) listView.getChildAt(
 									currentPosition).findViewById(
 									R.id.textViewSettingListItem2);
-							tx.setText(nums_Distance[np1.getValue()] + "km 之內");
+							tx.setText(SETTING_PREFERENCE_DISTANCE[np1.getValue()] + "km 之內");
 							np1 = null;
 							settingDialog.dismiss();
 						}
@@ -337,19 +337,19 @@ public class SettingActivity extends ActionBarActivity {
 
 	Dialog settingDialog;
 
-	String settingPreferenceFilename = ConstantVariables.settingPreferenceFilename;
+	String settingPreferenceFilename = ConstantVariables.SETTING_PREFERENCE_FILE_NAME;
 	// ML 0-100 => 0.0-10.0
 	// Deep 0-350
 	// Distance 0 => all
 	// Date 0 => all, others see flags "SETTING_DATE_*" below
-	String nums_ML[] = ConstantVariables.nums_ML;
-	String nums_Depth[] = ConstantVariables.nums_Depth;
-	String nums_Distance[] = ConstantVariables.nums_Distance;
-	String nums_Date[] = ConstantVariables.nums_Date;
+	String SETTING_PREFERENCE_ML[] = ConstantVariables.SETTING_PREFERENCE_ML;
+	String SETTING_PREFERENCE_DEPTH[] = ConstantVariables.SETTING_PREFERENCE_DEPTH;
+	String SETTING_PREFERENCE_DISTANCE[] = ConstantVariables.SETTING_PREFERENCE_DISTANCE;
+	String SETTING_PREFERENCE_DATE[] = ConstantVariables.SETTING_PREFERENCE_DATE;
 	final int SETTING_DATE_ALL = ConstantVariables.SETTING_DATE_ALL;
-	final int SETTING_DATE_1_day = ConstantVariables.SETTING_DATE_1_day;
-	final int SETTING_DATE_1_week = ConstantVariables.SETTING_DATE_1_week;
-	final int SETTING_DATE_1_month = ConstantVariables.SETTING_DATE_1_month;
+	final int SETTING_DATE_1_DAY = ConstantVariables.SETTING_DATE_1_DAY;
+	final int SETTING_DATE_1_WEEK = ConstantVariables.SETTING_DATE_1_WEEK;
+	final int SETTING_DATE_1_MONTH = ConstantVariables.SETTING_DATE_1_MONTH;
 
 	// private void saveSetting(int minML, int maxML, int minDeep, int maxDeep,
 	// int inDistance, int inDate) {
@@ -367,7 +367,7 @@ public class SettingActivity extends ActionBarActivity {
 	// ObjectOutputStream oos;
 	// try {
 	// if (file.exists() || file.createNewFile()) {
-	// fos = openFileOutput(settingPreferenceFilename, MODE_PRIVATE);
+	// fos = openFileOutput(SETTING_PREFERENCE_FILE_NAME, MODE_PRIVATE);
 	// oos = new ObjectOutputStream(fos);
 	// oos.writeObject(settingHashMap);
 	// oos.flush();
@@ -413,20 +413,20 @@ public class SettingActivity extends ActionBarActivity {
 	// e.printStackTrace();
 	// Log.e("myTag",
 	// "In Setting View, cannot load settingHashMap from file.");
-	// ConstantVariables.saveSetting(settingActivity,0, nums_ML.length - 1, 0,
-	// nums_Depth.length - 1,
-	// nums_Distance.length - 1, SETTING_DATE_ALL);
-	// int[] settingValue = { 0, nums_ML.length - 1, 0,
-	// nums_Depth.length - 1, nums_Distance.length - 1,
+	// ConstantVariables.saveSetting(settingActivity,0, SETTING_PREFERENCE_ML.length - 1, 0,
+	// SETTING_PREFERENCE_DEPTH.length - 1,
+	// SETTING_PREFERENCE_DISTANCE.length - 1, SETTING_DATE_ALL);
+	// int[] settingValue = { 0, SETTING_PREFERENCE_ML.length - 1, 0,
+	// SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
 	// SETTING_DATE_ALL };
 	// return settingValue;
 	// }
 	// } else {
-	// ConstantVariables.saveSetting(settingActivity,0, nums_ML.length - 1, 0,
-	// nums_Depth.length - 1,
-	// nums_Distance.length - 1, SETTING_DATE_ALL);
-	// int[] settingValue = { 0, nums_ML.length - 1, 0,
-	// nums_Depth.length - 1, nums_Distance.length - 1,
+	// ConstantVariables.saveSetting(settingActivity,0, SETTING_PREFERENCE_ML.length - 1, 0,
+	// SETTING_PREFERENCE_DEPTH.length - 1,
+	// SETTING_PREFERENCE_DISTANCE.length - 1, SETTING_DATE_ALL);
+	// int[] settingValue = { 0, SETTING_PREFERENCE_ML.length - 1, 0,
+	// SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
 	// SETTING_DATE_ALL };
 	// return settingValue;
 	// }
@@ -590,18 +590,18 @@ public class SettingActivity extends ActionBarActivity {
 								.findViewById(R.id.textViewSettingListItem2);
 						String contentString = null;
 						if (getItem(position).equals(SETTING_ML)) {
-							contentString = nums_ML[settingValue[0]] + " - "
-									+ nums_ML[settingValue[1]] + " ML";
+							contentString = SETTING_PREFERENCE_ML[settingValue[0]] + " - "
+									+ SETTING_PREFERENCE_ML[settingValue[1]] + " ML";
 						} else if (getItem(position).equals(SETTING_DEEP)) {
-							contentString = nums_Depth[settingValue[2]] + " - "
-									+ nums_Depth[settingValue[3]] + " km";
+							contentString = SETTING_PREFERENCE_DEPTH[settingValue[2]] + " - "
+									+ SETTING_PREFERENCE_DEPTH[settingValue[3]] + " km";
 						} else if (getItem(position).equals(SETTING_DATE)) {
 							switch (settingValue[5]) {
 							case SETTING_DATE_ALL:
 								contentString = "-";
 								break;
 							default:
-								contentString = nums_Date[settingValue[5]]
+								contentString = SETTING_PREFERENCE_DATE[settingValue[5]]
 										+ " 之內";
 								break;
 							}
@@ -612,7 +612,7 @@ public class SettingActivity extends ActionBarActivity {
 								break;
 
 							default:
-								contentString = nums_Distance[settingValue[4]]
+								contentString = SETTING_PREFERENCE_DISTANCE[settingValue[4]]
 										+ "km 之內";
 								break;
 							}
@@ -645,11 +645,7 @@ public class SettingActivity extends ActionBarActivity {
 
 		@Override
 		public boolean isEnabled(int position) {
-			if (getItemViewType(position) == TYPE_ITEM) {
-				return true;
-			} else {
-				return false;
-			}
+			return getItemViewType(position) == TYPE_ITEM;
 		}
 
 	}

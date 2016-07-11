@@ -15,13 +15,14 @@
  *******************************************************************************/
 package uk.co.senab.photoview.gestures;
 
-public interface OnGestureListener {
+import android.view.MotionEvent;
 
-    public void onDrag(float dx, float dy);
+public interface GestureDetector {
 
-    public void onFling(float startX, float startY, float velocityX,
-                        float velocityY);
+    boolean onTouchEvent(MotionEvent ev);
 
-    public void onScale(float scaleFactor, float focusX, float focusY);
+    boolean isScaling();
+
+    void setOnGestureListener(OnGestureListener listener);
 
 }

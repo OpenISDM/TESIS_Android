@@ -2,14 +2,7 @@ package com.example.tesis.v3;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,23 +17,17 @@ import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.example.tesis.v3.summaryActivity.downloadComments;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 //import com.google.android.gms.internal.ig;
 //import com.google.android.gms.internal.of;
 
-import android.R.anim;
-import android.R.integer;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -65,22 +52,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextSwitcher;
 import android.widget.Toast;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class HomeActivity extends ActionBarActivity implements
@@ -97,8 +75,8 @@ public class HomeActivity extends ActionBarActivity implements
 	// final int CHECK_UPDATE_EVERY_N_MIN =
 	// ConstantVariables.CHECK_UPDATE_EVERY_N_MIN;
 
-	String generalFilename = ConstantVariables.generalFilename;
-	String newestIDFilename = ConstantVariables.newestIDFilename;
+	String generalFilename = ConstantVariables.GENERAL_FILE_NAME;
+	String newestIDFilename = ConstantVariables.NEWEST_ID_FILE_NAME;
 
 	ArrayList<HashMap<String, String>> mGeneralEarthquakeList = null;
 	ArrayList<HashMap<String, String>> mDisplayedEarthquakeList = null;
@@ -234,7 +212,7 @@ public class HomeActivity extends ActionBarActivity implements
 	 * service.
 	 * <p>
 	 * If result is empty, the app needs to register.
-	 * 
+	 *
 	 * @return registration ID, or empty string if there is no existing
 	 *         registration ID.
 	 */
@@ -263,7 +241,7 @@ public class HomeActivity extends ActionBarActivity implements
 
 	/**
 	 * 1017 add GCM
-	 * 
+	 *
 	 * @return Application's {@code SharedPreferences}.
 	 */
 	private SharedPreferences getGCMPreferences(Context context) {
@@ -276,7 +254,7 @@ public class HomeActivity extends ActionBarActivity implements
 
 	/**
 	 * 1017 add GCM
-	 * 
+	 *
 	 * @return Application's version code from the {@code PackageManager}.
 	 */
 	private static int getAppVersion(Context context) {
@@ -486,19 +464,14 @@ public class HomeActivity extends ActionBarActivity implements
 	}
 
 	protected static boolean isConnected(Context ctx) {
-		NetworkInfo info = (NetworkInfo) ((ConnectivityManager) ctx
+		NetworkInfo info = ((ConnectivityManager) ctx
 				.getSystemService(Context.CONNECTIVITY_SERVICE))
 				.getActiveNetworkInfo();
 
 		if (info == null || !info.isConnected()) {
 			return false;
 		}
-		if (info.isRoaming()) {
-			// here is the roaming option you can change it if you want to
-			// disable Internet while roaming, just return false
-			return false;
-		}
-		return true;
+		return !info.isRoaming();
 	}
 
 	int loadingTextIndex = 0;
@@ -535,8 +508,8 @@ public class HomeActivity extends ActionBarActivity implements
 		textSwitcher.addView(textView1);
 		textSwitcher.addView(textView2);
 
-		textSwitcher.setText(ConstantVariables.LoadingText[loadingTextIndex
-				% ConstantVariables.LoadingText.length]);
+		textSwitcher.setText(ConstantVariables.LOADING_TEXT[loadingTextIndex
+				% ConstantVariables.LOADING_TEXT.length]);
 
 		frameLayout.addView(child);
 
@@ -550,8 +523,8 @@ public class HomeActivity extends ActionBarActivity implements
 					@Override
 					public void run() {
 						textSwitcher
-								.setText(ConstantVariables.LoadingText[(loadingTextIndex++)
-										% ConstantVariables.LoadingText.length]);
+								.setText(ConstantVariables.LOADING_TEXT[(loadingTextIndex++)
+										% ConstantVariables.LOADING_TEXT.length]);
 
 					}
 				});
@@ -563,8 +536,7 @@ public class HomeActivity extends ActionBarActivity implements
 	AsyncTask taskDownloadManualAsyncTask;
 
 	void downloadManualEQList(myDate from, myDate to) {
-		homeActivity.getActionBar().setSubtitle(
-				from.DatetoString() + "~" + to.DatetoString());
+		homeActivity.getSupportActionBar().setSubtitle(from.DatetoString() + "~" + to.DatetoString());
 		setDownloadLayout();
 		if (taskDownloadManualAsyncTask != null) {
 			taskDownloadManualAsyncTask.cancel(true);
@@ -800,8 +772,8 @@ public class HomeActivity extends ActionBarActivity implements
 
 		ArrayList<HashMap<String, String>> mFilteredList = new ArrayList<HashMap<String, String>>();
 		HashMap<String, Integer> settingHashMap = null;
-		File EQFile = getFileStreamPath(settingPreferenceFilename);
-		if (EQFile.exists()) {
+		File fileEQ = getFileStreamPath(settingPreferenceFilename);
+		if (fileEQ.exists()) {
 			try {
 				FileInputStream fis;
 				fis = openFileInput(settingPreferenceFilename);
@@ -809,15 +781,15 @@ public class HomeActivity extends ActionBarActivity implements
 				settingHashMap = (HashMap<String, Integer>) ois.readObject();
 				ois.close();
 				fis.close();
-				double minML = Double.parseDouble(nums_ML[settingHashMap
+				double minML = Double.parseDouble(SETTING_PREFERENCE_ML[settingHashMap
 						.get("minML")]);
-				double maxML = Double.parseDouble(nums_ML[settingHashMap
+				double maxML = Double.parseDouble(SETTING_PREFERENCE_ML[settingHashMap
 						.get("maxML")]);
-				double minDeep = Double.parseDouble(nums_Depth[settingHashMap
+				double minDeep = Double.parseDouble(SETTING_PREFERENCE_DEPTH[settingHashMap
 						.get("minDeep")]);
-				double maxDeep = Double.parseDouble(nums_Depth[settingHashMap
+				double maxDeep = Double.parseDouble(SETTING_PREFERENCE_DEPTH[settingHashMap
 						.get("maxDeep")]);
-				int inDistance = Integer.parseInt(nums_Distance[settingHashMap
+				int inDistance = Integer.parseInt(SETTING_PREFERENCE_DISTANCE[settingHashMap
 						.get("inDistance")]);
 				int inDate = settingHashMap.get("inDate");
 
@@ -859,39 +831,39 @@ public class HomeActivity extends ActionBarActivity implements
 							switch (inDate) {
 							case SETTING_DATE_ALL:
 								mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去三個月顯著地震列表");
 								break;
-							case SETTING_DATE_1_day:
+							case SETTING_DATE_1_DAY:
 								if (days <= 1)
 									mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去一日內顯著地震列表");
 								break;
-							case SETTING_DATE_1_week:
+							case SETTING_DATE_1_WEEK:
 								if (days <= 7)
 									mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去一週內顯著地震列表");
 								break;
-							case SETTING_DATE_1_month:
+							case SETTING_DATE_1_MONTH:
 								if (months <= 1)
 									mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去一個月內顯著地震列表");
 								break;
 
-							case SETTING_DATE_2_month:
+							case SETTING_DATE_2_MONTH:
 								if (months <= 2)
 									mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去兩個月內顯著地震列表");
 								break;
 
-							case SETTING_DATE_3_month:
+							case SETTING_DATE_3_MONTH:
 								if (months <= 3)
 									mFilteredList.add(mList.get(i));
-								((ActionBar) getSupportActionBar())
+								getSupportActionBar()
 										.setSubtitle("過去三個月內顯著地震列表");
 								break;
 
@@ -911,8 +883,8 @@ public class HomeActivity extends ActionBarActivity implements
 				// Toast.makeText(homeActivity, "篩選失敗",
 				// Toast.LENGTH_SHORT).show();
 				ConstantVariables.saveSetting(homeActivity, 0,
-						nums_ML.length - 1, 0, nums_Depth.length - 1,
-						nums_Distance.length - 1, SETTING_DATE_ALL,
+						SETTING_PREFERENCE_ML.length - 1, 0, SETTING_PREFERENCE_DEPTH.length - 1,
+						SETTING_PREFERENCE_DISTANCE.length - 1, SETTING_DATE_ALL,
 						ConstantVariables.SETTING_NOTIFICATION_STATE_ON);
 				mFilteredList = mList;
 			}
@@ -925,15 +897,15 @@ public class HomeActivity extends ActionBarActivity implements
 							Toast.LENGTH_SHORT).show();
 				}
 				ConstantVariables.saveSetting(homeActivity, 0,
-						nums_ML.length - 1, 0, nums_Depth.length - 1,
-						nums_Distance.length - 1, SETTING_DATE_ALL,
+						SETTING_PREFERENCE_ML.length - 1, 0, SETTING_PREFERENCE_DEPTH.length - 1,
+						SETTING_PREFERENCE_DISTANCE.length - 1, SETTING_DATE_ALL,
 						ConstantVariables.SETTING_NOTIFICATION_STATE_ON);
 				mFilteredList = mList;
 
 			}
 		} else {
-			ConstantVariables.saveSetting(homeActivity, 0, nums_ML.length - 1,
-					0, nums_Depth.length - 1, nums_Distance.length - 1,
+			ConstantVariables.saveSetting(homeActivity, 0, SETTING_PREFERENCE_ML.length - 1,
+					0, SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
 					SETTING_DATE_ALL,
 					ConstantVariables.SETTING_NOTIFICATION_STATE_ON);
 			mFilteredList = mList;
@@ -942,22 +914,22 @@ public class HomeActivity extends ActionBarActivity implements
 		return mFilteredList;
 	}
 
-	String settingPreferenceFilename = ConstantVariables.settingPreferenceFilename;
+	String settingPreferenceFilename = ConstantVariables.SETTING_PREFERENCE_FILE_NAME;
 
 	// ML 0-100 => 0.0-10.0
 	// Deep 0-350
 	// Distance 0 => all
 	// Date 0 => all, others see flags "SETTING_DATE_*" below
-	String nums_ML[] = ConstantVariables.nums_ML;
-	String nums_Depth[] = ConstantVariables.nums_Depth;
-	String nums_Distance[] = ConstantVariables.nums_Distance;
-	String nums_Date[] = ConstantVariables.nums_Date;
+	String SETTING_PREFERENCE_ML[] = ConstantVariables.SETTING_PREFERENCE_ML;
+	String SETTING_PREFERENCE_DEPTH[] = ConstantVariables.SETTING_PREFERENCE_DEPTH;
+	String SETTING_PREFERENCE_DISTANCE[] = ConstantVariables.SETTING_PREFERENCE_DISTANCE;
+	String SETTING_PREFERENCE_DATE[] = ConstantVariables.SETTING_PREFERENCE_DATE;
 	final int SETTING_DATE_ALL = ConstantVariables.SETTING_DATE_ALL;
-	final int SETTING_DATE_1_day = ConstantVariables.SETTING_DATE_1_day;
-	final int SETTING_DATE_1_week = ConstantVariables.SETTING_DATE_1_week;
-	final int SETTING_DATE_1_month = ConstantVariables.SETTING_DATE_1_month;
-	final int SETTING_DATE_2_month = ConstantVariables.SETTING_DATE_2_month;
-	final int SETTING_DATE_3_month = ConstantVariables.SETTING_DATE_3_month;
+	final int SETTING_DATE_1_DAY = ConstantVariables.SETTING_DATE_1_DAY;
+	final int SETTING_DATE_1_WEEK = ConstantVariables.SETTING_DATE_1_WEEK;
+	final int SETTING_DATE_1_MONTH = ConstantVariables.SETTING_DATE_1_MONTH;
+	final int SETTING_DATE_2_MONTH = ConstantVariables.SETTING_DATE_2_MONTH;
+	final int SETTING_DATE_3_MONTH = ConstantVariables.SETTING_DATE_3_MONTH;
 
 	protected ArrayList<HashMap<String, String>> setEQlistLocation(
 			ArrayList<HashMap<String, String>> mList) {

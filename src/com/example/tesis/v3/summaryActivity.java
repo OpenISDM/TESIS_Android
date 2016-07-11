@@ -584,13 +584,13 @@ public class summaryActivity extends ActionBarActivity {
 		// System.gc();
 		// TODO save the checkbox data
 		if (mSetupGoogleMap.mCheckBoxData != null) {
-			File chbxFile = getFileStreamPath(ConstantVariables.checkboxDataFilename);
+			File chbxFile = getFileStreamPath(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
 			FileOutputStream fos;
 			ObjectOutputStream oos;
 			try {
 				if (chbxFile.exists() || chbxFile.createNewFile()) {
 					fos = openFileOutput(
-							ConstantVariables.checkboxDataFilename,
+							ConstantVariables.CHECKBOX_DATA_FILE_NAME,
 							MODE_PRIVATE);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(mSetupGoogleMap.mCheckBoxData);
@@ -761,19 +761,14 @@ public class summaryActivity extends ActionBarActivity {
 	}
 
 	protected static boolean isConnected(Context ctx) {
-		NetworkInfo info = (NetworkInfo) ((ConnectivityManager) ctx
+		NetworkInfo info = ((ConnectivityManager) ctx
 				.getSystemService(Context.CONNECTIVITY_SERVICE))
 				.getActiveNetworkInfo();
 
 		if (info == null || !info.isConnected()) {
 			return false;
 		}
-		if (info.isRoaming()) {
-			// here is the roaming option you can change it if you want to
-			// disable Internet while roaming, just return false
-			return false;
-		}
-		return true;
+		return !info.isRoaming();
 	}
 
 	Location currentLocation;

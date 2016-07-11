@@ -183,9 +183,9 @@ public class myEarthquakeListAdapter extends BaseAdapter implements Filterable {
 						} else if (v.getId() == R.id.eqlist_new) { // isNew
 //							Log.d("myLog", "In EQListAdapter eqlist new :" + text);
 							if(text.equals("true")){
-								((TextView) v).setVisibility(View.VISIBLE);
+								v.setVisibility(View.VISIBLE);
 							} else {
-								((TextView)v).setVisibility(View.INVISIBLE);
+								v.setVisibility(View.INVISIBLE);
 							}
 						} else {
 							setViewText((TextView) v, text);
@@ -319,7 +319,7 @@ public class myEarthquakeListAdapter extends BaseAdapter implements Filterable {
 	 * @see SimpleAdapter#setViewImage(ImageView, String)
 	 * @see SimpleAdapter#setViewText(TextView, String)
 	 */
-	public static interface ViewBinder {
+	public interface ViewBinder {
 		/**
 		 * Binds the specified data to the specified view.
 		 * 

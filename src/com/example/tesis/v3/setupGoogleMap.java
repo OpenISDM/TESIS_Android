@@ -335,8 +335,8 @@ public class setupGoogleMap {
 
 		if (mMap == null) {
 			mMap = ((SupportMapFragment) mainActivity
-					.getSupportFragmentManager().findFragmentById(R.id.map))
-					.getMap();
+					.getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+
 			calculateRuntime("get map");
 			// mMap = ((mySupportMapFragment) mainActivity
 			// .getSupportFragmentManager().findFragmentById(R.id.map))
@@ -464,12 +464,12 @@ public class setupGoogleMap {
 
 		// TODO List Adapter with checkbox data
 		File chbxFile = mainActivity
-				.getFileStreamPath(ConstantVariables.checkboxDataFilename);
+				.getFileStreamPath(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
 		if (chbxFile.exists()) {
 			try {
 				FileInputStream fis;
 				fis = mainActivity
-						.openFileInput(ConstantVariables.checkboxDataFilename);
+						.openFileInput(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				mCheckBoxData = (HashMap<Integer, Boolean>) ois.readObject();
 				ois.close();
@@ -480,7 +480,7 @@ public class setupGoogleMap {
 				e.printStackTrace();
 				mCheckBoxData = new HashMap<Integer, Boolean>();
 				for (int i = 0; i < 40; ++i) {
-					mCheckBoxData.put((Integer) i, false);
+					mCheckBoxData.put(i, false);
 				}
 				mCheckBoxData.put(100, true); // CWB
 				mCheckBoxData.put(101, false); // gCap
@@ -503,7 +503,7 @@ public class setupGoogleMap {
 		} else {
 			mCheckBoxData = new HashMap<Integer, Boolean>();
 			for (int i = 0; i < 40; ++i) {
-				mCheckBoxData.put((Integer) i, false);
+				mCheckBoxData.put(i, false);
 			}
 			mCheckBoxData.put(100, true); // CWB
 			mCheckBoxData.put(101, false); // gCap

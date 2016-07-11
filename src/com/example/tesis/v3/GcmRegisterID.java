@@ -152,11 +152,11 @@ public class GcmRegisterID extends AsyncTask<Void, Void, String> {
 	
 	private void settingNotificationAtFirst(){
 		HashMap<String, Integer> settingHashMap = null;
-		File EQFile = ctx.getFileStreamPath(ConstantVariables.settingPreferenceFilename);
-		if (EQFile.exists()) {
+		File fileEQ = ctx.getFileStreamPath(ConstantVariables.SETTING_PREFERENCE_FILE_NAME);
+		if (fileEQ.exists()) {
 			try {
 				FileInputStream fis;
-				fis = ctx.openFileInput(ConstantVariables.settingPreferenceFilename);
+				fis = ctx.openFileInput(ConstantVariables.SETTING_PREFERENCE_FILE_NAME);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				settingHashMap = (HashMap<String, Integer>) ois.readObject();
 				ois.close();

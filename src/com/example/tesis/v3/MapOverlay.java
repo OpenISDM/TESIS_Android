@@ -115,14 +115,14 @@ public class MapOverlay implements Serializable {
 		this.mMap = map;
 	}
 
-	final String[] lineName = ConstantVariables.lineName2;
+	final String[] lineName = ConstantVariables.EARTHQUAKE_FAULT_NAMES;
 	/*
 	 * int[] ODindex={0,1,2,16,21,22,23,25,26,27,28,29,31,36,37}; int[]
 	 * OSindex={12}; int[] BDindex; int[] BSindex; int[]
 	 * RDindex={3,5,6,7,8,10,17,24,30,32,33,34,35};
 	 */
 	// None 0,OD 1,OS 2,BD 3,BS 4,RD 5
-	final int[] lineColor = ConstantVariables.lineColor2;
+	final int[] lineColor = ConstantVariables.EARTHQUAKE_FAULT_LINE_COLOR;
 	MarkerOptions[] lineMarkerOptions;
 	CircleOptions[] lineCircleOptions;
 
@@ -326,7 +326,6 @@ public class MapOverlay implements Serializable {
 			Log.d("Here!!", "catch draw 2 Exception!");
 		}
 		// tileOverlayOptions2 = new TileOverlayOptions()
-		// .tileProvider(new CustomGeoMapTileProvider(mngr));
 		tileOverlayOptions2 = new TileOverlayOptions().tileProvider(
 				new myUrlTileProvider(fActivity.getApplicationContext()))
 				.zIndex(zIndex_tileOverlay);
@@ -1381,11 +1380,7 @@ public class MapOverlay implements Serializable {
 					catchExp = true;
 				}
 
-				if (catchExp) {
-					ballisLoad[i] = false;
-				} else {
-					ballisLoad[i] = true;
-				}
+				ballisLoad[i] = !catchExp;
 				if (bmImg != null && !bmImg.isRecycled()) {
 					bmImg.recycle();
 				}
