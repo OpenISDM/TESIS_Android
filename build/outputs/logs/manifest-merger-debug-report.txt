@@ -17,8 +17,6 @@ ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:2:1-119:12
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:2:11-69
 uses-sdk
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:8:5-10:41
-MERGED from [com.github.chrisbanes:PhotoView:1.2.6] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.github.chrisbanes/PhotoView/1.2.6/AndroidManifest.xml:8:5-10:41
-MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:appcompat-v7:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
@@ -1132,6 +1130,8 @@ MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/JanSu/D
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:18:5-42
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
+MERGED from [com.github.chrisbanes:PhotoView:1.2.6] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.github.chrisbanes/PhotoView/1.2.6/AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
 	tools:overrideLibrary
 		ADDED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:23:9-51
 	android:targetSdkVersion
@@ -1336,7 +1336,6 @@ MERGED from [com.google.firebase:firebase-iid:9.0.2] /Users/JanSu/Development/TE
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:55:22-65
 application
 ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:57:5-117:19
-MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:appcompat-v7:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
@@ -2432,6 +2431,7 @@ MERGED from [com.google.android.gms:play-services-tasks:9.0.2] /Users/JanSu/Deve
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.google.android.gms:play-services-basement:9.0.2] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.0.2/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:24.0.0] /Users/JanSu/Development/TESIS_Android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
 	android:label
 		ADDED from /Users/JanSu/Development/TESIS_Android/AndroidManifest.xml:60:9-41

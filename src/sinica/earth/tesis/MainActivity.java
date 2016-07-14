@@ -29,120 +29,120 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends ActionBarActivity {
-	final String tag = "myTag";
-	int width, height;
-	MainActivity mainActivity;
-	ImageView mImage;
-	Boolean isClick = false;
-	Dialog infoDialog;
-	String infoFilename = "TESIS.info";
-	TextView textViewAgree, textViewDisagree;
-	CheckBox checkBoxDoNotShowAgain;
-	boolean showInfo;
+    final String tag = "myTag";
+    int width, height;
+    MainActivity mainActivity;
+    ImageView mImage;
+    Boolean isClick = false;
+    Dialog infoDialog;
+    String infoFilename = "TESIS.info";
+    TextView textViewAgree, textViewDisagree;
+    CheckBox checkBoxDoNotShowAgain;
+    boolean showInfo;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		mainActivity = this;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mainActivity = this;
 
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle("TESIS");
-		actionBar.setSubtitle("台灣地震科學資訊系統");
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("TESIS");
+        actionBar.setSubtitle("台灣地震科學資訊系統");
 
-		File infoFile = getFileStreamPath(infoFilename);
-		showInfo = !infoFile.exists();
+        File infoFile = getFileStreamPath(infoFilename);
+        showInfo = !infoFile.exists();
 
-		if (showInfo) {
+        if (showInfo) {
 
 //			infoDialog = new Dialog(MainActivity.this,
 //					R.style.Theme_Base_AppCompat_Dialog_FixedSize);
-			infoDialog = new Dialog(MainActivity.this);
-			infoDialog.setContentView(R.layout.dialog_info);
-			infoDialog.setTitle("通知");
-			
-			
-			checkBoxDoNotShowAgain = (CheckBox) infoDialog
-					.findViewById(R.id.checkBoxDoNotShowAgain);
-			textViewAgree = (TextView) infoDialog
-					.findViewById(R.id.textViewAgree);
-			textViewAgree.setClickable(true);
-			textViewDisagree = (TextView) infoDialog
-					.findViewById(R.id.textViewDisagree);
-			textViewDisagree.setClickable(true);
+            infoDialog = new Dialog(MainActivity.this);
+            infoDialog.setContentView(R.layout.dialog_info);
+            infoDialog.setTitle("通知");
 
-			textViewAgree.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					infoDialog.dismiss();
-					if (checkBoxDoNotShowAgain.isChecked()) {
-						File infoFile = getFileStreamPath(infoFilename);
-						try {
-							infoFile.createNewFile();
-						} catch (IOException e) {
-							Log.d(tag,
-									"IN MainActivity: Unable to create new file");
-							e.printStackTrace();
-						}
-						start();
-					} else {
-						start();
-					}
+            checkBoxDoNotShowAgain = (CheckBox) infoDialog
+                    .findViewById(R.id.checkBoxDoNotShowAgain);
+            textViewAgree = (TextView) infoDialog
+                    .findViewById(R.id.textViewAgree);
+            textViewAgree.setClickable(true);
+            textViewDisagree = (TextView) infoDialog
+                    .findViewById(R.id.textViewDisagree);
+            textViewDisagree.setClickable(true);
 
-				}
-			});
+            textViewAgree.setOnClickListener(new OnClickListener() {
 
-			textViewDisagree.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    infoDialog.dismiss();
+                    if (checkBoxDoNotShowAgain.isChecked()) {
+                        File infoFile = getFileStreamPath(infoFilename);
+                        try {
+                            infoFile.createNewFile();
+                        } catch (IOException e) {
+                            Log.d(tag,
+                                    "IN MainActivity: Unable to create new file");
+                            e.printStackTrace();
+                        }
+                        start();
+                    } else {
+                        start();
+                    }
 
-				@Override
-				public void onClick(View v) {
-					infoDialog.dismiss();
-					mainActivity.finish();
-				}
-			});
+                }
+            });
 
-			infoDialog.setOnCancelListener(new OnCancelListener() {
-				
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					mainActivity.finish();
-				}
-			});
-			
-			
-			infoDialog.show();
-		} else {
-			start();
-		}
-	}
+            textViewDisagree.setOnClickListener(new OnClickListener() {
 
-	private void start() {
-		RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.main_relativeLayout);
-		mainRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    infoDialog.dismiss();
+                    mainActivity.finish();
+                }
+            });
 
-			@Override
-			public void onClick(View v) {
-				isClick = true;
-				Intent intent = new Intent(mainActivity, HomeActivity.class);
-				startActivity(intent);
-				mainActivity.finish();
-			}
-		});
+            infoDialog.setOnCancelListener(new OnCancelListener() {
 
-		float density = getResources().getDisplayMetrics().density;
-		Log.d(tag, "this device density is " + density);
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    mainActivity.finish();
+                }
+            });
 
-		mImage = (ImageView) findViewById(R.id.imageView1);
 
-		try {
-			// get input stream
-			InputStream ims = getAssets().open("TESIS_logo_2.5.png");
-			// load image as Drawable
-			BitmapFactory.Options options=new BitmapFactory.Options();
-		     options.inJustDecodeBounds = false;
-		     options.inSampleSize = 1;   
-			Bitmap bitmap = BitmapFactory.decodeStream(ims,null,options);
+            infoDialog.show();
+        } else {
+            start();
+        }
+    }
+
+    private void start() {
+        RelativeLayout mainRelativeLayout = (RelativeLayout) findViewById(R.id.main_relativeLayout);
+        mainRelativeLayout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                isClick = true;
+                Intent intent = new Intent(mainActivity, HomeActivity.class);
+                startActivity(intent);
+                mainActivity.finish();
+            }
+        });
+
+        float density = getResources().getDisplayMetrics().density;
+        Log.d(tag, "this device density is " + density);
+
+        mImage = (ImageView) findViewById(R.id.imageView1);
+
+        try {
+            // get input stream
+            InputStream ims = getAssets().open("TESIS_logo_2.5.png");
+            // load image as Drawable
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = 1;
+            Bitmap bitmap = BitmapFactory.decodeStream(ims, null, options);
 //			DisplayMetrics metrics = new DisplayMetrics();
 //			getWindowManager().getDefaultDisplay().getMetrics(metrics);
 //			width = metrics.widthPixels;
@@ -154,50 +154,50 @@ public class MainActivity extends ActionBarActivity {
 //			// TODO case density
 //			Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, width, width
 //					* bitmap.getHeight() / bitmap.getWidth(), true);
-			mImage.setImageBitmap(bitmap);
-		} catch (IOException ex) {
-			Log.d(tag, "load asset error.");
-			ex.printStackTrace();
-		}
+            mImage.setImageBitmap(bitmap);
+        } catch (IOException ex) {
+            Log.d(tag, "load asset error.");
+            ex.printStackTrace();
+        }
 
-		AnimationSet animationSet = new AnimationSet(false);
-		// pass false to use different interpolator
-		Animation transAnimation1 = AnimationUtils.loadAnimation(this,
-				R.anim.translate_1);
-		transAnimation1.setInterpolator(new AccelerateDecelerateInterpolator());
-		Animation transAnimation2 = AnimationUtils.loadAnimation(this,
-				R.anim.translate_2);
-		transAnimation1.setInterpolator(new LinearInterpolator());
-		animationSet.addAnimation(transAnimation1);
-		animationSet.addAnimation(transAnimation2);
-		mImage.setAnimation(animationSet);
+        AnimationSet animationSet = new AnimationSet(false);
+        // pass false to use different interpolator
+        Animation transAnimation1 = AnimationUtils.loadAnimation(this,
+                R.anim.translate_1);
+        transAnimation1.setInterpolator(new AccelerateDecelerateInterpolator());
+        Animation transAnimation2 = AnimationUtils.loadAnimation(this,
+                R.anim.translate_2);
+        transAnimation1.setInterpolator(new LinearInterpolator());
+        animationSet.addAnimation(transAnimation1);
+        animationSet.addAnimation(transAnimation2);
+        mImage.setAnimation(animationSet);
 
-		if (!isClick) {
-			new Handler().postDelayed(new Runnable() {
+        if (!isClick) {
+            new Handler().postDelayed(new Runnable() {
 
-				@Override
-				public void run() {
-					mImage.setVisibility(View.INVISIBLE);
-					if (!isClick) {
-						Intent intent = new Intent(mainActivity,
-								HomeActivity.class);
-						startActivity(intent);
-						overridePendingTransition(R.anim.abc_fade_in,
-								R.anim.abc_slide_out_top);
-						mainActivity.finish();
-					}
-				}
-			}, 4000);
+                @Override
+                public void run() {
+                    mImage.setVisibility(View.INVISIBLE);
+                    if (!isClick) {
+                        Intent intent = new Intent(mainActivity,
+                                HomeActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.abc_fade_in,
+                                R.anim.abc_slide_out_top);
+                        mainActivity.finish();
+                    }
+                }
+            }, 4000);
 
-		}
+        }
 
-	}
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        // getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
 }

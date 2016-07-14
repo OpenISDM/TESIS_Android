@@ -1,10 +1,14 @@
 package sinica.earth.tesis;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,16 +17,22 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 /**
  * EarthquakeData.java
- * Use JSONfunctions.java methods to download earthquake data from http://140.109.80.214/
+ * Use JsonFunctions.java methods to download earthquake data from http://140.109.80.214/
  */
 public class EarthquakeData {
 
     public static HashMap<String, String> getDataFromURL(String URL) {
         HashMap<String, String> map;
-        JSONObject json = JSONfunctions.getJSONfromURL(URL);
+
+        JSONObject json = JsonFunctions.getJsonObjectFromURL(URL);
+
         if (json == null) {
             return null;
         }
@@ -30,6 +40,7 @@ public class EarthquakeData {
             JSONArray earthquakes = json.getJSONArray("earthquakes");
             JSONObject e = earthquakes.getJSONObject(0);
             map = getHashMapFromJsonObject(e);
+
 
         } catch (JSONException e) {
             Log.e("GCMIntentService", "Error getJSONArray earthquakes");
@@ -41,16 +52,19 @@ public class EarthquakeData {
     public static ArrayList<HashMap<String, String>> getData(Context ctx,
                                                              String from, String to, boolean isSave) {
         /*
-		 * return value:
+         * return value:
 		 * 1.null (download error or no need to update)
 		 * 2.new EQList (is auto saved)
 		 */
 
         ArrayList<HashMap<String, String>> EarthquakeList = new ArrayList<HashMap<String, String>>();
         Log.d("Here!", "from:" + from + "to:" + to);
-        JSONArray jsonID = JSONfunctions
-                .getJSONArrayfromURL("http://tesis.earth.sinica.edu.tw/common/"
+        JSONArray jsonID = JsonFunctions
+                .getJsonArrayFromURL("http://tesis.earth.sinica.edu.tw/common/"
                         + "php/getid.php?" + "start=" + from + "&end=" + to);
+
+        Log.d("TEST-66", jsonID.toString());
+
         if (jsonID == null) {
             Log.d("Here!", "Cannot download earthquake data ID.");
             // Cause by wifi opened but not connect to network.
@@ -92,21 +106,36 @@ public class EarthquakeData {
             if (newestId >= Integer.parseInt(to_id)) {
                 // TODO make Toast
                 Log.d("myTag", "The EQ List is already the newsest.");
+
+
+                try {
+                    JSONObject json2 = JsonFunctions.getJsonObjectFromURL("http://tesis.earth.sinica.edu.tw/common/"
+                            + "php/processdatamobile.php?" + "firstid='"
+                            + 990 + "'&secondid='" + 991 + "'");
+                    Log.d("TEST-112", json2.toString());
+
+                    JSONArray earthquakes = json2.getJSONArray("earthquakes");
+                    Log.d("TEST-115", earthquakes.toString());
+
+                    JSONObject e = earthquakes.getJSONObject(0);
+                    Log.d("TEST-118", e.toString());
+
+                } catch (Exception e) {
+                    Log.d("TEST", e.toString());
+                }
+
+
                 return null;
             }
         }
-        // else {
-        // Integer tmpInteger = Integer.parseInt(to_id)
-        // - ConstantVariables.MAX_STORED_EQ_LENGTH;
-        // from_id = tmpInteger.toString();
-        // }
 
         if (Integer.parseInt(from_id) <= Integer.parseInt(to_id)) {
-            JSONObject json = JSONfunctions
-                    .getJSONfromURL("http://tesis.earth.sinica.edu.tw/common/"
+            JSONObject json = JsonFunctions
+                    .getJsonObjectFromURL("http://tesis.earth.sinica.edu.tw/common/"
                             + "php/processdatamobile.php?" + "firstid='"
                             + from_id + "'&secondid='" + to_id + "'");
-            // Log.d("Here!", json.toString());
+//            Log.d("getData - JsonObject", json.toString());
+
             if (json == null) {
                 // TODO make Toast
                 Log.d("myTag", "Download EQ content error.");

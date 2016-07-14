@@ -698,7 +698,7 @@ public class summaryActivity extends ActionBarActivity {
 			// }
 
             // FIXME: getcomments.php is deprecate
-//			JSONArray jsonArray = JSONfunctions
+//			JSONArray jsonArray = JsonFunctions
 //					.getJSONArrayfromURL("http://tesis.earth.sinica.edu.tw/common/php/getcomments.php?id=EC0521082159070");
 //			if (jsonArray != null) {
 //				try {
