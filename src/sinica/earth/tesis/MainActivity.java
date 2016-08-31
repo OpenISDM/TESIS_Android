@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,8 +29,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MainActivity extends ActionBarActivity {
-    final String tag = "myTag";
+public class MainActivity extends AppCompatActivity {
+    final String mTag = "myTag";
     int width, height;
     MainActivity mainActivity;
     ImageView mImage;
@@ -61,7 +62,6 @@ public class MainActivity extends ActionBarActivity {
             infoDialog.setContentView(R.layout.dialog_info);
             infoDialog.setTitle("通知");
 
-
             checkBoxDoNotShowAgain = (CheckBox) infoDialog
                     .findViewById(R.id.checkBoxDoNotShowAgain);
             textViewAgree = (TextView) infoDialog
@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
                         try {
                             infoFile.createNewFile();
                         } catch (IOException e) {
-                            Log.d(tag,
+                            Log.d(mTag,
                                     "IN MainActivity: Unable to create new file");
                             e.printStackTrace();
                         }
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
         });
 
         float density = getResources().getDisplayMetrics().density;
-        Log.d(tag, "this device density is " + density);
+        Log.d(mTag, "this device density is " + density);
 
         mImage = (ImageView) findViewById(R.id.imageView1);
 
@@ -150,13 +150,13 @@ public class MainActivity extends ActionBarActivity {
 //			float dens = metrics.density;
 //			float fx = metrics.xdpi;
 //			float fy = metrics.ydpi;
-//			Log.d(tag, width + " " + height + " " + dens + " " + fx + " " + fy);
+//			Log.d(mTag, width + " " + height + " " + dens + " " + fx + " " + fy);
 //			// TODO case density
 //			Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, width, width
 //					* bitmap.getHeight() / bitmap.getWidth(), true);
             mImage.setImageBitmap(bitmap);
         } catch (IOException ex) {
-            Log.d(tag, "load asset error.");
+            Log.d(mTag, "load asset error.");
             ex.printStackTrace();
         }
 
@@ -193,11 +193,11 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        // getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
 }

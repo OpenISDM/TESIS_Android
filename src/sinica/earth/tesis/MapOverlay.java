@@ -39,47 +39,54 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class MapOverlay implements Serializable {
+
     private static final long serialVersionUID = 123456789;
+
     GoogleMap mMap;
+
     public Point[] points = new Point[4216];
-    // MainActivity fActivity;
+
     summaryActivity fActivity;
+
     AssetManager mngr;
-    public GroundOverlayOptions mapBar;
+
     public GroundOverlayOptions geoMap;
+
     public PolylineOptions[] pOptions = new PolylineOptions[100];
+
     private int pOptionsNum = 0;
+
     HashMap<String, String> hMap;
-    final String tag = "myTag";
+
+    final String mTag = "myTag";
     final String timeTag = "timeTag";
     final String AsyncTaskTag = "AsyncTaskTag";
+
     long startTime, endTime;
-    // public downloadBall TaskDownloadVolleyball;
+
     public downloadMarkerInfo TaskDownloadMarkerInfo;
     public loadResources TaskLoadResource;
-    // public AsyncTask TaskLoadResource, TaskDownloadMarkerInfo,
-    // TaskDownloadVolleyball;
 
     final int zIndex_Polyline = 5;
     final int zIndex_tileOverlay = 0;
-    // final int zIndex_marker = 10;
     final int zIndex_groundOverlay = 3;
 
-    // public MapOverlay(MainActivity fActivity,GoogleMap mMap){
-    // this.mMap = mMap;
-    // mngr = fActivity.getAssets();
-    // this.fActivity = fActivity;
-    // loadData1(); //活動斷層
-    // loadData2(); //map bar
-    // loadData3(); //地質圖
-    // loadData4(); //BATS,CWB Stations
-    // loadData5(); //vector*/
-    // }
-    private void calculateRuntime(String info) {
-        endTime = System.currentTimeMillis();
-        Log.d(timeTag, "In MapOverlay: " + info + ": " + (endTime - startTime));
-        startTime = System.currentTimeMillis();
-    }
+    final String[] lineName = ConstantVariables.EARTHQUAKE_FAULT_NAMES;
+
+    final int[] lineColor = ConstantVariables.EARTHQUAKE_FAULT_LINE_COLOR;
+
+    MarkerOptions[] lineMarkerOptions;
+
+    public TileOverlayOptions tileOverlayOptions, tileOverlayOptions2;
+
+    public GroundOverlayOptions islandTurtle, islandGreen, islandLanYu,
+            islandLiuChiu, islandPongHu;
+
+    public ArrayList<HashMap<String, String>> vectorList;
+    int VECTOR_NUM = 826;
+    private PolylineOptions[] vectorOptionsList = new PolylineOptions[VECTOR_NUM];
+    int vectorOptionsNum;
+
 
     public MapOverlay(summaryActivity mainActivity, GoogleMap mMap) {
         this.mMap = mMap;
@@ -88,36 +95,27 @@ public class MapOverlay implements Serializable {
         hMap = mainActivity.eqHashMap;
         startTime = System.currentTimeMillis();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-            TaskLoadResource = (loadResources) new loadResources()
-                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            TaskLoadResource = (loadResources) new loadResources().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         else
             TaskLoadResource = (loadResources) new loadResources().execute(0);
-
         calculateRuntime("loadData resource in background");
     }
 
-    // public void setMap(GoogleMap map, MainActivity fActivity){
-    // this.fActivity = fActivity;
-    // this.mMap = map;
-    // }
-
-    public void setMap(GoogleMap map, summaryActivity fActivity) {
-        this.fActivity = fActivity;
-        this.mMap = map;
+    private void calculateRuntime(String info) {
+        endTime = System.currentTimeMillis();
+        Log.d(timeTag, "In MapOverlay: " + info + ": " + (endTime - startTime));
+        startTime = System.currentTimeMillis();
     }
 
-    final String[] lineName = ConstantVariables.EARTHQUAKE_FAULT_NAMES;
     /*
      * int[] ODindex={0,1,2,16,21,22,23,25,26,27,28,29,31,36,37}; int[]
      * OSindex={12}; int[] BDindex; int[] BSindex; int[]
      * RDindex={3,5,6,7,8,10,17,24,30,32,33,34,35};
      */
     // None 0,OD 1,OS 2,BD 3,BS 4,RD 5
-    final int[] lineColor = ConstantVariables.EARTHQUAKE_FAULT_LINE_COLOR;
-    MarkerOptions[] lineMarkerOptions;
-    CircleOptions[] lineCircleOptions;
 
     public void loadData1() { // 活動斷層
+
         try {
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(mngr.open("fault2014_convert_2.txt")));
@@ -146,12 +144,15 @@ public class MapOverlay implements Serializable {
             Log.d("Here!!", "IOException!");
             e.printStackTrace();
         }
+
         int scale = 20;
+
         lineMarkerOptions = new MarkerOptions[points.length / scale + 1];
-        Log.d(tag, "lineMarkerOptions length:" + points.length / 20);
+        Log.d(mTag, "lineMarkerOptions length:" + points.length / 20);
         pOptions[pOptionsNum] = new PolylineOptions().width(5)
                 .color(Color.rgb(255, 153, 0)).zIndex(zIndex_Polyline);
         BitmapDescriptor bd = BitmapDescriptorFactory.fromResource(R.drawable.small_red_5);
+
         for (int i = 0; i < points.length - 1; ++i) {
             if (i % scale == 0) {
                 int index = points[i].groupIndex - 1;
@@ -193,7 +194,7 @@ public class MapOverlay implements Serializable {
                         // "(" + points[i].latLng.latitude + ","
                         // + points[i].latLng.longitude + ")")
                         .title(content);
-//				Log.d(tag, "index:" + i / 20);
+//				Log.d(mTag, "index:" + i / 20);
                 lineMarkerOptions[i / scale] = markerOption;
             }
 
@@ -240,20 +241,17 @@ public class MapOverlay implements Serializable {
         }
     }
 
-    // public void loadData2() { // map bar
-    // BitmapDescriptor image;
-    // LatLngBounds bounds;
-    // image = BitmapDescriptorFactory.fromAsset("ml_map_bar_new_trans.png");
-    // bounds = new LatLngBounds(new LatLng(21.6, 119.15), new LatLng(24.3,
-    // 120.0));
-    // mapBar = new GroundOverlayOptions().image(image)
-    // .positionFromBounds(bounds).transparency((float) 0)
-    // .zIndex(zIndex_groundOverlay);
-    // }
+//     public void loadData2() { // map bar
+//     BitmapDescriptor image;
+//     LatLngBounds bounds;
+//     image = BitmapDescriptorFactory.fromAsset("ml_map_bar_new_trans.png");
+//     bounds = new LatLngBounds(new LatLng(21.6, 119.15), new LatLng(24.3,
+//     120.0));
+//     mapBar = new GroundOverlayOptions().image(image)
+//     .positionFromBounds(bounds).transparency((float) 0)
+//     .zIndex(zIndex_groundOverlay);
+//     }
 
-    public TileOverlayOptions tileOverlayOptions, tileOverlayOptions2;
-    public GroundOverlayOptions islandTurtle, islandGreen, islandLanYu,
-            islandLiuChiu, islandPongHu;
 
     public void loadData3() { // 地質圖
         BitmapDescriptor image;
@@ -379,11 +377,6 @@ public class MapOverlay implements Serializable {
     // e.printStackTrace();
     // }
     // }
-
-    public ArrayList<HashMap<String, String>> vectorList;
-    int VECTOR_NUM = 826;
-    private PolylineOptions[] vectorOptionsList = new PolylineOptions[VECTOR_NUM];
-    int vectorOptionsNum;
 
     public void loadData5() { // vector
         vectorList = new ArrayList<HashMap<String, String>>();
@@ -558,8 +551,8 @@ public class MapOverlay implements Serializable {
         // Log.d("Here!",""+i);
         // HashMap<String, String> hMap = earthquakeArrayList.get(i);
         // /Log.d("Here!",hMap.toString());
-        Double lat = Double.parseDouble(hMap.get("lat"));
-        Double lng = Double.parseDouble(hMap.get("lng"));
+        Double lat = Double.parseDouble(hMap.get("Latitude"));
+        Double lng = Double.parseDouble(hMap.get("Longitude"));
         // String title = "詳細資料";
         // String content = hMap.get("Date") + "\n" + hMap.get("Time") +
         // " UTC+8"
@@ -570,10 +563,10 @@ public class MapOverlay implements Serializable {
         // history_img_ocean_Link = hMap.get("history_img_ocean");
         // history_img_copper_Link = hMap.get("history_img_copper");
         // history_img_gray_Link = hMap.get("history_img_gray");
-        // Log.d(tag, "history_img_copper_Link:" + history_img_copper_Link);
+        // Log.d(mTag, "history_img_copper_Link:" + history_img_copper_Link);
         // Log.d("Here!","before set options");
         double depth = Double.parseDouble(hMap.get("depth"));
-        int ml = (int) Double.parseDouble(hMap.get("ml"));
+        int ml = (int) Double.parseDouble(hMap.get("ML"));
         String markerIconFilename = "";
         if (depth <= 15) {
             markerIconFilename = "icon_event15_" + ml + ".png";
@@ -696,7 +689,7 @@ public class MapOverlay implements Serializable {
                         mMap.addPolyline(pOptions[i]);
 
                     }
-                    Log.d(tag, "linkMarkerOptions:" + lineMarkerOptions.length + "," + lineMarkerOptions[0]);
+                    Log.d(mTag, "linkMarkerOptions:" + lineMarkerOptions.length + "," + lineMarkerOptions[0]);
                     for (int i = 0; i < lineMarkerOptions.length; ++i) {
                         mMap.addMarker(lineMarkerOptions[i]);
                     }
@@ -1291,7 +1284,7 @@ public class MapOverlay implements Serializable {
                     Message m = new Message();
                     // 定義 Message的代號，handler才知道這個號碼是不是自己該處理的。
                     m.what = LOAD_RESOURCE_FINISHED;
-                    Log.d(tag,
+                    Log.d(mTag,
                             "In MapOverlay: LOAD_RESOURCE_FINISHED marker Info");
                     handler.sendMessage(m);
                 }
@@ -1317,8 +1310,8 @@ public class MapOverlay implements Serializable {
             Log.d(AsyncTaskTag, "In MapOverlay: ball: doInBackground start");
             boolean catchExp = false;
 
-            Double lat = Double.parseDouble(hMap.get("lat"));
-            Double lng = Double.parseDouble(hMap.get("lng"));
+            Double lat = Double.parseDouble(hMap.get("Latitude"));
+            Double lng = Double.parseDouble(hMap.get("Longitude"));
             // String title = "詳細資料";
             // String content;
             String content = hMap.get("Date") + "\n" + hMap.get("Time")
@@ -1404,7 +1397,7 @@ public class MapOverlay implements Serializable {
                     Message m = new Message();
                     // 定義 Message的代號，handler才知道這個號碼是不是自己該處理的。
                     m.what = LOAD_RESOURCE_FINISHED;
-                    Log.d(tag,
+                    Log.d(mTag,
                             "In MapOverlay: LOAD_RESOURCE_FINISHED volley ball");
                     handler.sendMessage(m);
                 }
@@ -1751,14 +1744,14 @@ public class MapOverlay implements Serializable {
         @SuppressWarnings("unchecked")
         @Override
         protected void onPostExecute(Object result) {
-            Log.d(tag, "In MapOverlay: onPostExecute: LOAD_RESOURCE_FINISHED");
+            Log.d(mTag, "In MapOverlay: onPostExecute: LOAD_RESOURCE_FINISHED");
             if (!isTaskCancel) {
                 isloadResourceFinished = true;
                 if (handler != null) {
                     Message m = new Message();
                     // 定義 Message的代號，handler才知道這個號碼是不是自己該處理的。
                     m.what = LOAD_RESOURCE_FINISHED;
-                    Log.d(tag, "In MapOverlay: LOAD_RESOURCE_FINISHED resource");
+                    Log.d(mTag, "In MapOverlay: LOAD_RESOURCE_FINISHED resource");
                     handler.sendMessage(m);
                 }
                 Log.d(AsyncTaskTag,

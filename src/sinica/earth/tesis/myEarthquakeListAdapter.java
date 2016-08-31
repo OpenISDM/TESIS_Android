@@ -34,9 +34,12 @@ public class myEarthquakeListAdapter extends BaseAdapter implements Filterable {
 
 //	private int lastID;
 
-	public myEarthquakeListAdapter(Context context,
-			List<? extends Map<String, ?>> data, int resource, String[] from,
+	public myEarthquakeListAdapter(
+			Context context,
+			List<? extends Map<String, ?>> data,
+			int resource, String[] from,
 			int[] to) {
+
 		mContext = context;
 		mData = data;
 		mResource = mDropDownResource = resource;

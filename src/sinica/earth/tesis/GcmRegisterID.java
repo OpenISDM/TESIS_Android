@@ -27,12 +27,19 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 
 public class GcmRegisterID extends AsyncTask<Void, Void, String> {
+
     private static final String TAG = "GCMRelated";
+
     Context ctx;
+
     GoogleCloudMessaging gcm;
+
     String SENDER_ID = "447429034516"; // Google Console TESIS project ID
+
     String regid = null;
+
     private int appVersion;
+
 
     public GcmRegisterID(Context ctx, GoogleCloudMessaging gcm, int appVersion) {
         this.ctx = ctx;

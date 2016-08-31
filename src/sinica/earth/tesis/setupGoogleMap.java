@@ -47,6 +47,7 @@ import java.util.HashMap;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class setupGoogleMap {
+
 	public GoogleMap mMap;
 	// myMapView mapView;
 	summaryActivity mainActivity;
@@ -54,7 +55,7 @@ public class setupGoogleMap {
 	MapOverlay mapOverlay;
 	// ArrayList<HashMap<String, String>> mEarthquakeList;
 	HashMap<String, String> eqHashMap;
-	final String tag = "myTag";
+	final String mTag = "myTag";
 	final String timeTag = "timeTag";
 	long startTime, endTime;
 	ImageView mImageView, mImageView2;
@@ -64,8 +65,7 @@ public class setupGoogleMap {
 
 	private void calculateRuntime(String info) {
 		endTime = System.currentTimeMillis();
-		Log.d(timeTag, "In setupGoogleMap: " + info + ": "
-				+ (endTime - startTime));
+		Log.d(timeTag, "In setupGoogleMap: " + info + ": " + (endTime - startTime));
 		startTime = System.currentTimeMillis();
 	}
 
@@ -87,8 +87,7 @@ public class setupGoogleMap {
 		Bitmap oldBitmap = ((BitmapDrawable) d).getBitmap();
 		// sony Xperia SP 720*1280
 		float scalingFactor = (float) width / 720;
-		Bitmap newBitmap = ConstantVariables.ScaleBitmap(oldBitmap,
-				scalingFactor);
+		Bitmap newBitmap = ConstantVariables.ScaleBitmap(oldBitmap, scalingFactor);
 		// oldBitmap.recycle();
 		return newBitmap;
 	}
@@ -385,8 +384,8 @@ public class setupGoogleMap {
 		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new
 		// LatLng(43.1, -87.9), 10);
 		// mMap.animateCamera(cameraUpdate);
-		Double lat = Double.parseDouble(eqHashMap.get("lat"));
-		Double lng = Double.parseDouble(eqHashMap.get("lng"));
+		Double lat = Double.parseDouble(eqHashMap.get("Latitude"));
+		Double lng = Double.parseDouble(eqHashMap.get("Longitude"));
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng),
 				8));
 		textViews = new TextView[2];
@@ -409,7 +408,7 @@ public class setupGoogleMap {
 			@Override
 			public void onMapClick(LatLng arg0) {
 				infoOpenedMarker = null;
-				Log.d(tag, "marker info window is closed " + arg0.toString());
+				Log.d(mTag, "marker info window is closed " + arg0.toString());
 				if (mainActivity.mPopupWindow.isShowing()) {
 					mainActivity.mPopupWindow.dismiss();
 				}
@@ -420,7 +419,7 @@ public class setupGoogleMap {
 			@Override
 			public boolean onMarkerClick(Marker arg0) {
 				infoOpenedMarker = arg0;
-				Log.d(tag, "marker is clicked " + arg0.toString());
+				Log.d(mTag, "marker is clicked " + arg0.toString());
 				if (mainActivity.mPopupWindow.isShowing()) {
 					mainActivity.mPopupWindow.dismiss();
 				}
@@ -441,7 +440,7 @@ public class setupGoogleMap {
 				ois.close();
 				fis.close();
 			} catch (Exception e) {
-				Log.e(tag, "checkBox data file broken");
+				Log.e(mTag, "checkBox data file broken");
 				chbxFile.delete();
 				e.printStackTrace();
 				mCheckBoxData = new HashMap<Integer, Boolean>();
@@ -490,7 +489,7 @@ public class setupGoogleMap {
 			mCheckBoxData.put(30, false);
 		}
 
-		Log.d(tag, "mCheckBoxData:" + mCheckBoxData.toString());
+		Log.d(mTag, "mCheckBoxData:" + mCheckBoxData.toString());
 
 		setMapTool();
 		calculateRuntime("set map tool");
@@ -513,7 +512,7 @@ public class setupGoogleMap {
 				switch (msg.what) {
 				// 當收到的Message的代號為我們剛剛訂的代號就做下面的動作。
 				case LOAD_RESOURCE_FINISHED:
-					calculateRuntime("first check tag");
+					calculateRuntime("first check mTag");
 					checkTag();
 					break;
 
@@ -537,13 +536,13 @@ public class setupGoogleMap {
 	// LatLng southWest = curScreen.southwest;
 	// double dNS = northEast.latitude - southWest.latitude;
 	// double dEW = northEast.longitude - southWest.longitude;
-	// Log.d(tag, "d(NS,EW) = (" + dNS + "," + dEW + ")");
+	// Log.d(mTag, "d(NS,EW) = (" + dNS + "," + dEW + ")");
 	// double logNS = Math.log10(dNS / 4);
 	// double logEW = Math.log10(dEW / 4);
-	// Log.d(tag, "log(NS,EW) = (" + logNS + "," + logEW + ")");
+	// Log.d(mTag, "log(NS,EW) = (" + logNS + "," + logEW + ")");
 	// int scaleNS = (int) Math.floor(logNS);
 	// int scaleEW = (int) Math.floor(logEW);
-	// Log.d(tag, "scale(NS,EW) = (" + scaleNS + "," + scaleEW + ")");
+	// Log.d(mTag, "scale(NS,EW) = (" + scaleNS + "," + scaleEW + ")");
 	// double xNS = logNS - scaleNS;
 	// double xEW = logEW - scaleEW;
 	// double dLineNS, dLineEW;
@@ -567,7 +566,7 @@ public class setupGoogleMap {
 	// dLineEW = Math.pow(10, scaleEW);
 	// dLineEW = dLineEW * 1;
 	// }
-	// Log.d(tag, "dLine(NS,EW) = (" + dLineNS + "," + dLineEW + ")");
+	// Log.d(mTag, "dLine(NS,EW) = (" + dLineNS + "," + dLineEW + ")");
 	// int s = (int) Math.floor(southWest.latitude);
 	// int n = (int) Math.ceil(northEast.latitude);
 	// int e = (int) Math.ceil(northEast.longitude);
@@ -1119,7 +1118,7 @@ public class setupGoogleMap {
 		// drawPolylines();
 		// }
 		if (infoOpenedMarker != null) {
-			Log.d(tag, "checkTag:showInfoWindow " + infoOpenedMarker);
+			Log.d(mTag, "checkTag:showInfoWindow " + infoOpenedMarker);
 			infoOpenedMarker.showInfoWindow();
 		}
 

@@ -184,9 +184,12 @@ public class ConstantVariables {
     /**
      *
      */
-    public static void saveSetting(Context ctx, int minML, int maxML,
-                                   int minDeep, int maxDeep, int inDistance,
-                                   int inDate, int ntfState) {
+    public static void saveSetting(
+            Context ctx, int minML,
+            int maxML, int minDeep,
+            int maxDeep, int inDistance,
+            int inDate, int ntfState) {
+
         HashMap<String, Integer> settingHashMap = new HashMap<>();
         settingHashMap.put("minML", minML);
         settingHashMap.put("maxML", maxML);
@@ -220,6 +223,7 @@ public class ConstantVariables {
      *
      */
     public static int[] loadSetting(Context ctx) {
+        
         HashMap<String, Integer> settingHashMap;
         File file = ctx.getFileStreamPath(SETTING_PREFERENCE_FILE_NAME);
         if (file.exists()) {
@@ -252,18 +256,30 @@ public class ConstantVariables {
                 e.printStackTrace();
                 Log.e("myTag",
                         "In Setting View, cannot load settingHashMap from file.");
-                ConstantVariables.saveSetting(ctx, 0, SETTING_PREFERENCE_ML.length - 1, 0,
-                        SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
-                        SETTING_DATE_ALL, SETTING_NOTIFICATION_STATE_ON);
+
+                ConstantVariables.saveSetting(
+                        ctx, 0,
+                        SETTING_PREFERENCE_ML.length - 1, 0,
+                        SETTING_PREFERENCE_DEPTH.length - 1,
+                        SETTING_PREFERENCE_DISTANCE.length - 1,
+                        SETTING_DATE_ALL,
+                        SETTING_NOTIFICATION_STATE_ON);
+
                 int[] settingValue = {0, SETTING_PREFERENCE_ML.length - 1, 0,
                         SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
                         SETTING_DATE_ALL, SETTING_NOTIFICATION_STATE_ON};
                 return settingValue;
             }
         } else {
-            ConstantVariables.saveSetting(ctx, 0, SETTING_PREFERENCE_ML.length - 1, 0,
-                    SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
-                    SETTING_DATE_ALL, SETTING_NOTIFICATION_STATE_ON);
+
+            ConstantVariables.saveSetting(
+                    ctx, 0,
+                    SETTING_PREFERENCE_ML.length - 1, 0,
+                    SETTING_PREFERENCE_DEPTH.length - 1,
+                    SETTING_PREFERENCE_DISTANCE.length - 1,
+                    SETTING_DATE_ALL,
+                    SETTING_NOTIFICATION_STATE_ON);
+
             int[] settingValue = {0, SETTING_PREFERENCE_ML.length - 1, 0,
                     SETTING_PREFERENCE_DEPTH.length - 1, SETTING_PREFERENCE_DISTANCE.length - 1,
                     SETTING_DATE_ALL, SETTING_NOTIFICATION_STATE_ON};
@@ -274,8 +290,10 @@ public class ConstantVariables {
     /**
      *
      */
-    protected static boolean writeEQToInternalFile(Context ctx,
-                                                   ArrayList<HashMap<String, String>> mList, String filename) {
+    protected static boolean writeEQToInternalFile(
+            Context ctx,
+            ArrayList<HashMap<String, String>> mList,
+            String filename) {
 
         if (mList == null || mList.size() <= 0) {
             Log.e("myTag", "writeEQToFile failed: EQList not exist.");

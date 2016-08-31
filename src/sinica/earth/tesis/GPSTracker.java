@@ -18,7 +18,7 @@ import android.util.Log;
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
-    final String tag = "myTag";
+    final String mTag = "myTag";
 
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -71,7 +71,7 @@ public class GPSTracker extends Service implements LocationListener {
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                    Log.d(tag, "Network");
+                    Log.d(mTag, "Network");
                     if (locationManager != null) {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -88,7 +88,7 @@ public class GPSTracker extends Service implements LocationListener {
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//						Log.d(tag, "GPS Enabled");
+//						Log.d(mTag, "GPS Enabled");
                         if (locationManager != null) {
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -203,7 +203,7 @@ public class GPSTracker extends Service implements LocationListener {
             Message m = new Message();
             // 定義 Message的代號，handler才知道這個號碼是不是自己該處理的。
             m.what = CURRENT_LOCATION_UPDATE;
-            Log.d(tag, "In GPSTracker: onLocationChange");
+            Log.d(mTag, "In GPSTracker: onLocationChange");
             handler.sendMessage(m);
             lastChangeTime = System.currentTimeMillis();
         }
@@ -221,7 +221,7 @@ public class GPSTracker extends Service implements LocationListener {
         Message m = new Message();
         // 定義 Message的代號，handler才知道這個號碼是不是自己該處理的。
         m.what = CURRENT_LOCATION_UPDATE;
-        Log.d(tag, "In GPSTracker: onProviderEnabled");
+        Log.d(mTag, "In GPSTracker: onProviderEnabled");
         handler.sendMessage(m);
     }
 
@@ -239,13 +239,13 @@ public class GPSTracker extends Service implements LocationListener {
 
     @Override
     public void onDestroy() {
-        Log.d(tag, "In GPSTracker: onDestroy GPSTracker " + this);
+        Log.d(mTag, "In GPSTracker: onDestroy GPSTracker " + this);
         super.onDestroy();
     }
 
     @Override
     public void onCreate() {
-        Log.d(tag, "In GPSTracker: onCreate GPSTracker " + this);
+        Log.d(mTag, "In GPSTracker: onCreate GPSTracker " + this);
         super.onCreate();
     }
 

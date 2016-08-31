@@ -24,13 +24,20 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 public class GcmIntentService extends IntentService {
+
     public static final int NOTIFICATION_ID = 1;
+
     private static final String TAG = "GcmIntentService";
+
     private NotificationManager mNotificationManager;
+
     NotificationCompat.Builder builder;
 
-    protected EarthquakeData mEarthquakeData;
-    HashMap<String, String> mNewEarthquakeMap = new HashMap<String, String>();
+//    protected EarthquakeData mEarthquakeData;
+
+    private HashMap<String, String> mNewEarthquakeMap = new HashMap<String, String>();
+
+    private EarthquakeEvents mEarthquakeList;
 
     GcmIntentService gcmIntentService;
 
@@ -41,11 +48,15 @@ public class GcmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
         Bundle extras = intent.getExtras();
+
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
+
         int lastSendNFID;
 
         if (!extras.isEmpty()) { // has effect of unparcelling Bundle
@@ -80,12 +91,17 @@ public class GcmIntentService extends IntentService {
 
                 Log.d(TAG, "download new earthquake");
                 if (HomeActivity.isConnected(this)) {
-                    mNewEarthquakeMap = EarthquakeData.getDataFromURL(extras
-                            .getString("message"));
-                    Log.i(TAG, "Received: " + extras.toString());
-                    Log.i(TAG,
-                            "Download Earthquake: "
-                                    + mNewEarthquakeMap.toString());
+
+
+// johnson comment 8/23
+//                    mNewEarthquakeMap = EarthquakeData.getDataFromURL(extras
+//                            .getString("message"));
+//                    Log.i(TAG, "Received: " + extras.toString());
+//                    Log.i(TAG,
+//                            "Download Earthquake: "
+//                                    + mNewEarthquakeMap.toString());
+
+
 
                     // myDate From = new myDate();
                     // From.resetFrom();
@@ -167,9 +183,17 @@ public class GcmIntentService extends IntentService {
                 // Log.i(TAG, "Received: " + extras.toString());
                 if (HomeActivity.isConnected(getApplicationContext())) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        new updateGeneralEQ().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+//johnson comment 8/23
+//                        new updateGeneralEQ().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
                     } else {
-                        new updateGeneralEQ().execute();
+
+// joshnson comment 8/23
+//                        new updateGeneralEQ().execute();
+
+
                     }
                 }
             }
@@ -206,52 +230,34 @@ public class GcmIntentService extends IntentService {
                 .setContentIntent(pendingIntent);
 
         manager.notify(0, nfBuilder.build());
-
-        // mNotificationManager = (NotificationManager) this
-        // .getSystemService(Context.NOTIFICATION_SERVICE);
-        //
-        // PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-        // new Intent(this, HomeActivity.class), 0);
-        //
-        // NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-        // this)
-        // // .setSmallIcon(R.drawable.ic_stat_gcm)
-        // .setContentTitle("GCMDemo")
-        // .setSmallIcon(R.drawable.ic_launcher)
-        // .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-        // .setContentText(msg);
-        //
-        // mBuilder.setContentIntent(contentIntent);
-        // mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
-    @SuppressWarnings("rawtypes")
-    class updateGeneralEQ extends
-            AsyncTask<Void, Void, ArrayList<HashMap<String, String>>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected ArrayList<HashMap<String, String>> doInBackground(
-                Void... params) {
-            ArrayList<HashMap<String, String>> mUpdateEarthquakeList = EarthquakeData
-                    .getData(gcmIntentService, myDate.getFrom().DatetoString(),
-                            myDate.getTo().DatetoString(), true);
-            return mUpdateEarthquakeList;
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
-            if (result != null && result.size() != 0) {
-                ConstantVariables.writeEQToInternalFile(gcmIntentService,
-                        result, ConstantVariables.GENERAL_FILE_NAME);
-            }
-            super.onPostExecute(result);
-        }
-
-    }
+//    class updateGeneralEQ extends
+//            AsyncTask<Void, Void, ArrayList<HashMap<String, String>>> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected ArrayList<HashMap<String, String>> doInBackground(
+//                Void... params) {
+//            ArrayList<HashMap<String, String>> mUpdateEarthquakeList = EarthquakeData
+//                    .getData(gcmIntentService, myDate.getFrom().DatetoString(),
+//                            myDate.getTo().DatetoString(), true);
+//            return mUpdateEarthquakeList;
+//        }
+//
+//        @SuppressWarnings("unchecked")
+//        @Override
+//        protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
+//            if (result != null && result.size() != 0) {
+//                ConstantVariables.writeEQToInternalFile(gcmIntentService,
+//                        result, ConstantVariables.GENERAL_FILE_NAME);
+//            }
+//            super.onPostExecute(result);
+//        }
+//
+//    }
 }

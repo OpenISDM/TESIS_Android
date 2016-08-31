@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,25 +49,40 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class summaryActivity extends ActionBarActivity {
+public class summaryActivity extends AppCompatActivity {
 
 	setupGoogleMap mSetupGoogleMap;
+
 	protected HashMap<String, String> eqHashMap;
-	protected PopupWindow mPopupWindow;
-	boolean isPopup = false;
-	public summaryActivity mSummaryActivity;
-	MapOverlay mapOverlay;
-	final String tag = "myTag";
-	final int HALF = 0, FULL_MAP = 1, FULL_CONTENT = 2;
-	int state;
-	WebView webView;
-	final int CURRENT_LOCATION_UPDATE = ConstantVariables.CURRENT_LOCATION_UPDATE;
-	GPSTracker mGpsTracker;
+
+    protected PopupWindow mPopupWindow;
+
+    boolean isPopup = false;
+
+    public summaryActivity mSummaryActivity;
+
+    MapOverlay mapOverlay;
+
+    final String mTag = "myTag";
+
+    final int HALF = 0, FULL_MAP = 1, FULL_CONTENT = 2;
+
+    int state;
+
+    WebView webView;
+
+    final int CURRENT_LOCATION_UPDATE = ConstantVariables.CURRENT_LOCATION_UPDATE;
+
+    GPSTracker mGpsTracker;
 
 	// myMapView mapView;
-	final String timeTag = "timeTag";
-	long startTime, endTime;
-	ProgressDialog progressDialog;
+
+    final String timeTag = "timeTag";
+
+    long startTime, endTime;
+
+    ProgressDialog progressDialog;
+
 	Handler handler;
 
 	private void calculateRuntime(String info) {
@@ -79,6 +95,7 @@ public class summaryActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		// setContentView(R.layout.activity_summary);
 		setContentView(R.layout.activity_summary_2);
 		mSummaryActivity = this;
@@ -162,8 +179,8 @@ public class summaryActivity extends ActionBarActivity {
 
 		mGpsTracker = new GPSTracker(this);
 		if (mGpsTracker.canGetLocation) {
-			currentLocation = mGpsTracker.getLocation();
-			// Log.d(tag,"currentLocation:"+currentLocation.toString());
+			mCurrentLocation = mGpsTracker.getLocation();
+			// Log.d(mTag,"mCurrentLocation:"+mCurrentLocation.toString());
 		}
 
 		handler = new Handler() {
@@ -174,7 +191,7 @@ public class summaryActivity extends ActionBarActivity {
 				case CURRENT_LOCATION_UPDATE:
 					// call back here, 更改current Location
 					if (mGpsTracker != null) {
-						currentLocation = mGpsTracker.getLocation();
+						mCurrentLocation = mGpsTracker.getLocation();
 						locationUpdate();
 					}
 					break;
@@ -193,19 +210,19 @@ public class summaryActivity extends ActionBarActivity {
 	}
 
 	protected void locationUpdate() {
-		currentLocation = mGpsTracker.getLocation();
+		mCurrentLocation = mGpsTracker.getLocation();
 		Location location = new Location("start");
-		double startLat = Double.parseDouble(eqHashMap.get("lat"));
-		double startLng = Double.parseDouble(eqHashMap.get("lng"));
+		double startLat = Double.parseDouble(eqHashMap.get("Latitude"));
+		double startLng = Double.parseDouble(eqHashMap.get("Longitude"));
 		location.setLatitude(startLat);
 		location.setLongitude(startLng);
-		float distance = location.distanceTo(currentLocation);
+		float distance = location.distanceTo(mCurrentLocation);
 
 		// set direction here
-		double dx = location.getLongitude() - currentLocation.getLongitude();
-		double dy = location.getLatitude() - currentLocation.getLatitude();
+		double dx = location.getLongitude() - mCurrentLocation.getLongitude();
+		double dy = location.getLatitude() - mCurrentLocation.getLatitude();
 		double theta = Math.atan2(dy, dx);
-		// Log.d(tag, "theta:" + theta);
+		// Log.d(mTag, "theta:" + theta);
 		if (theta < 0) {
 			theta += 2 * Math.PI;
 		}
@@ -273,8 +290,8 @@ public class summaryActivity extends ActionBarActivity {
 		int height = metrics.heightPixels;
 
 		if (state == FULL_MAP) {
-			Log.d(tag, "full map");
-			Log.d(tag,
+			Log.d(mTag, "full map");
+			Log.d(mTag,
 					"content width, height:" + linearLayoutSummary.getWidth()
 							+ "," + linearLayoutSummary.getHeight());
 			contentHeight = linearLayoutSummary.getHeight();
@@ -289,8 +306,8 @@ public class summaryActivity extends ActionBarActivity {
 			linearLayoutSummary.scrollTo(0, 0);
 
 		} else if (state == FULL_CONTENT) {
-			Log.d(tag, "full content");
-			Log.d(tag,
+			Log.d(mTag, "full content");
+			Log.d(mTag,
 					"summary width, height:" + linearLayoutSummary.getWidth()
 							+ "," + linearLayoutSummary.getHeight());
 			contentHeight = linearLayoutSummary.getHeight();
@@ -305,11 +322,11 @@ public class summaryActivity extends ActionBarActivity {
 			linearLayoutSummary.scrollTo(0, height * 3 / 5);
 
 			LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contentLayout);
-			Log.d(tag, "content width, height:" + linearLayout.getWidth() + ","
+			Log.d(mTag, "content width, height:" + linearLayout.getWidth() + ","
 					+ linearLayout.getHeight());
 
 			ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewWeb);
-			Log.d(tag, "scrollView width, height:" + scrollView.getWidth()
+			Log.d(mTag, "scrollView width, height:" + scrollView.getWidth()
 					+ "," + scrollView.getHeight());
 
 			WebView webView = (WebView) findViewById(R.id.webView1);
@@ -324,7 +341,7 @@ public class summaryActivity extends ActionBarActivity {
 			// webView.requestLayout();
 
 		} else {
-			Log.d(tag, "half");
+			Log.d(mTag, "half");
 
 			SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.map);
@@ -486,7 +503,7 @@ public class summaryActivity extends ActionBarActivity {
 	@Override
 	protected void onDestroy() {
 		// mapView.onDestroy();
-		// Log.i(tag, "In summaryActivity: onDestroy");
+		// Log.i(mTag, "In summaryActivity: onDestroy");
 		// handler.removeMessages(CURRENT_LOCATION_UPDATE);
 		// mGpsTracker.stopUsingGPS();
 		// mGpsTracker = null;
@@ -527,8 +544,8 @@ public class summaryActivity extends ActionBarActivity {
 	protected void onResume() {
 		mGpsTracker = new GPSTracker(this);
 		if (mGpsTracker.canGetLocation) {
-			currentLocation = mGpsTracker.getLocation();
-			// Log.d(tag,"currentLocation:"+currentLocation.toString());
+			mCurrentLocation = mGpsTracker.getLocation();
+			// Log.d(mTag,"mCurrentLocation:"+mCurrentLocation.toString());
 		}
 		mSetupGoogleMap.setupMapIfNeed();
 		if(!TaskdownloadComments.isDownloadFinish){
@@ -553,7 +570,7 @@ public class summaryActivity extends ActionBarActivity {
 
 	@Override
 	protected void onPause() {
-		Log.d(tag, "In summaryActivity: onPause");
+		Log.d(mTag, "In summaryActivity: onPause");
 		// unbindDrawables(findViewById(R.id.linearLayoutSummary));
 		// System.gc();
 		// TODO save the checkbox data
@@ -594,7 +611,7 @@ public class summaryActivity extends ActionBarActivity {
 
 	@Override
 	protected void onStop() {
-		Log.d(tag, "In summaryActivity: onStop");
+		Log.d(mTag, "In summaryActivity: onStop");
 		// mGpsTracker.stopUsingGPS();
 		// mGpsTracker = null;
 //		if (handler != null) {
@@ -646,7 +663,7 @@ public class summaryActivity extends ActionBarActivity {
 
 		@Override
 		protected void onPreExecute() {
-			Log.d(tag, "preExcute");
+			Log.d(mTag, "preExcute");
 			ScrollView scrollView = (ScrollView) mSummaryActivity
 					.findViewById(R.id.scrollViewWeb);
 			scrollView.removeAllViews();
@@ -679,7 +696,7 @@ public class summaryActivity extends ActionBarActivity {
 			// is = entity.getContent();
 			//
 			// } catch (Exception e) {
-			// Log.e(tag, "Error in http connection " + e.toString());
+			// Log.e(mTag, "Error in http connection " + e.toString());
 			// }
 			// // convert response to string
 			// try {
@@ -692,9 +709,9 @@ public class summaryActivity extends ActionBarActivity {
 			// }
 			// is.close();
 			// result = sb.toString();
-			// Log.d(tag,"In getJsonArray: result = "+result);
+			// Log.d(mTag,"In getJsonArray: result = "+result);
 			// } catch (Exception e) {
-			// Log.e(tag, "Error converting result " + e.toString());
+			// Log.e(mTag, "Error converting result " + e.toString());
 			// }
 
             // FIXME: getcomments.php is deprecate
@@ -703,15 +720,15 @@ public class summaryActivity extends ActionBarActivity {
 //			if (jsonArray != null) {
 //				try {
 //					data = jsonArray.get(0).toString();
-//					// Log.d(tag, "get comment data : " + data);
+//					// Log.d(mTag, "get comment data : " + data);
 //				} catch (JSONException e) {
-//					Log.e(tag, "Error parsing data " + e.toString());
+//					Log.e(mTag, "Error parsing data " + e.toString());
 //				}
 //			}
 
             // 0713 use processdatamobile.php
             data = eqHashMap.get("Tectonic");
-            Log.d(tag,"tectonic data:"+data);
+            Log.d(mTag,"tectonic data:"+data);
 
 			return null;
 		}
@@ -745,6 +762,6 @@ public class summaryActivity extends ActionBarActivity {
 		return !info.isRoaming();
 	}
 
-	Location currentLocation;
+	Location mCurrentLocation;
 
 }
