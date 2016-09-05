@@ -10,6 +10,7 @@ import android.widget.DatePicker.OnDateChangedListener;
 import java.util.Calendar;
 
 public class MyDoubleDatePicker implements OnDateChangedListener {
+
     HomeActivity homeActivity;
     private myDate From, To;
     Dialog dialogDatePicker;

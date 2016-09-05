@@ -60,13 +60,13 @@ import sinica.earth.tesis.rest.service.TESISApiService;
 
 public class HomeActivity extends AppCompatActivity {
 
-    final String mTag = "myTag";
-
     final int CURRENT_LOCATION_UPDATE = ConstantVariables.CURRENT_LOCATION_UPDATE;
 
     final int CHECK_UPDATE = ConstantVariables.CHECK_UPDATE;
 
     String generalFilename = ConstantVariables.GENERAL_FILE_NAME;
+
+    TESISApiService mRestApiClient = new RestApiClient().getTESISApiService();
 
     public HomeActivity homeActivity;
 
@@ -120,7 +120,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.d(mTag, "In HomeActivity: onResume");
+        Log.d("Activity", "In HomeActivity: onResume");
         Log.d("MemoryTag",
                 "In SummaryActivity onResume : memory less:"
                         + Integer
@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Log.d(mTag, "In HomeActivity: onPause:");
+        Log.d("Activity", "In HomeActivity: onPause:");
         // mGpsTracker.stopUsingGPS();
         // mGpsTracker = null;
         super.onPause();
@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        Log.d(mTag, "In HomeActivity: onStop: write file.");
+        Log.d("Activity", "In HomeActivity: onStop: write file.");
         if (mGeneralEarthquakeList != null) {
             for (int i = 0; i < mGeneralEarthquakeList.size(); ++i) {
                 mGeneralEarthquakeList.get(i).put("isNew", "false");
@@ -165,9 +165,7 @@ public class HomeActivity extends AppCompatActivity {
         Log.i("api-getId", startDate);
         Log.i("api-getId", endDate);
 
-        TESISApiService restApiClient = new RestApiClient().getTESISApiService();
-
-        Call<ArrayList<String>> call = restApiClient.getId(startDate, endDate);
+        Call<ArrayList<String>> call = mRestApiClient.getId(startDate, endDate);
 
         call.enqueue(new Callback<ArrayList<String>>() {
             @Override
@@ -201,15 +199,13 @@ public class HomeActivity extends AppCompatActivity {
 
         Integer count = mEarthquakeIds.size();
 
-        TESISApiService restApiClient = new RestApiClient().getTESISApiService();
-
         String firstId = mEarthquakeIds.get(0);
         String endId = mEarthquakeIds.get(count - 1);
 
         Log.i("api-getData", firstId);
         Log.i("api-getData", endId);
 
-        Call<EarthquakeEvents> call = restApiClient.getEarthquakeData(firstId, endId);
+        Call<EarthquakeEvents> call = mRestApiClient.getEarthquakeData(firstId, endId);
 
         call.enqueue(new Callback<EarthquakeEvents>() {
             @Override
@@ -442,13 +438,7 @@ public class HomeActivity extends AppCompatActivity {
                 int inDistance = Integer.parseInt(SETTING_PREFERENCE_DISTANCE[settingHashMap.get("inDistance")]);
                 int inDate = settingHashMap.get("inDate");
 
-                Log.d(mTag, "load setting Value." + "\nminML:" + minML
-                        + "\nmaxML:" + maxML + "\nminDeep:" + minDeep
-                        + "\nmaxDeep:" + maxDeep + "\ninDate:" + inDate
-                        + "\ninDistance:" + inDistance);
-
                 for (int i = 0; i < mList.size(); ++i) {
-                    Log.d(mTag, "set Dispalyed EQ : distance " + mGeneralEarthquakeList.get(i).get("distance_value"));
                     if (Double.parseDouble(mList.get(i).get("ML")) >= minML
                             && Double.parseDouble(mList.get(i).get("ML")) <= maxML
                             && Double.parseDouble(mList.get(i).get("depth")) >= minDeep
@@ -456,10 +446,8 @@ public class HomeActivity extends AppCompatActivity {
                             && Double.parseDouble(mList.get(i).get(
                             "distance_value")) <= inDistance) {
 
-                        Log.d(mTag, "set Dispalyed EQ : No " + mGeneralEarthquakeList.get(i).get("No"));
                         Calendar today = Calendar.getInstance();
                         String date_of_eqString = mList.get(i).get("Date");
-                        Log.d(mTag, "dateString:" + date_of_eqString);
                         DateTimeFormatter dateStringFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
                         DateTime todayDateTime = new DateTime(today.getTimeInMillis());
                         DateTime eqDateTime = dateStringFormatter.parseDateTime(date_of_eqString);
@@ -470,8 +458,6 @@ public class HomeActivity extends AppCompatActivity {
                         int months = Months.monthsBetween(
                                 new LocalDate(eqDateTime),
                                 new LocalDate(todayDateTime)).getMonths();
-
-                        Log.d(mTag, "days:" + days + " months:" + months);
 
                         if (!isManual) {
                             switch (inDate) {
@@ -515,7 +501,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(mTag, "cannot load settingHashMap from file.");
                 // Toast.makeText(homeActivity, "篩選失敗",
                 // Toast.LENGTH_SHORT).show();
 
@@ -696,7 +681,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         break;
                     case CHECK_UPDATE:
-                        Log.d(mTag, "handler check update at thread:");
                         adaptEQList(mDisplayedEarthquakeList);
                         // ConstantVariables.writeEQToInternalFile(homeActivity,
                         // mGeneralEarthquakeList, generalFilename);
@@ -717,8 +701,6 @@ public class HomeActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
                                 long arg3) {
             if (isConnected(getApplicationContext())) {
-                Log.d(mTag,
-                        "EQList onItemClick, mEQList size:" + arg0.getCount());
                 Intent intent = new Intent(homeActivity, summaryActivity.class);
                 HashMap<String, String> earthquakeInfo = mDisplayedEarthquakeList
                         .get(arg2);
@@ -771,8 +753,6 @@ public class HomeActivity extends AppCompatActivity {
             case SETTING:
                 // 0825 comming back from setting
                 // setGPSTrakerIfNeed();
-                Log.d(mTag, "on Activity Result: mManualEarthquakeList"
-                        + mManualEarthquakeList);
                 setHandler();
                 if (mManualEarthquakeList != null) {
                     mDisplayedEarthquakeList = setDisplayedEarthquakeList(
@@ -875,8 +855,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private SharedPreferences getGCMPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences,
-        // but
-        // how you store the regID in your app is up to you.
+        // but how you store the regID in your app is up to you.
         return getSharedPreferences(HomeActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }

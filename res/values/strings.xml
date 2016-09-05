@@ -15,5 +15,6 @@
     <string name="info3">如尚未開啟位置資料存取權限，請至「設定」>「位置」允許存取權限。</string>
     <string name="info_end">請問您是否要繼續？</string>
     <string name="confirm">確定</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
