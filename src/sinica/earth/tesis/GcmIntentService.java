@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -16,7 +15,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -25,19 +23,9 @@ import android.util.Log;
 
 public class GcmIntentService extends IntentService {
 
-    public static final int NOTIFICATION_ID = 1;
-
     private static final String TAG = "GcmIntentService";
 
-    private NotificationManager mNotificationManager;
-
-    NotificationCompat.Builder builder;
-
-//    protected EarthquakeData mEarthquakeData;
-
     private HashMap<String, String> mNewEarthquakeMap = new HashMap<String, String>();
-
-    private EarthquakeEvents mEarthquakeList;
 
     GcmIntentService gcmIntentService;
 
@@ -78,16 +66,6 @@ public class GcmIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
                     .equals(messageType)) {
-                // This loop represents the service doing some work.
-                // for (int i = 0; i < 5; i++) {
-                // Log.i(TAG,
-                // "Working... " + (i + 1) + "/5 @ "
-                // + SystemClock.elapsedRealtime());
-                // try {
-                // Thread.sleep(5000);
-                // } catch (InterruptedException e) {
-                // }
-                // }
 
                 Log.d(TAG, "download new earthquake");
                 if (HomeActivity.isConnected(this)) {
@@ -101,23 +79,7 @@ public class GcmIntentService extends IntentService {
 //                            "Download Earthquake: "
 //                                    + mNewEarthquakeMap.toString());
 
-
-
-                    // myDate From = new myDate();
-                    // From.resetFrom();
-                    // myDate To = new myDate();
-                    // mUpdateEarthquakeList = mEarthquakeData.getData(
-                    // From.DatetoString(), To.DatetoString(), false);
                 }
-
-                // try {
-                // Thread.sleep(5000);
-                // } catch (InterruptedException e) {
-                // }
-                // Log.i(TAG, "Completed work @ " +
-                // SystemClock.elapsedRealtime());
-                // Post notification of received message.
-
                 // 0415 check newest send Notification id
                 File newestIDFile = this
                         .getFileStreamPath(ConstantVariables.NEWEST_SEND_NF_FILE_NAME);
@@ -180,7 +142,6 @@ public class GcmIntentService extends IntentService {
                 }
 
 //				sendNotification(mNewEarthquakeMap);
-                // Log.i(TAG, "Received: " + extras.toString());
                 if (HomeActivity.isConnected(getApplicationContext())) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 
@@ -232,32 +193,4 @@ public class GcmIntentService extends IntentService {
         manager.notify(0, nfBuilder.build());
     }
 
-//    class updateGeneralEQ extends
-//            AsyncTask<Void, Void, ArrayList<HashMap<String, String>>> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected ArrayList<HashMap<String, String>> doInBackground(
-//                Void... params) {
-//            ArrayList<HashMap<String, String>> mUpdateEarthquakeList = EarthquakeData
-//                    .getData(gcmIntentService, myDate.getFrom().DatetoString(),
-//                            myDate.getTo().DatetoString(), true);
-//            return mUpdateEarthquakeList;
-//        }
-//
-//        @SuppressWarnings("unchecked")
-//        @Override
-//        protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
-//            if (result != null && result.size() != 0) {
-//                ConstantVariables.writeEQToInternalFile(gcmIntentService,
-//                        result, ConstantVariables.GENERAL_FILE_NAME);
-//            }
-//            super.onPostExecute(result);
-//        }
-//
-//    }
 }

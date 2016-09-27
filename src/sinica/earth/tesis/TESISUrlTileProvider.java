@@ -7,11 +7,11 @@ import android.content.Context;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class myUrlTileProvider extends UrlTileProvider {
+public class TESISUrlTileProvider extends UrlTileProvider {
 
 	Context ctx;
 
-	public myUrlTileProvider(Context ctx) {
+	public TESISUrlTileProvider(Context ctx) {
 		super(256, 256);
 		this.ctx = ctx;
 	}

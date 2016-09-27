@@ -234,8 +234,7 @@ public class ConstantVariables {
                 settingHashMap = (HashMap<String, Integer>) ois.readObject();
                 ois.close();
                 fis.close();
-                Log.d("myTag",
-                        "In Setting View, load settingHashMap from file."
+                Log.d("myTag", "In Setting View, load settingHashMap from file."
                                 + "\nminML:" + settingHashMap.get("minML")
                                 + "\nmaxML:" + settingHashMap.get("maxML")
                                 + "\nminDeep:" + settingHashMap.get("minDeep")
@@ -254,8 +253,7 @@ public class ConstantVariables {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("myTag",
-                        "In Setting View, cannot load settingHashMap from file.");
+                Log.e("myTag", "In Setting View, cannot load settingHashMap from file.");
 
                 ConstantVariables.saveSetting(
                         ctx, 0,

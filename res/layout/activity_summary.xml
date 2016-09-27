@@ -1,130 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainScrollView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/linearLayoutSummary"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp" >
-
-        <RelativeLayout
+    <RelativeLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
-            <fragment
+        <fragment
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
-                class="sinica.earth.tesis.mySupportMapFragment" />
-<!--                 class="com.google.android.gms.maps.SupportMapFragment" /> -->
+                class="com.google.android.gms.maps.SupportMapFragment"/>
 
-         
-
-            <Button
-                android:id="@+id/button1"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:text="CWB" />
-
-            <Button
-                android:id="@+id/button2"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/button1"
-                android:text="gCAP" />
-
-            <Button
-                android:id="@+id/button3"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/button2"
-                android:text="P-alert" />
-
-            <ImageButton
+        <ImageButton
                 android:id="@+id/imageButtonMapMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:src="@android:drawable/ic_menu_mapmode" />
+                android:src="@android:drawable/ic_menu_mapmode"/>
 
-            <ImageView
+        <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@+id/map"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="44dp"
-                android:src="@android:drawable/ic_menu_mapmode" />
+                android:layout_marginBottom="30sp"
+                android:src="@drawable/ml_map_bar_trans"
+                android:visibility="invisible"/>
 
-            <Button
+        <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/map"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="30sp"
+                android:layout_marginLeft="5sp"
+                android:src="@drawable/colorbar"
+                android:visibility="invisible"/>
+
+        <Button
                 android:id="@+id/button4"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:background="#ffffff"
-                android:text="圖示" />
+                android:layout_above="@+id/seekBar1"
+                android:layout_toRightOf="@+id/buttonSpinner1"
+                android:text="圖例"/>
 
+        <Button
+                android:id="@+id/buttonSpinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="-震度圖-"/>
+        <SeekBar
+                android:id="@+id/seekBar1"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/buttonSpinner1"/>
+
+        <Button
+                android:id="@+id/buttonSpinner2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/seekBar1"
+                android:layout_toRightOf="@+id/button4"
+                android:text="-震源機制-"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:id="@+id/textLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#d3d3d3"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/textViewSummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="5dp"
+                    android:text="@string/summary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+            <ImageButton
+                    android:id="@+id/imageButtonDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#00000000"
+                    android:src="@drawable/down"/>
+
+            <ImageButton
+                    android:id="@+id/imageButtonUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/imageButtonDown"
+                    android:background="#00000000"
+                    android:src="@drawable/up"/>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <ScrollView
+                android:id="@+id/scrollViewWeb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <!--
-                 <TextView
-                android:id="@+id/textViewLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewTitle"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />-->
-
-
-        <!--
-                 <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textViewLocation"
-                android:text="Medium Text"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        -->
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tectonic Summary"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="content\ncontent\ncontent\ncontent\ncontent\ncontent\ncontent\ncontent\ncontent\n" />
+            <WebView
+                    android:id="@+id/webView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </ScrollView>
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

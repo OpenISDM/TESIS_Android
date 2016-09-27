@@ -5,9 +5,9 @@ import java.net.URL;
 
 import com.google.android.gms.maps.model.UrlTileProvider;
 
-public class mySeisImgUrlTileProvider extends UrlTileProvider {
+public class SeisImgUrlTileProvider extends UrlTileProvider {
 
-	public mySeisImgUrlTileProvider() {
+	public SeisImgUrlTileProvider() {
 		super(256, 256);
 	}
 

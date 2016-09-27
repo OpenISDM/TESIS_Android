@@ -19,7 +19,7 @@ import java.util.TreeSet;
 /**
  * Created by JanSu on 8/24/16.
  */
-public class MyCustomAdapter extends BaseAdapter{
+public class ListViewAdapter extends BaseAdapter{
 
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_SEPARATOR = 1;
@@ -48,7 +48,7 @@ public class MyCustomAdapter extends BaseAdapter{
     SettingActivity settingActivity;
 
 
-    public MyCustomAdapter(SettingActivity settingActivity, Context context) {
+    public ListViewAdapter(SettingActivity settingActivity, Context context) {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.settingActivity = settingActivity;
         settingValue = ConstantVariables.loadSetting(settingActivity);

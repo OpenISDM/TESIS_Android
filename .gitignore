@@ -14,6 +14,7 @@ gen/
 out/
 
 # Gradle files
+gradle.properties
 .gradle/
 build/
 
@@ -49,6 +50,4 @@ captures/
 ehthumbs.db
 Thumbs.db
 
-# User-specific configurations
-src/debug/res/values/google_maps_api.xml
-src/release/res/values/google_maps_api.xml
+

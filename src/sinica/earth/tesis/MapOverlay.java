@@ -316,7 +316,7 @@ public class MapOverlay implements Serializable {
         }
         // tileOverlayOptions2 = new TileOverlayOptions()
         tileOverlayOptions2 = new TileOverlayOptions().tileProvider(
-                new myUrlTileProvider(fActivity.getApplicationContext()))
+                new TESISUrlTileProvider(fActivity.getApplicationContext()))
                 .zIndex(zIndex_tileOverlay);
     }
 
@@ -459,7 +459,7 @@ public class MapOverlay implements Serializable {
             Log.d("Here!!", "catch draw seis Exception!");
         }
         seisImgTileOverlayOptions = new TileOverlayOptions().tileProvider(
-                new mySeisImgUrlTileProvider()).zIndex(zIndex_groundOverlay);
+                new SeisImgUrlTileProvider()).zIndex(zIndex_groundOverlay);
 //		 seisImgTileOverlayOptions = new TileOverlayOptions()
 //		 .tileProvider(new CustomSeisImgTileProvider(mngr));
     }

@@ -123,8 +123,7 @@ public class GCMSetSend extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-//		Toast.makeText(ctx,
-//				"Registration Completed. Now you can see the notifications",
+//		Toast.makeText(ctx, "Registration Completed. Now you can see the notifications",
 //				Toast.LENGTH_SHORT).show();
         Log.v(TAG, result);
     }

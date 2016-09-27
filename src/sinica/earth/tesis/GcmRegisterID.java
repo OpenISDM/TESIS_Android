@@ -97,11 +97,10 @@ public class GcmRegisterID extends AsyncTask<Void, Void, String> {
     }
 
     private boolean sendRegistrationIdToBackend() {
-        URI url = null;
+        URI url;
+        String baseUrl = "http://tesis.earth.sinica.edu.tw/mobileapp/GCMSaveID2Database.php?regId=";
         try {
-            url = new URI(
-                    "http://tesis.earth.sinica.edu.tw/mobileapp/GCMSaveID2Database.php?regId="
-                            + regid);
+            url = new URI(baseUrl + regid);
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             Log.e(TAG, e.toString());
@@ -146,7 +145,6 @@ public class GcmRegisterID extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
         // Toast.makeText(ctx,
         // "Registration Completed. Now you can see the notifications",
         // Toast.LENGTH_SHORT).show();
@@ -182,14 +180,9 @@ public class GcmRegisterID extends AsyncTask<Void, Void, String> {
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                new GCMSetSend(ctx,
-                        gcm,
-                        1)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new GCMSetSend(ctx, gcm, 1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             else
-                new GCMSetSend(ctx,
-                        gcm,
-                        1).execute();
+                new GCMSetSend(ctx, gcm, 1).execute();
         }
     }
 

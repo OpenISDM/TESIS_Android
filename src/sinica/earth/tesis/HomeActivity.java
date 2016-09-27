@@ -11,7 +11,6 @@ import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,6 +47,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -111,8 +111,8 @@ public class HomeActivity extends AppCompatActivity {
             mCurrentLocation = mGpsTracker.getLocation();
         }
 
-        String startDate = myDate.getFrom().DatetoString();
-        String endDate = myDate.getTo().DatetoString();
+        String startDate = DurationHelper.getFrom().DatetoString();
+        String endDate = DurationHelper.getTo().DatetoString();
 
         updateEarthquakeIds(startDate, endDate);
 
@@ -121,19 +121,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.d("Activity", "In HomeActivity: onResume");
-        Log.d("MemoryTag",
-                "In SummaryActivity onResume : memory less:"
-                        + Integer
-                        .toString(((ActivityManager) getSystemService(ACTIVITY_SERVICE))
-                                .getMemoryClass()));
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         Log.d("Activity", "In HomeActivity: onPause:");
-        // mGpsTracker.stopUsingGPS();
-        // mGpsTracker = null;
         super.onPause();
     }
 
@@ -192,7 +185,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
     public void downloadEarthquakeEventsData() {
 
         setDownloadLayout();
@@ -216,11 +208,12 @@ public class HomeActivity extends AppCompatActivity {
 
                     Log.i("api-getEarthquakeData", response.raw().toString());
 
-                    mGeneralEarthquakeList =
-                            setEQlistLocation(mEarthquakeList.earthquakes);
+                    // Reverse the earthquake list to show the last time earthquake event on the top of list-view
+                    Collections.reverse(mEarthquakeList.earthquakes);
 
-                    mDisplayedEarthquakeList =
-                            setDisplayedEarthquakeList(mGeneralEarthquakeList, false);
+                    mGeneralEarthquakeList = setEQListLocation(mEarthquakeList.earthquakes);
+
+                    mDisplayedEarthquakeList = setDisplayedEarthquakeList(mGeneralEarthquakeList, false);
 
                     adaptEQList(mDisplayedEarthquakeList);
                     if (handler == null) {
@@ -330,55 +323,6 @@ public class HomeActivity extends AppCompatActivity {
         }, 0, 4000);
     }
 
-    void downloadManualEQList(myDate from, myDate to) {
-        homeActivity.getSupportActionBar().setSubtitle(from.DatetoString() + "~" + to.DatetoString());
-        setDownloadLayout();
-
-//        if (taskDownloadManualAsyncTask != null) {
-//            taskDownloadManualAsyncTask.cancel(true);
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-//            taskDownloadManualAsyncTask = new DownloadEQListManualTask()
-//                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, from, to);
-//        else
-//            taskDownloadManualAsyncTask = new DownloadEQListManualTask()
-//                    .execute(from, to);
-
-        TESISApiService restApiClient = new RestApiClient().getTESISApiService();
-
-        Call<EarthquakeEvents> call = restApiClient.getEarthquakeData(from.DatetoString(), to.DatetoString());
-
-        call.enqueue(new Callback<EarthquakeEvents>() {
-            @Override
-            public void onResponse(Call<EarthquakeEvents> call, Response<EarthquakeEvents> response) {
-                if (response.isSuccessful()) {
-
-                    mEarthquakeList = response.body();
-
-                    Log.i("api-getEarthquakeData", response.raw().toString());
-                    Log.i("api-getEarthquakeData", mEarthquakeList.earthquakes.get(0).get("mrt"));
-
-                    mManualEarthquakeList = setEQlistLocation(mEarthquakeList.earthquakes);
-
-                    mDisplayedEarthquakeList = setDisplayedEarthquakeList(
-                            mManualEarthquakeList, true);
-                    adaptEQList(mDisplayedEarthquakeList);
-                    setHandler();
-
-                } else {
-                    Log.e("HTTP Status Code", response.message());
-                    showAlertDialog("日期區間無地震發生或資料下載失敗", "無地震資料", false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<EarthquakeEvents> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-    }
-
     protected void adaptEQList(ArrayList<HashMap<String, String>> mList) {
 
         frameLayout = (FrameLayout) homeActivity.findViewById(R.id.container);
@@ -401,7 +345,7 @@ public class HomeActivity extends AppCompatActivity {
                 R.id.eqlist_distance,
                 R.id.eqlist_location};
 
-        myEarthquakeListAdapter mEarthquakeListAdapter = new myEarthquakeListAdapter(
+        EarthquakeListAdapter mEarthquakeListAdapter = new EarthquakeListAdapter(
                 homeActivity,
                 mList,
                 R.layout.drawer_list_item,
@@ -569,8 +513,30 @@ public class HomeActivity extends AppCompatActivity {
     final int SETTING_DATE_2_MONTH = ConstantVariables.SETTING_DATE_2_MONTH;
     final int SETTING_DATE_3_MONTH = ConstantVariables.SETTING_DATE_3_MONTH;
 
-    protected ArrayList<HashMap<String, String>> setEQlistLocation(
+    protected ArrayList<HashMap<String, String>> setEQListLocation(
             ArrayList<HashMap<String, String>> mList) {
+
+        double degreesRangeLimit[] = {
+                11.25, 22.5, 33.75, 45,
+                56.25, 67.5, 78.75, 90,
+                101.25, 112.5, 123.75, 135,
+                146.25, 157.5, 168.75, 180,
+                191.25, 202.5, 213.75, 225,
+                236.25, 247.5, 258.75, 270,
+                281.25, 292.5, 303.75, 315,
+                326.25, 337.5, 348.75, 360
+        };
+
+        String directions[] = {
+                "北微東", "東北偏北", "東北微北", "東北",
+                "東北微東", "東北偏東", "東微北", "東",
+                "東微南", "東南偏東", "東南微東", "東南",
+                "東南微南", "東南偏南", "南微東", "南",
+                "南微西", "西南偏南", "西南微南", "西南",
+                "西南微西", "西南偏西", "西微南", "西",
+                "西微北", "西北偏西", "西北微西", "西北",
+                "西北微北", "西北偏北", "北微西", "北"
+        };
 
         if (mCurrentLocation == null) {
             for (int i = 0; i < mList.size(); ++i) {
@@ -581,78 +547,42 @@ public class HomeActivity extends AppCompatActivity {
             for (int i = 0; i < mList.size(); ++i) {
 
                 Location location = new Location("start");
+
                 double startLat = Double.parseDouble(mList.get(i).get("Latitude"));
                 double startLng = Double.parseDouble(mList.get(i).get("Longitude"));
+
                 location.setLatitude(startLat);
                 location.setLongitude(startLng);
 
                 float distance = location.distanceTo(mCurrentLocation);
 
-                // set direction here
-                HashMap<String, String> eqHashMap = mList.get(i);
                 double dx = location.getLongitude() - mCurrentLocation.getLongitude();
                 double dy = location.getLatitude() - mCurrentLocation.getLatitude();
-                double theta = Math.atan2(dy, dx);
 
-                // Log.d(mTag, "theta:" + theta);
-                if (theta < 0) {
-                    theta += 2 * Math.PI;
-                }
-                if (theta > 2 * Math.PI * 31 / 32
-                        || theta <= 2 * Math.PI * 1 / 32) {
-                    eqHashMap.put("direction", "東方");
-                } else if (theta > 2 * Math.PI * 1 / 32
-                        && theta <= 2 * Math.PI * 3 / 32) {
-                    eqHashMap.put("direction", "東北東方");
-                } else if (theta > 2 * Math.PI * 3 / 32
-                        && theta <= 2 * Math.PI * 5 / 32) {
-                    eqHashMap.put("direction", "東北方");
-                } else if (theta > 2 * Math.PI * 5 / 32
-                        && theta <= 2 * Math.PI * 7 / 32) {
-                    eqHashMap.put("direction", "北北東方");
-                } else if (theta > 2 * Math.PI * 7 / 32
-                        && theta <= 2 * Math.PI * 9 / 32) {
-                    eqHashMap.put("direction", "北方");
-                } else if (theta > 2 * Math.PI * 9 / 32
-                        && theta <= 2 * Math.PI * 11 / 32) {
-                    eqHashMap.put("direction", "北北西方");
-                } else if (theta > 2 * Math.PI * 11 / 32
-                        && theta <= 2 * Math.PI * 13 / 32) {
-                    eqHashMap.put("direction", "西北方");
-                } else if (theta > 2 * Math.PI * 13 / 32
-                        && theta <= 2 * Math.PI * 15 / 32) {
-                    eqHashMap.put("direction", "西北西方");
-                } else if (theta > 2 * Math.PI * 15 / 32
-                        && theta <= 2 * Math.PI * 17 / 32) {
-                    eqHashMap.put("direction", "西方");
-                } else if (theta > 2 * Math.PI * 17 / 32
-                        && theta <= 2 * Math.PI * 19 / 32) {
-                    eqHashMap.put("direction", "西南西方");
-                } else if (theta > 2 * Math.PI * 19 / 32
-                        && theta <= 2 * Math.PI * 21 / 32) {
-                    eqHashMap.put("direction", "西南方");
-                } else if (theta > 2 * Math.PI * 21 / 32
-                        && theta <= 2 * Math.PI * 23 / 32) {
-                    eqHashMap.put("direction", "南南西方");
-                } else if (theta > 2 * Math.PI * 23 / 32
-                        && theta <= 2 * Math.PI * 25 / 32) {
-                    eqHashMap.put("direction", "南方");
-                } else if (theta > 2 * Math.PI * 25 / 32
-                        && theta <= 2 * Math.PI * 27 / 32) {
-                    eqHashMap.put("direction", "南南東方");
-                } else if (theta > 2 * Math.PI * 27 / 32
-                        && theta <= 2 * Math.PI * 29 / 32) {
-                    eqHashMap.put("direction", "東南方");
-                } else if (theta > 2 * Math.PI * 29 / 32
-                        && theta <= 2 * Math.PI * 31 / 32) {
-                    eqHashMap.put("direction", "東南東方");
+                // get angle value
+                double degrees = 90.0d - Math.toDegrees(Math.atan2(dy, dx));
+
+                if (degrees < 0.0d) {
+                    degrees += 360.0;
                 }
 
-                eqHashMap.put("distance_value", "" + distance / 1000);
+                int arrayLength = degreesRangeLimit.length;
 
-                eqHashMap.put("distance",
-                        "震央位於現在位置 " + eqHashMap.get("direction")
-                                + (int) (distance / 1000) + "公里處");
+                String direction = "";
+
+                for (int index = 0; index < arrayLength; index++) {
+                    if (degrees >= degreesRangeLimit[index] ) {
+                        direction = directions[index];
+                    }
+                }
+
+                mList.get(i).put("direction", direction);
+
+                mList.get(i).put("distance_value", "" + distance / 1000);
+
+                mList.get(i).put("distance",
+                        "震央位於現在位置 " + mList.get(i).get("direction")
+                                + (int) (distance / 1000) + "方公里處");
             }
         }
         return mList;
@@ -670,9 +600,9 @@ public class HomeActivity extends AppCompatActivity {
                         if (mGpsTracker != null) {
                             mCurrentLocation = mGpsTracker.getLocation();
                             if (mManualEarthquakeList != null) {
-                                mDisplayedEarthquakeList = setEQlistLocation(mManualEarthquakeList);
+                                mDisplayedEarthquakeList = setEQListLocation(mManualEarthquakeList);
                             } else {
-                                mDisplayedEarthquakeList = setEQlistLocation(mGeneralEarthquakeList);
+                                mDisplayedEarthquakeList = setEQListLocation(mGeneralEarthquakeList);
                                 ConstantVariables.writeEQToInternalFile(
                                         homeActivity,
                                         mGeneralEarthquakeList,
@@ -734,7 +664,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.datePicker_setting:
                 if (isConnected(getApplicationContext())) {
-                    MyDoubleDatePicker myDatePicker = new MyDoubleDatePicker(this);
+                    DoubleDatePicker myDatePicker = new DoubleDatePicker(this);
                     myDatePicker.show();
                 } else {
                     showAlertDialog("尚未連上網路，無法使用此功能", "無網路", false);

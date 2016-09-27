@@ -2,7 +2,6 @@ package sinica.earth.tesis;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +35,7 @@ public class SettingActivity extends AppCompatActivity {
 
     Dialog settingDialog;
 
-    private MyCustomAdapter mAdapter;
+    private ListViewAdapter mAdapter;
 
     ListView listView;
 
@@ -63,7 +62,7 @@ public class SettingActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listViewInSetting);
 
-        mAdapter = new MyCustomAdapter(settingActivity , this);
+        mAdapter = new ListViewAdapter(settingActivity , this);
         mAdapter.addSeparatorItem("地震數值");
         mAdapter.addItem(SETTING_ML);
         mAdapter.addItem(SETTING_DEEP);
