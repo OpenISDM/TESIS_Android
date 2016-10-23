@@ -56,7 +56,6 @@ public class setupGoogleMap {
     // setupGoogleMapTool mSetupGoogleMapTool;
     protected MapOverlay mapOverlay;
 
-    // ArrayList<HashMap<String, String>> mEarthquakeList;
     private HashMap<String, String> eqHashMap;
 
     private final String mTag = "myTag";
@@ -77,7 +76,7 @@ public class setupGoogleMap {
 
     /*
     * CheckBox id = group*10+child Group 0 child 0:最新地震資訊 child 1:動畫顯示
-     * child2:震源機制 child 3:震度圖 child 4:即時震度圖 child 5:背景地震 Group 1 child 0:地質圖
+    * child2:震源機制 child 3:震度圖 child 4:即時震度圖 child 5:背景地震 Group 1 child 0:地質圖
     * child 1:震間變形 child2:活動斷層 child 3:寬頻測站 Group 2 child 0:道路地圖 child 1:衛星地圖
     * child 2:地形圖 child0:座標線
     */
@@ -99,24 +98,13 @@ public class setupGoogleMap {
 
     private int seekBarProgress;
 
-    // seekBarCh2;
-    private int lastProgress = 0;
-
     private String[] geoMapStrings = {"CWB", "P-alert"};
 
-    // checkBox data 100,101,102
-    int geoMapStringsSelcted = 0;
-
     private String[] ballStrings = {"gCAP", "auto_BATS", "RMT", "FMNEAR", "WP", "BATS"};
-
-
-    // checkbox data 201,202,203,204
-    int ballStringSelcted = 0;
 
     private myArrayAdapter<String> arrayAdapterCh1, arrayAdapterCh2;
 
     private Button spinnerBtn1, spinnerBtn2;
-
 
     public setupGoogleMap(summaryActivity mainActivity, PopupWindow mPopupWindow) {
         this.mainActivity = mainActivity;
@@ -126,8 +114,7 @@ public class setupGoogleMap {
     }
 
     protected Bitmap scaleBitmapOnScreenSize(Drawable d) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        metrics = mainActivity.getResources().getDisplayMetrics();
+        DisplayMetrics metrics = mainActivity.getResources().getDisplayMetrics();
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         Log.d("bitmap", "screen width:" + width + " height:" + height);
@@ -239,13 +226,11 @@ public class setupGoogleMap {
         });
 
         // TODO List Adapter with checkbox data
-        File chbxFile = mainActivity
-                .getFileStreamPath(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
+        File chbxFile = mainActivity.getFileStreamPath(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
         if (chbxFile.exists()) {
             try {
                 FileInputStream fis;
-                fis = mainActivity
-                        .openFileInput(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
+                fis = mainActivity.openFileInput(ConstantVariables.CHECKBOX_DATA_FILE_NAME);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 mCheckBoxData = (HashMap<Integer, Boolean>) ois.readObject();
                 ois.close();
@@ -266,8 +251,10 @@ public class setupGoogleMap {
                 // mCheckBoxData.put(200, true);// CMTs
                 mCheckBoxData.put(201, true);// gCAP
                 mCheckBoxData.put(202, false);// BATS
-                mCheckBoxData.put(203, false);// New_BATS
+                mCheckBoxData.put(203, false);// auto_BATS
                 mCheckBoxData.put(204, false);// FMNEAR
+                mCheckBoxData.put(205, false);// RMT
+                mCheckBoxData.put(206, false);// WP
 
                 mCheckBoxData.put(0, true);
                 mCheckBoxData.put(12, true);
@@ -289,8 +276,10 @@ public class setupGoogleMap {
             // mCheckBoxData.put(200, true);// CMTs
             mCheckBoxData.put(201, true);// gCAP
             mCheckBoxData.put(202, false);// BATS
-            mCheckBoxData.put(203, false);// New_BATS
+            mCheckBoxData.put(203, false);// auto_BATS
             mCheckBoxData.put(204, false);// FMNEAR
+            mCheckBoxData.put(205, false);// RMT
+            mCheckBoxData.put(206, false);// WP
 
             mCheckBoxData.put(0, true);
             mCheckBoxData.put(12, true);
@@ -376,6 +365,47 @@ public class setupGoogleMap {
         // spinnerCh2.setVisibility(View.INVISIBLE);
         spinnerBtn1.setVisibility(View.INVISIBLE);
         spinnerBtn2.setVisibility(View.INVISIBLE);
+
+        /**
+         * 震度圖選項
+         */
+        // CWB
+        if (mCheckBoxData.get(100)) {
+            spinnerBtn1.setText(geoMapStrings[0]);
+        }
+        // P-alert
+        else if (mCheckBoxData.get(102)) {
+            spinnerBtn1.setText(geoMapStrings[1]);
+        }
+
+
+        /**
+         * 震源機制選項
+         */
+        // gCAP
+        if (mCheckBoxData.get(201)) {
+            spinnerBtn2.setText(ballStrings[0]);
+        }
+        // BATS
+        else if (mCheckBoxData.get(202)) {
+            spinnerBtn2.setText(ballStrings[5]);
+        }
+        // auto_BATS
+        else if (mCheckBoxData.get(203)) {
+            spinnerBtn2.setText(ballStrings[1]);
+        }
+        // FMNEAR
+        else if (mCheckBoxData.get(204)) {
+            spinnerBtn2.setText(ballStrings[3]);
+        }
+        // RMT
+        else if (mCheckBoxData.get(205)) {
+            spinnerBtn2.setText(ballStrings[2]);
+        }
+        // WP
+        else if (mCheckBoxData.get(206)) {
+            spinnerBtn2.setText(ballStrings[4]);
+        }
 
         checkBox1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -523,14 +553,6 @@ public class setupGoogleMap {
             }
         });
 
-        if (mCheckBoxData.get(100)) {
-            spinnerBtn1.setText(geoMapStrings[0]);
-        } else if (mCheckBoxData.get(101)) {
-            spinnerBtn1.setText(geoMapStrings[1]);
-        } else if (mCheckBoxData.get(102)) {
-            spinnerBtn1.setText(geoMapStrings[2]);
-        }
-
         spinnerBtn1.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -566,16 +588,6 @@ public class setupGoogleMap {
             }
         });
 
-        if (mCheckBoxData.get(201)) {
-            spinnerBtn2.setText(ballStrings[0]);
-        } else if (mCheckBoxData.get(202)) {
-            spinnerBtn2.setText(ballStrings[1]);
-        } else if (mCheckBoxData.get(203)) {
-            spinnerBtn2.setText(ballStrings[2]);
-        } else if (mCheckBoxData.get(204)) {
-            spinnerBtn2.setText(ballStrings[3]);
-        }
-
         spinnerBtn2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -583,31 +595,37 @@ public class setupGoogleMap {
                         .setAdapter(arrayAdapterCh2, new DialogInterface.OnClickListener() {
 
                             @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                spinnerBtn2.setText(ballStrings[which]);
+                            public void onClick(DialogInterface dialog, int which) {
 
+                                spinnerBtn2.setText(ballStrings[which]);
                                 mCheckBoxData.put(201, false);// gCAP
-                                mCheckBoxData.put(203, false);// auto_BATS
-                                //RMT
-                                mCheckBoxData.put(204, false);// FMNEAR
-                                // WP
                                 mCheckBoxData.put(202, false);// BATS
+                                mCheckBoxData.put(203, false);// auto_BATS
+                                mCheckBoxData.put(204, false);// FMNEAR
+                                mCheckBoxData.put(205, false);// RMT
+                                mCheckBoxData.put(206, false);// WP
+
+                                Log.i("check", Integer.toString(which));
 
                                 switch (which) {
                                     case 0:
-                                        mCheckBoxData.put(201, true);
+                                        mCheckBoxData.put(201, true);// gCAP
                                         break;
                                     case 1:
-                                        mCheckBoxData.put(202, true);
+                                        mCheckBoxData.put(203, true);// auto_BATS
                                         break;
                                     case 2:
-                                        mCheckBoxData.put(203, true);
+                                        mCheckBoxData.put(205, true);// RMT
                                         break;
                                     case 3:
-                                        mCheckBoxData.put(204, true);
+                                        mCheckBoxData.put(204, true);// FMNEAR
                                         break;
-
+                                    case 4:
+                                        mCheckBoxData.put(206, true);// WP
+                                        break;
+                                    case 5:
+                                        mCheckBoxData.put(202, true);// BATS
+                                        break;
                                     default:
                                         break;
                                 }
@@ -624,11 +642,11 @@ public class setupGoogleMap {
 
         mMap.clear();
 
-        if (mCheckBoxData.get(10)) { // 地質圖
+        // 地質圖
+        if (mCheckBoxData.get(10)) {
             checkBox2.setChecked(true);
             if (mapOverlay.isloadResourceFinished) {
-                if (summaryActivity.isConnected(mainActivity
-                        .getApplicationContext())) {
+                if (summaryActivity.isConnected(mainActivity.getApplicationContext())) {
                     mapOverlay.draw(1, (float) 0);
                     // mMap.addTileOverlay(mapOverlay.tileOverlayOptions2);
                     // mMap.addTileOverlay(mapOverlay.tileOverlayOptions);
@@ -643,7 +661,8 @@ public class setupGoogleMap {
             mapOverlay.isDraw2 = false;
         }
 
-        if (mCheckBoxData.get(3)) { // 震度圖
+        // 震度圖
+        if (mCheckBoxData.get(3)) {
             Log.d("Here!", "Draw geo map now.");
             checkBox1.setChecked(true);
             // spinnerCh1.setVisibility(View.VISIBLE);
@@ -651,10 +670,10 @@ public class setupGoogleMap {
             seekBarCh1.setVisibility(View.VISIBLE);
             seekBarCh1.setProgress(100 - seekBarProgress);
             // seekBar.setVisibility(View.VISIBLE);
+
+
             if (mCheckBoxData.get(100)) {
                 mapOverlay.draw(10, (float) seekBarProgress / 100);
-            } else if (mCheckBoxData.get(101)) {
-                mapOverlay.draw(9, (float) seekBarProgress / 100);
             } else if (mCheckBoxData.get(102)) {
                 mapOverlay.draw(15, (float) seekBarProgress / 100);
             }
@@ -667,20 +686,36 @@ public class setupGoogleMap {
             mapOverlay.isDraw15 = false;
         }
 
-        if (mCheckBoxData.get(2)) { // 震源機制
+        // 震源機制
+        if (mCheckBoxData.get(2)) {
             checkBox5.setChecked(true);
             // spinnerCh2.setVisibility(View.VISIBLE);
             spinnerBtn2.setVisibility(View.VISIBLE);
             mImageView.setVisibility(ImageView.INVISIBLE);
 
+            // gCAP
             if (mCheckBoxData.get(201)) {
                 mapOverlay.draw(17, (float) 0);
-            } else if (mCheckBoxData.get(202)) {
+            }
+            // BATS
+            else if (mCheckBoxData.get(202)) {
                 mapOverlay.draw(18, (float) 0);
-            } else if (mCheckBoxData.get(203)) {
+            }
+            // auto_BATS
+            else if (mCheckBoxData.get(203)) {
                 mapOverlay.draw(19, (float) 0);
-            } else if (mCheckBoxData.get(204)) {
+            }
+            // FMNEAR
+            else if (mCheckBoxData.get(204)) {
                 mapOverlay.draw(20, (float) 0);
+            }
+            // RMT
+            else if (mCheckBoxData.get(205)) {
+                mapOverlay.draw(24, (float) 0);
+            }
+            // WP
+            else if (mCheckBoxData.get(206)) {
+                mapOverlay.draw(25, (float) 0);
             }
 
         } else {
@@ -697,14 +732,16 @@ public class setupGoogleMap {
             // mCheckBoxData.put(202, false);// BATS
             // mCheckBoxData.put(203, false);// New_BATS
             // mCheckBoxData.put(204, false);// FMNEAR
-
         }
 
-        if (mCheckBoxData.get(11)) { // 震間變形
+        // 震間變形
+        if (mCheckBoxData.get(11)) {
             checkBox4.setChecked(true);
             mapOverlay.draw(11, (float) 0);
         }
-        if (mCheckBoxData.get(12)) { // 活動斷層
+
+        // 活動斷層
+        if (mCheckBoxData.get(12)) {
             checkBox3.setChecked(true);
             mapOverlay.draw(3, (float) 0);
         }
@@ -717,8 +754,8 @@ public class setupGoogleMap {
             infoOpenedMarker.showInfoWindow();
         }
 
-        if (mCheckBoxData.get(5)) { // 背景地震
-
+        // 背景地震
+        if (mCheckBoxData.get(5)) {
             historyImageView.setVisibility(View.VISIBLE);
 //			sizeImageView.setVisibility(View.VISIBLE);
             checkBox7.setChecked(true);
@@ -729,9 +766,7 @@ public class setupGoogleMap {
                     mapOverlay.draw(21, (float) 0);
                 } else {
                     mapOverlay.draw(22, (float) 0);
-
                 }
-
             }
             // mapOverlay.draw(22, (float) 0);
             if (!mCheckBoxData.get(2)) {
@@ -747,7 +782,5 @@ public class setupGoogleMap {
                 mapOverlay.draw(7, (float) 0);
             }
         }
-
     }
-
 }

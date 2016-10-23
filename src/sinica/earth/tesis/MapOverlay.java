@@ -3,11 +3,9 @@ package sinica.earth.tesis;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
@@ -31,28 +29,27 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class MapOverlay implements Serializable {
+public class MapOverlay {
 
     private static final long serialVersionUID = 123456789;
 
-    GoogleMap mMap;
+    private GoogleMap mMap;
 
-    public Point[] points = new Point[4216];
+    private Point[] points = new Point[4216];
 
     summaryActivity fActivity;
 
     AssetManager mngr;
 
-    public GroundOverlayOptions geoMap;
+    private GroundOverlayOptions geoMap;
 
-    public PolylineOptions[] pOptions = new PolylineOptions[100];
+    private PolylineOptions[] pOptions = new PolylineOptions[100];
 
     private int pOptionsNum = 0;
 
@@ -87,12 +84,61 @@ public class MapOverlay implements Serializable {
     private PolylineOptions[] vectorOptionsList = new PolylineOptions[VECTOR_NUM];
     int vectorOptionsNum;
 
+    downloadBall TaskDownloadBall;
+    HashMap<String, String> VdescriptionLinks = new HashMap<String, String>();
+
+    private TileOverlayOptions seisImgTileOverlayOptions;
+    private GroundOverlayOptions seisGroundOverlayOptions;
+
+    MarkerOptions markerOption;
+    MarkerOptions markerStarOption;
+    boolean MarkerIsSet = false;
+    boolean MarkerInfoIsSet = false;
+    boolean vollyballMarkerIsSet = false;
+
+    int selectMarker;
+
+    private GroundOverlayOptions pgvOverlay;
+    private GroundOverlayOptions cwbOverlay;
+    private GroundOverlayOptions pgaOverlay;
+
+    private String pgvLink;
+    private String cwbLink;
+    private String pgaLink;
+
+    boolean isDraw2 = false;
+    boolean isDraw9 = false;
+    boolean isDraw10 = false;
+    boolean isDraw15 = false;
+    boolean isDraw17 = false;
+    boolean isDraw18 = false;
+    boolean isDraw19 = false;
+    boolean isDraw20 = false;
+    boolean isDraw21 = false;
+    boolean isDraw22 = false;
+    boolean isDraw23 = false;
+    boolean isDraw24 = false;
+    boolean isDraw25 = false;
+
+    private boolean PGAisLoad = false;
+    private boolean PGVisLoad = false;
+    private boolean CWBisLoad = false;
+
+    private MarkerOptions[] ballOptions;
+    private Boolean[] ballisLoad = {false, false, false, false, false, false};
+
+    boolean isloadResourceFinished = false;
+
+    final int LOAD_RESOURCE_FINISHED = ConstantVariables.LOAD_RESOURCE_FINISHED;
+    Handler handler = null;
+
 
     public MapOverlay(summaryActivity mainActivity, GoogleMap mMap) {
         this.mMap = mMap;
         mngr = mainActivity.getAssets();
         this.fActivity = mainActivity;
         hMap = mainActivity.eqHashMap;
+
         startTime = System.currentTimeMillis();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
             TaskLoadResource = (loadResources) new loadResources().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -124,9 +170,7 @@ public class MapOverlay implements Serializable {
             int i = 0;
             int gi = 0;
             while ((s = bufferedReader.readLine()) != null) {
-//				Log.d("Here!!",s);
                 if (s.equals("X")) {
-//					Log.d("Here!!","gi="+gi);
                     gi++;
                 } else {
                     StringTokenizer st = new StringTokenizer(s);
@@ -137,7 +181,6 @@ public class MapOverlay implements Serializable {
                             .nextToken()), Double.parseDouble(st.nextToken()));
                     i++;
                 }
-
             }
             bufferedReader.close();
         } catch (Exception e) {
@@ -194,7 +237,6 @@ public class MapOverlay implements Serializable {
                         // "(" + points[i].latLng.latitude + ","
                         // + points[i].latLng.longitude + ")")
                         .title(content);
-//				Log.d(mTag, "index:" + i / 20);
                 lineMarkerOptions[i / scale] = markerOption;
             }
 
@@ -260,11 +302,9 @@ public class MapOverlay implements Serializable {
         opts.inSampleSize = 4;
         // XXX sampleSize = 1 will crush, out of memory...
         try {
-            Bitmap img = BitmapFactory.decodeStream(
-                    mngr.open("TWgeomap_revise_small.png"), null, opts);
+            Bitmap img = BitmapFactory.decodeStream(mngr.open("TWgeomap_revise_small.png"), null, opts);
             image = BitmapDescriptorFactory.fromBitmap(img);
-            bounds = new LatLngBounds(new LatLng(21.895, 119.314), new LatLng(
-                    25.298, 121.992));
+            bounds = new LatLngBounds(new LatLng(21.895, 119.314), new LatLng(25.298, 121.992));
             geoMap = new GroundOverlayOptions().image(image)
                     .positionFromBounds(bounds).transparency((float) 0)
                     .zIndex(zIndex_groundOverlay);
@@ -320,66 +360,8 @@ public class MapOverlay implements Serializable {
                 .zIndex(zIndex_tileOverlay);
     }
 
-    public ArrayList<MarkerOptions> batsList, cwbList;
-
-    // public void loadData4() { // BATS Stations
-    // batsList = new ArrayList<MarkerOptions>();
-    // cwbList = new ArrayList<MarkerOptions>();
-    // try {
-    // BufferedReader bufferedReader = new BufferedReader(
-    // new InputStreamReader(mngr.open("BATS_Stations_new.txt")));
-    // String s = bufferedReader.readLine();
-    // // Station Location Latitude Longitude Elevation
-    // // Geology Equipment Communication Operating Network Station_Type
-    //
-    // while ((s = bufferedReader.readLine()) != null) {
-    //
-    // HashMap<String, String> hMap = new HashMap<String, String>();
-    // StringTokenizer st = new StringTokenizer(s);
-    // hMap.put("Station", st.nextToken());
-    // hMap.put("Location", st.nextToken());
-    // hMap.put("Latitude", st.nextToken());
-    // hMap.put("Longitude", st.nextToken());
-    // hMap.put("Elevation", st.nextToken());
-    // hMap.put("Geology", st.nextToken());
-    // hMap.put("Equipment", st.nextToken());
-    // hMap.put("Communication", st.nextToken());
-    // hMap.put("Operating", st.nextToken());
-    // hMap.put("Network", st.nextToken());
-    // hMap.put("Station_Type", st.nextToken());
-    // Double lat = Double.parseDouble(hMap.get("Latitude"));
-    // Double lng = Double.parseDouble(hMap.get("Longitude"));
-    // String title = "Station:" + hMap.get("Station");
-    // String content = "Geology:" + hMap.get("Geology");
-    // // Log.d("Here!!",hMap.toString());
-    // // Log.d("Here!!",hMap.get("Station_Type"));
-    // if (hMap.get("Station_Type").equals("BATS")) {
-    // BitmapDescriptor image = BitmapDescriptorFactory
-    // .fromAsset("red.png");
-    // MarkerOptions markerOption = new MarkerOptions()
-    // .position(new LatLng(lat, lng)).anchor(0.5f, 0.5f)
-    // .title(title).icon(image).snippet(content);
-    // batsList.add(markerOption);
-    // } else {
-    // BitmapDescriptor image = BitmapDescriptorFactory
-    // .fromAsset("blue.png");
-    // MarkerOptions markerOption = new MarkerOptions()
-    // .position(new LatLng(lat, lng)).anchor(0.5f, 0.5f)
-    // .title(title).icon(image).snippet(content);
-    // cwbList.add(markerOption);
-    // // Log.d("Here!!","cwbList"+ cwbList.size());
-    // }
-    //
-    // }
-    // bufferedReader.close();
-    // } catch (Exception e) {
-    // Log.d("Here!!", e.toString());
-    // e.printStackTrace();
-    // }
-    // }
-
     public void loadData5() { // vector
-        vectorList = new ArrayList<HashMap<String, String>>();
+        vectorList = new ArrayList<>();
         try {
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(mngr.open("S01R_2007.S0.5_2")));
@@ -437,9 +419,6 @@ public class MapOverlay implements Serializable {
         }
     }
 
-    TileOverlayOptions seisImgTileOverlayOptions;
-    GroundOverlayOptions seisGroundOverlayOptions;
-
     public void loadData6() { // Seis Image Tiletry {
         BitmapDescriptor image;
         LatLngBounds bounds;
@@ -460,111 +439,86 @@ public class MapOverlay implements Serializable {
         }
         seisImgTileOverlayOptions = new TileOverlayOptions().tileProvider(
                 new SeisImgUrlTileProvider()).zIndex(zIndex_groundOverlay);
-//		 seisImgTileOverlayOptions = new TileOverlayOptions()
-//		 .tileProvider(new CustomSeisImgTileProvider(mngr));
     }
 
-    // public MarkerOptions[] markerOptionsList, volleyballOptionList,
-    // pgaOptionList;
-    // public CircleOptions[] circleOptionsList;
-    public MarkerOptions markerOption, volleyballOption, pgaOption,
-            markerStarOption;
-    public CircleOptions circleOption;
-    int pgaOptionListNum = 0;
-    public Marker[] markers;
-    public boolean MarkerIsSet = false;
-    public boolean vollyballMarkerIsSet = false;
-    public boolean MarkerInfoIsSet = false;
-    public GroundOverlayOptions pgvOverlay;
-    public GroundOverlayOptions cwbOverlay;
-    public GroundOverlayOptions pgaOverlay;
-    // public GroundOverlayOptions history_img_ocean_Overlay;
-    // public GroundOverlayOptions history_img_copper_Overlay;
-    // public GroundOverlayOptions history_img_gray_Overlay;
-    public int selectMarker = 0;
-    // public String[] pgvLinks;
-    // public String[] cwbLinks;
-    // public String[] pgaLinks; //p-alert
-    public String pgvLink;
-    public String cwbLink;
-    public String pgaLink;
-    // public String history_img_ocean_Link;
-    // public String history_img_copper_Link;
-    // public String history_img_gray_Link;
-    ArrayList<HashMap<String, String>> earthquakeArrayList;
-    public HashMap<Marker, HashMap<String, String>> MarkerMap;
+    private void getVolleyballDescription(String gCAPLink,
+                                          String BatsLink,
+                                          String NewBatsLink,
+                                          String FMNEARLink,
+                                          String RmtLink,
+                                          String WpLink) {
 
-    // AsyncTask<String, Void, Void> TaskDownloadBall;
+        // gCAP
+        String gCapBasePath = gCAPLink.substring(0, gCAPLink.lastIndexOf("/") + 1);
+        VdescriptionLinks.put("gCAP_mt.best", gCapBasePath.concat("mt.best"));
+        VdescriptionLinks.put("gCAP_mtt.best", gCapBasePath.concat("mtt.best"));
 
-    String[] getVolleyballDescription(String gCAPLink, String NewBatsLink,
-                                      String FMNEARLink) {
-        String[] descriptionLinks = new String[4];
-        // Log.d("string","gCAPLink "+gCAPLink);
-        int lastIndex = gCAPLink.lastIndexOf("/");
-        // Log.d("string","gCAPLink index of /:"+lastIndex);
-        String header = gCAPLink.substring(0, lastIndex + 1);
-        descriptionLinks[0] = header.concat("mt.best");
-        descriptionLinks[1] = header.concat("mtt.best");
-        descriptionLinks[3] = header.concat("mt.FMNEAR");
-        lastIndex = NewBatsLink.lastIndexOf("_");
-        header = NewBatsLink.substring(0, lastIndex + 1);
-        descriptionLinks[2] = header.concat("cmtsol.txt");
-        Log.d("string", "descriptionLinks[0]:" + descriptionLinks[0]);
-        Log.d("string", "descriptionLinks[1]:" + descriptionLinks[1]);
-        Log.d("string", "descriptionLinks[2]:" + descriptionLinks[2]);
-        Log.d("string", "descriptionLinks[3]:" + descriptionLinks[3]);
-        return descriptionLinks;
+        // Bats To-do
+        VdescriptionLinks.put("Qbats", BatsLink);
+
+        // FMNEAR
+        String FmnearBasePath = FMNEARLink.substring(0, FMNEARLink.lastIndexOf("/") + 1);
+        VdescriptionLinks.put("FMNEAR", FmnearBasePath.concat("mt.FMNEAR"));
+
+        // NewBats (auto_Bats)
+        VdescriptionLinks.put("NewBats", NewBatsLink.replace("beachball.png", "cmtsol.txt"));
+
+        // RMT
+        VdescriptionLinks.put("RMT", RmtLink.replace("meca.png", "rmt.sol"));
+
+        // WP
+        VdescriptionLinks.put("WP", WpLink.replace("CMT_xy.png", "WPsol.txt"));
+
+        Log.d("string", "gCAP_mt.best:" + VdescriptionLinks.get("gCAP_mt.best"));
+        Log.d("string", "gCAP_mtt.best:" + VdescriptionLinks.get("gCAP_mtt.best"));
+        Log.d("string", "Qbats:" + VdescriptionLinks.get("Qbats"));
+        Log.d("string", "FMNEAR:" + VdescriptionLinks.get("FMNEAR"));
+        Log.d("string", "NewBats:" + VdescriptionLinks.get("NewBats"));
+        Log.d("string", "RMT:" + VdescriptionLinks.get("RMT"));
+        Log.d("string", "WP:" + VdescriptionLinks.get("WP"));
+
     }
-
-    downloadBall TaskDownloadBall;
-    String[] VdescriptionLinks;
 
     @SuppressWarnings("unchecked")
     public void setEarthquakeMarker() {
         MarkerIsSet = false;
-        // earthquakeArrayList = list;
         vollyballMarkerIsSet = false;
         PGAisLoad = false;
-        // TaskDownloadVolleyball = new downloadVolleyball().execute();
-        // TaskDownloadBall = new downloadBall().execute(hMap.get("gCAP"),
-        // hMap.get("BATS"), hMap.get("New_BATS"), hMap.get("FMNEAR"));
-        VdescriptionLinks = getVolleyballDescription(hMap.get("gCAP"),
-                hMap.get("New_BATS"), hMap.get("FMNEAR"));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-            // TaskLoadResource = new
-            // loadResources().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            TaskDownloadBall = (downloadBall) new downloadBall()
-                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                            hMap.get("gCAP"), hMap.get("BATS"),
-                            hMap.get("New_BATS"), hMap.get("FMNEAR"));
-        else
+        getVolleyballDescription(
+                hMap.get("gCAP"),
+                hMap.get("BATS"),
+                hMap.get("New_BATS"),
+                hMap.get("FMNEAR"),
+                hMap.get("RMT"),
+                hMap.get("WP"));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            TaskDownloadBall = (downloadBall) new downloadBall().executeOnExecutor(
+                    AsyncTask.THREAD_POOL_EXECUTOR,
+                    hMap.get("gCAP"),
+                    hMap.get("BATS"),
+                    hMap.get("New_BATS"),
+                    hMap.get("FMNEAR"),
+                    hMap.get("RMT"),
+                    hMap.get("WP"));
+        } else {
             TaskDownloadBall = (downloadBall) new downloadBall().execute(
-                    hMap.get("gCAP"), hMap.get("BATS"), hMap.get("New_BATS"),
-                    hMap.get("FMNEAR"));
-        // markerOptionsList = new MarkerOptions[earthquakeArrayList.size()];
-        // circleOptionsList = new CircleOptions[earthquakeArrayList.size()];
-        // pgvLinks = new String[earthquakeArrayList.size()];
-        // cwbLinks = new String[earthquakeArrayList.size()];
-        // pgaLinks = new String[earthquakeArrayList.size()];
-        // for (int i = 0; i < earthquakeArrayList.size(); ++i) {
-        // Log.d("Here!",""+i);
-        // HashMap<String, String> hMap = earthquakeArrayList.get(i);
-        // /Log.d("Here!",hMap.toString());
+                    hMap.get("gCAP"),
+                    hMap.get("BATS"),
+                    hMap.get("New_BATS"),
+                    hMap.get("FMNEAR"),
+                    hMap.get("RMT"),
+                    hMap.get("WP"));
+        }
+
         Double lat = Double.parseDouble(hMap.get("Latitude"));
         Double lng = Double.parseDouble(hMap.get("Longitude"));
-        // String title = "詳細資料";
-        // String content = hMap.get("Date") + "\n" + hMap.get("Time") +
-        // " UTC+8"
-        // + "\n" + hMap.get("Depth") + "\n" + hMap.get("ML");
+
         pgvLink = hMap.get("pgvlink");
         cwbLink = hMap.get("intensitymap");
         pgaLink = hMap.get("pgacontour1");
-        // history_img_ocean_Link = hMap.get("history_img_ocean");
-        // history_img_copper_Link = hMap.get("history_img_copper");
-        // history_img_gray_Link = hMap.get("history_img_gray");
-        // Log.d(mTag, "history_img_copper_Link:" + history_img_copper_Link);
-        // Log.d("Here!","before set options");
+
         double depth = Double.parseDouble(hMap.get("depth"));
         int ml = (int) Double.parseDouble(hMap.get("ML"));
         String markerIconFilename = "";
@@ -579,28 +533,19 @@ public class MapOverlay implements Serializable {
         } else if (depth >= 150 && depth < 300) {
             markerIconFilename = "icon_event300_" + ml + ".png";
         }
-        // Log.d("Here!", "icon_name:" + markerIconFilename);
-        try {
-            markerOption = new MarkerOptions().position(new LatLng(lat, lng))
-                    .anchor(0.5f, 0.5f)
-                    // .title(title)
-                    .icon(BitmapDescriptorFactory
-                            .fromBitmap(scaleBitmapOnScreenSize(Drawable
-                                    .createFromStream(
-                                            fActivity.getAssets().open(
-                                                    "archeive/"
-                                                            + markerIconFilename),
-                                            null)
 
-                            )));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        try {
+            Drawable drawable = Drawable.createFromStream(
+                    fActivity.getAssets().open("archeive/" + markerIconFilename),
+                    null);
             markerOption = new MarkerOptions().position(new LatLng(lat, lng))
                     .anchor(0.5f, 0.5f)
-                    // .title(title)
-                    .icon(BitmapDescriptorFactory
-                            .fromAsset("archeive/"
-                                    + markerIconFilename));
+                    .icon(BitmapDescriptorFactory.fromBitmap(scaleBitmapOnScreenSize(drawable)));
+
+        } catch (IOException e) {
+            markerOption = new MarkerOptions().position(new LatLng(lat, lng))
+                    .anchor(0.5f, 0.5f)
+                    .icon(BitmapDescriptorFactory.fromAsset("archeive/" + markerIconFilename));
         }
 
         markerStarOption = new MarkerOptions()
@@ -609,50 +554,22 @@ public class MapOverlay implements Serializable {
                 .icon(BitmapDescriptorFactory
                         .fromBitmap(scaleBitmapOnScreenSize(fActivity
                                 .getResources().getDrawable(R.drawable.star))));
-        // .snippet(content);
-
-        // int radius = calculatePGARadius(Double.parseDouble(hMap.get("ml")));
-        // circleOption = new CircleOptions().center(new LatLng(lat, lng))
-        // .radius(radius * 1000).strokeWidth(5)
-        // .strokeColor(Color.parseColor("#ff00a0ff"))
-        // .fillColor(Color.parseColor("#6000a0ff"));
-        // }
         MarkerIsSet = true;
         selectMarker = 0;
-        // TODO call select Marker
         selectMarkerInfo();
-
     }
 
     @SuppressWarnings("unchecked")
     protected void selectMarkerInfo() {
         MarkerInfoIsSet = false;
-        // TaskDownloadMarkerInfo = new downloadMarkerInfo().execute();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             TaskDownloadMarkerInfo = (downloadMarkerInfo) new downloadMarkerInfo()
                     .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        else
+        } else {
             TaskDownloadMarkerInfo = (downloadMarkerInfo) new downloadMarkerInfo()
                     .execute();
+        }
     }
-
-    // private int calculatePGARadius(double ML) {
-    // double PGA = 8.0 / 980;
-    // double c1 = 0.0159;
-    // double c2 = 0.868;
-    // double c3 = 1.09;
-    // double c4 = 0.0606;
-    // double c5 = 0.700;
-    // double result = Math.pow(PGA / (c1 * Math.exp(c2 * ML)), -1 / c3) - c4
-    // * Math.exp(c5 * ML);
-    // Log.d("Here!", "ML " + ML + " has radius " + result);
-    // return (int) result;
-    // }
-
-    boolean isDraw2 = false, isDraw9 = false, isDraw10 = false,
-            isDraw15 = false, isDraw17 = false, isDraw18 = false,
-            isDraw19 = false, isDraw20 = false, isDraw21 = false,
-            isDraw22 = false, isDraw23 = false;
 
     public void draw(int actionNumber, float trans) {
         Log.d("Here!!", "draw:" + actionNumber);
@@ -682,8 +599,6 @@ public class MapOverlay implements Serializable {
                 break;
 
             case 3:// 活動斷層
-                // for(int i=0;i<pOptions.length;++i){
-                // if(pOptions[i]!=null)
                 if (isloadResourceFinished) {
                     for (int i = 0; i <= pOptionsNum; ++i) {
                         mMap.addPolyline(pOptions[i]);
@@ -695,67 +610,58 @@ public class MapOverlay implements Serializable {
                     }
                 }
                 break;
-            // case 4:// BATS Stations
-            // for (int i = 0; i < batsList.size(); ++i) {
-            // mMap.addMarker(batsList.get(i));
-            // }
-            // break;
-            // case 5:// CWB Stations
-            // for (int i = 0; i < cwbList.size(); ++i) {
-            // mMap.addMarker(cwbList.get(i));
-            // }
-            // break;
-            // case 6:// P-alert
-            // if(MarkerInfoIsSet){
-            // for(int i=0;i< pgaOptionListNum;++i){
-            // mMap.addMarker(pgaOptionList[i]);
-            // }
-            // }
-            // else {
-            // Toast.makeText(fActivity,
-            // "資料尚在下載，請稍後使用本功能",Toast.LENGTH_SHORT).show();
-            // }
-            // break;
+            case 4:// BATS Stations
+//                for (int i = 0; i < batsList.size(); ++i) {
+//                    mMap.addMarker(batsList.get(i));
+//                }
+                break;
+            case 5:// CWB Stations
+//                for (int i = 0; i < cwbList.size(); ++i) {
+//                    mMap.addMarker(cwbList.get(i));
+//                }
+                break;
+            case 6:// P-alert
+//                if (MarkerInfoIsSet) {
+//                    for (int i = 0; i < pgaOptionListNum; ++i) {
+//                        mMap.addMarker(pgaOptionList[i]);
+//                    }
+//                } else {
+//                    Toast.makeText(fActivity,
+//                            "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT).show();
+//                }
+                break;
             case 7: // draw marker
                 if (MarkerIsSet) {
-                    // markers = new Marker[markerOptionsList.length];
-                    // MarkerMap = new HashMap<Marker, HashMap<String,String>>();
-                    // for (int i = 0; i < markerOptionsList.length; ++i) {
-                    // markers[i] = mMap.addMarker(markerOptionsList[i]);
-                    // MarkerMap.put(markers[i], earthquakeArrayList.get(i));
-                    // }
-
                     mMap.addMarker(markerOption);
                 } else {
-                    // Toast.makeText(fActivity,
-                    // "資料尚在下載，請稍後使用本功能",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fActivity,
+                            "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            // case 8: // draw volley ball
-            // if (VolleyballisLoad) {
-            // // markers = new Marker[volleyballOptionList.length];
-            // // MarkerMap = new HashMap<Marker, HashMap<String,String>>();
-            // // for (int i = 0; i < volleyballOptionList.length; ++i) {
-            // // markers[i] = mMap.addMarker(volleyballOptionList[i]);
-            // // MarkerMap.put(markers[i], earthquakeArrayList.get(i));
-            // // }
-            //
-            // mMap.addMarker(volleyballOption);
-            // } else {
-            // Toast.makeText(fActivity.getApplicationContext(),
-            // "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT).show();
-            // // new downloadVolleyball().execute();
-            // try {
-            // Thread.sleep(2000);
-            // } catch (InterruptedException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // }
-            // if (VolleyballisLoad) {
-            // draw(8, 0);
-            // }
-            // }
-            // break;
+            case 8: // draw volley ball
+//                if (VolleyballisLoad) {
+//                    // markers = new Marker[volleyballOptionList.length];
+//                    // MarkerMap = new HashMap<Marker, HashMap<String,String>>();
+//                    // for (int i = 0; i < volleyballOptionList.length; ++i) {
+//                    // markers[i] = mMap.addMarker(volleyballOptionList[i]);
+//                    // MarkerMap.put(markers[i], earthquakeArrayList.get(i));
+//                    // }
+//                    mMap.addMarker(volleyballOption);
+//                } else {
+//                    Toast.makeText(fActivity.getApplicationContext(),
+//                            "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT).show();
+//                    // new downloadVolleyball().execute();
+//                    try {
+//                        Thread.sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//                    if (VolleyballisLoad) {
+//                        draw(8, 0);
+//                    }
+//                }
+                break;
             case 9: // PGV
                 if (PGVisLoad && pgvOverlay != null) {
                     mMap.addGroundOverlay(pgvOverlay.transparency(trans));
@@ -768,7 +674,6 @@ public class MapOverlay implements Serializable {
                         Toast.makeText(fActivity, "本地震尚無此震度圖資料", Toast.LENGTH_SHORT)
                                 .show();
                     }
-                    // new downloadMarkerInfo().execute();
                 } else {
                     // fActivity.mSetupGoogleMap.seekBar.setVisibility(View.VISIBLE);
                     if (!isDraw9) {
@@ -790,9 +695,7 @@ public class MapOverlay implements Serializable {
                         Toast.makeText(fActivity, "本地震尚無此震度圖資料", Toast.LENGTH_SHORT)
                                 .show();
                     }
-                    // new downloadMarkerInfo().execute();
                 } else {
-                    // fActivity.mSetupGoogleMap.seekBar.setVisibility(View.VISIBLE);
                     if (!isDraw10) {
                         Toast.makeText(fActivity, "請稍後，正在下載震度圖", Toast.LENGTH_SHORT)
                                 .show();
@@ -807,52 +710,49 @@ public class MapOverlay implements Serializable {
                     }
                     break;
                 }
-                // case 12: // draw marker
-                // if (MarkerIsSet) {
-                // // for (int i = 0; i < circleOptionsList.length; ++i) {
-                // mMap.addCircle(circleOption);
-                // // }
-                // } else {
-                // Toast.makeText(fActivity, "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT)
-                // .show();
-                // }
-                // break;
-                // case 13: // marker animation
-                // isMarkerAnim = true;
-                // startAnimation();
-                // break;
-                // case 14: //P-alert
-                // // PGA is load then PGAisLoad is true
-                // // PGA load error then pgaOptionList will be null
-                // if(PGAisLoad && pgaOptionList!=null){
-                // for(int i=0;i<pgaOptionListNum;++i){
-                // mMap.addMarker(pgaOptionList[i]);
-                // }
-                // //mMap.addGroundOverlay(cwbOverlay.transparency(trans));
-                // }
-                // else {
-                // //Toast.makeText(fActivity,
-                // "資料尚在下載，請稍後使用本功能",Toast.LENGTH_SHORT).show();
-                // if(PGAisLoad && pgaOptionList!=null){
-                // draw(14, 0);
-                // }
-                // else if(PGAisLoad && pgaOptionList == null){
-                // Toast.makeText(fActivity,
-                // "本地震無即時地震資料",Toast.LENGTH_SHORT).show();
-                // // new downloadMarkerInfo().execute();
-                // }
-                // else{
-                // Toast.makeText(fActivity, "地震資料下載中",Toast.LENGTH_SHORT).show();
-                // try {
-                // Thread.sleep(1000);
-                // } catch (InterruptedException e) {
-                // // TODO Auto-generated catch block
-                // e.printStackTrace();
-                // }
-                // draw(14, 0);
-                // }
-                // }
-                // break;
+            case 12: // draw marker
+//                if (MarkerIsSet) {
+//                    // for (int i = 0; i < circleOptionsList.length; ++i) {
+//                    mMap.addCircle(circleOption);
+//                    // }
+//                } else {
+//                    Toast.makeText(fActivity, "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+                break;
+            case 13: // marker animation
+//                isMarkerAnim = true;
+//                startAnimation();
+                break;
+            case 14: //P-alert
+                // PGA is load then PGAisLoad is true
+                // PGA load error then pgaOptionList will be null
+//                if (PGAisLoad && pgaOptionList != null) {
+//                    for (int i = 0; i < pgaOptionListNum; ++i) {
+//                        mMap.addMarker(pgaOptionList[i]);
+//                    }
+//                    //mMap.addGroundOverlay(cwbOverlay.transparency(trans));
+//                } else {
+//                    //Toast.makeText(fActivity,
+//                    "資料尚在下載，請稍後使用本功能", Toast.LENGTH_SHORT).show();
+//                    if (PGAisLoad && pgaOptionList != null) {
+//                        draw(14, 0);
+//                    } else if (PGAisLoad && pgaOptionList == null) {
+//                        Toast.makeText(fActivity,
+//                                "本地震無即時地震資料", Toast.LENGTH_SHORT).show();
+//                        // new downloadMarkerInfo().execute();
+//                    } else {
+//                        Toast.makeText(fActivity, "地震資料下載中", Toast.LENGTH_SHORT).show();
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException e) {
+//                            // TODO Auto-generated catch block
+//                            e.printStackTrace();
+//                        }
+//                        draw(14, 0);
+//                    }
+//                }
+                break;
             case 15: // P-alert
                 // fActivity.mSetupGoogleMap.seekBar.setVisibility(View.INVISIBLE);
                 if (PGAisLoad && pgaOverlay != null) {
@@ -876,14 +776,14 @@ public class MapOverlay implements Serializable {
                 isDraw15 = true;
                 break;
 
-            // case 16:// CMTs volleyball
-            // if (ballisLoad[0]) {
-            // mMap.addMarker(ballOptions[0]);
-            // } else {
-            // Toast.makeText(fActivity.getApplicationContext(), "本地震尚無此分析資料",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // break;
+            case 16:// CMTs volleyball
+//                if (ballisLoad[0]) {
+//                    mMap.addMarker(ballOptions[0]);
+//                } else {
+//                    Toast.makeText(fActivity.getApplicationContext(), "本地震尚無此分析資料",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+                break;
             case 17:// gCAP volleyball
                 if (ballisLoad[0]) {
                     mMap.addMarker(ballOptions[0]);
@@ -906,7 +806,7 @@ public class MapOverlay implements Serializable {
                 }
                 isDraw18 = true;
                 break;
-            case 19:// New_BATS volleyball
+            case 19:// auto_BATS volleyball
                 if (ballisLoad[2]) {
                     mMap.addMarker(ballOptions[2]);
                 } else {
@@ -933,62 +833,8 @@ public class MapOverlay implements Serializable {
                     mMap.addTileOverlay(seisImgTileOverlayOptions);
                 }
                 break;
-            // if (HistoryisLoad && history_img_ocean_Overlay != null) {
-            // mMap.addGroundOverlay(history_img_ocean_Overlay
-            // .transparency(trans));
-            // } else if (HistoryisLoad) {
-            // if (!isDraw21) {
-            // Toast.makeText(fActivity, "本地震尚無背景地震活動資料",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // } else {
-            // if (!isDraw21) {
-            // Toast.makeText(fActivity, "請稍後，正在下載背景地震活動",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // }
-            // isDraw21 = true;
-            // break;
-            // case 22:// history_img_copper
-            // if (HistoryisLoad && history_img_copper_Overlay != null) {
-            // mMap.addGroundOverlay(history_img_copper_Overlay
-            // .transparency(trans));
-            // } else if (HistoryisLoad) {
-            // if (!isDraw22) {
-            // Toast.makeText(fActivity, "本地震尚無背景地震活動資料",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // } else {
-            // if (!isDraw22) {
-            // Toast.makeText(fActivity, "請稍後，正在下載背景地震活動",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // }
-            // isDraw22 = true;
-            // break;
-            // case 23:// history_img_gray
-            // if (HistoryisLoad && history_img_gray_Overlay != null) {
-            // mMap.addGroundOverlay(history_img_gray_Overlay
-            // .transparency(trans));
-            // } else if (HistoryisLoad) {
-            // if (!isDraw23) {
-            // Toast.makeText(fActivity, "本地震尚無背景地震活動資料",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // } else {
-            // if (!isDraw23) {
-            // Toast.makeText(fActivity, "請稍後，正在下載背景地震活動",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // }
-            // isDraw23 = true;
-            // break;
-            //
             case 22: // Seis-disconnect
                 if (isloadResourceFinished) {
-                    // geoMap = new GroundOverlayOptions().image(geoMap.getImage())
-                    // .positionFromBounds(geoMap.getBounds())
-                    // .transparency(trans).zIndex(zIndex_groundOverlay);
                     mMap.addGroundOverlay(seisGroundOverlayOptions);
                     if (!isDraw22) {
                         Toast.makeText(fActivity, "未連上網路，無法提供高解析度地質圖",
@@ -1003,97 +849,39 @@ public class MapOverlay implements Serializable {
                     mMap.addMarker(markerStarOption);
                 }
                 break;
+            case 24:// RMT
+                if (ballisLoad[4]) {
+                    mMap.addMarker(ballOptions[4]);
+                } else {
+                    if (!isDraw24) {
+                        Toast.makeText(fActivity.getApplicationContext(),
+                                "本地震尚無此震源機制資料", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                isDraw24 = true;
+                break;
+            case 25:// WP
+                if (ballisLoad[5]) {
+                    mMap.addMarker(ballOptions[5]);
+                } else {
+                    if (!isDraw25) {
+                        Toast.makeText(fActivity.getApplicationContext(),
+                                "本地震尚無此震源機制資料", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                isDraw25 = true;
+                break;
         }
     }
 
-    // /////////////////////////End of Draw////////////////////////////////////
-    // private Handler mHandler = new Handler();
-    // private Runnable mHandlerTask;
-    // private int radiusSize;
-    // private double maxRadius;
-    // LatLng animCirclelatLng;
-    // Circle currentCircle, lastCircle;
-    //
-    // protected void startAnimation() {
-    // Marker currentMarker = markers[selectMarker];
-    // animCirclelatLng = currentMarker.getPosition();
-    // maxRadius = circleOption.getRadius();
-    // lastCircle = mMap.addCircle(new CircleOptions()
-    // .center(animCirclelatLng).radius(maxRadius / 10).strokeWidth(5)
-    // .strokeColor(Color.RED));
-    // radiusSize = 0;
-    // if (mHandlerTask == null) {
-    // mHandlerTask = new Runnable() {
-    // @Override
-    // public void run() {
-    // // Log.d("Here!", "in Anim, radius "+ radiusSize);
-    // if (radiusSize < 10) {
-    // lastCircle.remove();
-    // currentCircle = mMap.addCircle(new CircleOptions()
-    // .center(animCirclelatLng)
-    // .radius(maxRadius / 10 * ++radiusSize)
-    // .strokeWidth(5).strokeColor(Color.RED));
-    // lastCircle = currentCircle;
-    //
-    // } else {
-    // radiusSize = 0;
-    // }
-    // mHandler.postDelayed(mHandlerTask, 100);
-    // }
-    // };
-    // }
-    // mHandlerTask.run();
-    //
-    // }
-    //
-    // protected boolean isMarkerAnim = true;
-    //
-    // protected void stopAnimation() {
-    // isMarkerAnim = false;
-    // if (mHandlerTask != null) {
-    // mHandler.removeCallbacks(mHandlerTask);
-    // // mHandler.removeCallbacksAndMessages(null);
-    // }
-    // }
-
-    public class Point {
+    private class Point {
         int index;
         int groupIndex;
         LatLng latLng;
     }
 
-    protected boolean PGAisLoad = false;
-    protected boolean PGVisLoad = false;
-    protected boolean CWBisLoad = false;
-
-    // protected boolean HistoryisLoad = false;
-
-    // TODO set p-alert icon color
-    // public double[][] colorTable={{0.001,255,255,255},{0.5,227,255,227},
-    // {1,136,255,136},{1.5,28,255,28},{2,108,255,0},{2.5,255,255,0},
-    // {3,255,170,0},{3.5,255,90,0},{4,255,36,0},{4.5,245,0,0},
-    // {5,186,0,0},{5.5,153,12,51},{6,153,44,178},{6.5,153,41,165},
-    // {7,153,51,204}};
-    // static int alpha = 192;
-    // int[] colorTable = { Color.argb(alpha, 255, 255, 255),// 0
-    // Color.argb(alpha, 227, 255, 227),// 0.5
-    // Color.argb(alpha, 136, 255, 136),// 1
-    // Color.argb(alpha, 28, 255, 28),// 1.5
-    // Color.argb(alpha, 108, 255, 0),// 2
-    // Color.argb(alpha, 255, 255, 0),// 2.5
-    // Color.argb(alpha, 255, 170, 0),// 3
-    // Color.argb(alpha, 255, 90, 0),// 3.5
-    // Color.argb(alpha, 255, 36, 0),// 4
-    // Color.argb(alpha, 245, 0, 0),// 4.5
-    // Color.argb(alpha, 186, 0, 0),// 5
-    // Color.argb(alpha, 153, 12, 51),// 5.5
-    // Color.argb(alpha, 153, 44, 178),// 6
-    // Color.argb(alpha, 153, 41, 165),// 6.5
-    // Color.argb(alpha, 153, 51, 204) // 7
-    // };
-
     @SuppressWarnings("rawtypes")
-    class downloadMarkerInfo extends AsyncTask {
+    protected class downloadMarkerInfo extends AsyncTask {
         public boolean isTaskCancel = false;
 
         @Override
@@ -1214,51 +1002,6 @@ public class MapOverlay implements Serializable {
                 isTaskCancel = true;
                 return null;
             }
-            // try {
-            // HistoryisLoad = false;
-            // // URL url = new URL(cwbLinks[selectMarker]);
-            // URL url = new URL(history_img_ocean_Link);
-            // // URL url = new URL(history_img_copper_Link);
-            // // URL url = new URL(history_img_gray_Link);
-            // // Log.d("Here!!", "cwbURL:"+cwbLinks[selectMarker]);
-            // HttpURLConnection conn = (HttpURLConnection) url
-            // .openConnection();
-            // conn.setDoInput(true);
-            // conn.connect();
-            // InputStream is = conn.getInputStream();
-            // BitmapFactory.Options opts = new BitmapFactory.Options();
-            // opts.inJustDecodeBounds = false;
-            // opts.inSampleSize = 2;
-            // bmImg = BitmapFactory.decodeStream(is, null, opts);
-            // if (bmImg != null) {
-            // BitmapDescriptor image = BitmapDescriptorFactory
-            // .fromBitmap(bmImg);
-            // Double lat = Double.parseDouble(hMap.get("lat"));
-            // Double lng = Double.parseDouble(hMap.get("lng"));
-            // LatLngBounds bounds = new LatLngBounds(new LatLng(
-            // lat - 0.6, lng - 0.6), new LatLng(lat + 0.6,
-            // lng + 0.6));
-            // history_img_ocean_Overlay = new GroundOverlayOptions()
-            // .image(image).positionFromBounds(bounds)
-            // .zIndex(zIndex_groundOverlay);
-            // // history_img_copper_Overlay = new GroundOverlayOptions()
-            // // .image(image).positionFromBounds(bounds)
-            // // .zIndex(zIndex_groundOverlay);
-            // HistoryisLoad = true;
-            // }
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // Log.d("Here!!", "Load history Error! " + e.toString());
-            // if (isDraw21) { // ocean
-            // Toast.makeText(fActivity, "本地震尚無背景地震活動資料",
-            // Toast.LENGTH_SHORT).show();
-            // }
-            // // if(isDraw22){ //copper
-            // // Toast.makeText(fActivity, "本地震尚無背景地震活動資料",
-            // // Toast.LENGTH_SHORT).show();
-            // // }
-            // HistoryisLoad = false;
-            // }
             Log.d(AsyncTaskTag,
                     "In MapOverlay: markerInfo: doInbackground finish");
             if (bmImg != null && !bmImg.isRecycled()) {
@@ -1299,10 +1042,7 @@ public class MapOverlay implements Serializable {
 
     }
 
-    public MarkerOptions[] ballOptions;
-    protected Boolean[] ballisLoad = {false, false, false, false};
-
-    class downloadBall extends AsyncTask<String, Void, Void> {
+    protected class downloadBall extends AsyncTask<String, Void, Void> {
         public boolean isTaskCancel = false;
 
         @Override
@@ -1317,6 +1057,8 @@ public class MapOverlay implements Serializable {
             String content = hMap.get("Date") + "\n" + hMap.get("Time")
                     + "UTC+8" + "\n" + hMap.get("Depth") + "\n"
                     + hMap.get("ML");
+
+            Log.i("link", link.toString());
 
             ballOptions = new MarkerOptions[link.length];
             // download volley ball
@@ -1335,17 +1077,25 @@ public class MapOverlay implements Serializable {
                     opts.inSampleSize = 1;
                     bmImg = BitmapFactory.decodeStream(is, null, opts);
 
-                    Bitmap newBitmap = Bitmap.createScaledBitmap(bmImg, 80, 80,
-                            true);
+                    Bitmap newBitmap = Bitmap.createScaledBitmap(bmImg, 80, 80, true);
                     switch (i) {
                         case 0:
                             content = getGCAPContent();
+                            break;
+                        case 1:
+//                            content = getBatsContent();
                             break;
                         case 2:
                             content = getNEWBATSContent();
                             break;
                         case 3:
                             content = getFMNEARContent();
+                            break;
+                        case 4:
+                            content = getRMTContent();
+                            break;
+                        case 5:
+                            content = getWPContent();
                             break;
                     }
                     ballOptions[i] = new MarkerOptions()
@@ -1417,15 +1167,16 @@ public class MapOverlay implements Serializable {
         Double tmpDouble;
         int tmpInt;
         try {
-            URL url = new URL(VdescriptionLinks[0]);
+            URL url = new URL(VdescriptionLinks.get("gCAP_mt.best"));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.connect();
+
             InputStream is = conn.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(is));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
             String s = bufferedReader.readLine();
             Log.d("string", "GCAP mt.best:" + s);
+
             StringTokenizer st = new StringTokenizer(s);
             for (int i = 0; i < 5; ++i)
                 st.nextToken();
@@ -1437,6 +1188,7 @@ public class MapOverlay implements Serializable {
             String mw = st.nextToken();
             for (int i = 0; i < 11; ++i)
                 st.nextToken();
+
             String clvd1 = st.nextToken();
             Log.d("string", "GCAP clvd1:" + clvd1);
             tmpDouble = Double.parseDouble(clvd1);
@@ -1449,6 +1201,7 @@ public class MapOverlay implements Serializable {
             tmpDouble = Double.parseDouble(depth);
             tmpInt = (int) Math.round(tmpDouble);
             depth = tmpInt + "";
+
             s = bufferedReader.readLine();
             st = new StringTokenizer(s);
             String strike2 = st.nextToken();
@@ -1457,14 +1210,16 @@ public class MapOverlay implements Serializable {
             String slip2 = st.nextToken();
             Log.d("string", "GCAP slip2:" + slip2);
 
-            url = new URL(VdescriptionLinks[1]);
+            url = new URL(VdescriptionLinks.get("gCAP_mtt.best"));
             conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.connect();
+
             is = conn.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(is));
             s = bufferedReader.readLine();
             Log.d("string", "GCAP mtt.best:" + s);
+
             st = new StringTokenizer(s);
             for (int i = 0; i < 13; ++i)
                 st.nextToken();
@@ -1523,26 +1278,28 @@ public class MapOverlay implements Serializable {
         Double tmpDouble;
         int tmpInt;
         try {
-            URL url = new URL(VdescriptionLinks[2]);
+            URL url = new URL(VdescriptionLinks.get("NewBats"));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.connect();
             InputStream is = conn.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(is));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
             String s = bufferedReader.readLine();
-            Log.d("string", "NEWBATS :" + s);
+            Log.d("getNEWBATSContent", "NEWBATS :" + s);
+
             StringTokenizer st = new StringTokenizer(s, ";");
-            for (int i = 0; i < 6; ++i)
-                st.nextToken();
+            for (int i = 0; i < 6; ++i) {
+                String a = st.nextToken();
+            }
             String strike1 = st.nextToken();
-            Log.d("string", "NEWBATS strike1:" + strike1);
+            Log.d("getNEWBATSContent", "NEWBATS strike1:" + strike1);
+
             String dip1 = st.nextToken();
             String slip1 = st.nextToken();
-
             String depth = st.nextToken();
             String strike2 = st.nextToken();
-            Log.d("string", "NEWBATS strike2:" + strike2);
+            Log.d("getNEWBATSContent", "NEWBATS strike2:" + strike2);
+
             String dip2 = st.nextToken();
             String slip2 = st.nextToken();
             String mw = st.nextToken();
@@ -1552,7 +1309,7 @@ public class MapOverlay implements Serializable {
             tmpDouble = Double.parseDouble(clvd);
             tmpInt = (int) Math.round(tmpDouble);
             clvd = tmpInt + "%";
-            Log.d("string", "NEWBATS clvd:" + clvd);
+            Log.d("getNEWBATSContent", "NEWBATS clvd:" + clvd);
 
             tmpDouble = Double.parseDouble(strike1);
             tmpInt = (int) Math.round(tmpDouble);
@@ -1616,7 +1373,8 @@ public class MapOverlay implements Serializable {
         Double tmpDouble;
         int tmpInt;
         try {
-            URL url = new URL(VdescriptionLinks[3]);
+            URL url = new URL(VdescriptionLinks.get("FMNEAR"));
+
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoInput(true);
             conn.connect();
@@ -1696,7 +1454,124 @@ public class MapOverlay implements Serializable {
         return content;
     }
 
-    boolean isloadResourceFinished = false;
+    String getRMTContent() {
+        String content;
+        try {
+            URL url = new URL(VdescriptionLinks.get("RMT"));
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+            String s = bufferedReader.readLine();
+            Log.d("getRMTContent", "RMT:" + s);
+
+            StringTokenizer st = new StringTokenizer(s, ";");
+            for (int i = 0; i < 4; i++) {
+                st.nextToken();
+            }
+            String depth = st.nextToken();
+            String mw = st.nextToken();
+            Log.i("getRMTContent", "depth:" + depth);
+            Log.i("getRMTContent", "mw:" + mw);
+
+            s = bufferedReader.readLine();
+            Log.d("getRMTContent", "RMT:" + s);
+
+            s = bufferedReader.readLine();
+            Log.d("getRMTContent", "RMT:" + s);
+
+            st = new StringTokenizer(s, ";");
+            String strike1 = st.nextToken();
+            String dip1 = st.nextToken();
+            String slip1 = st.nextToken();
+            String strike2 = st.nextToken();
+            String dip2 = st.nextToken();
+            String slip2 = st.nextToken();
+
+            s = bufferedReader.readLine();
+            Log.d("getRMTContent", "RMT:" + s);
+            st = new StringTokenizer(s, ";");
+            String mr = st.nextToken();
+
+            s = bufferedReader.readLine();
+            Log.d("getRMTContent", "RMT:" + s);
+            st = new StringTokenizer(s, ";");
+            for (int i = 0; i < 2; i++) {
+                st.nextToken();
+            }
+            String ci = st.nextToken();
+
+            content = "NP1:\t" + strike1 + "\u00B0\t/\t" + dip1 + "\u00B0\t/\t"
+                    + slip1 + "\u00B0\n" + "NP2:\t" + strike2 + "\u00B0\t/\t"
+                    + dip2 + "\u00B0\t/\t" + slip2 + "\u00B0\n" + "Mw: " + mw
+                    + "\t" + "Depth: " + depth + "km\n" + "Clvd: " + ci + "%"
+                    + " M.R: " + mr + "%";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            content = null;
+        }
+        return content;
+    }
+
+    String getWPContent() {
+        String content;
+        try {
+            URL url = new URL(VdescriptionLinks.get("WP"));
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+
+            String s = bufferedReader.readLine();
+            for (int i = 0; i < 2; i++) {
+                s = bufferedReader.readLine();
+                Log.d("getWPContent", "WP:" + s);
+            }
+            StringTokenizer st = new StringTokenizer(s, ";");
+            for (int i = 0; i < 2; i++) {
+                st.nextToken();
+            }
+            String depth = st.nextToken();
+            Log.i("getWPContent", "depth:" + depth);
+
+            s = bufferedReader.readLine();
+            Log.d("getWPContent", "WP:" + s);
+            st = new StringTokenizer(s, ";");
+            String mww = st.nextToken();
+            Log.i("getWPContent", "mww:" + mww);
+
+            for (int i = 0; i < 3; i++) {
+                st.nextToken();
+            }
+            String rms = st.nextToken();
+            Log.i("getWPContent", "rms:" + rms);
+
+            s = bufferedReader.readLine();
+            Log.d("getWPContent", "RMT:" + s);
+            st = new StringTokenizer(s, ";");
+            String strike1 = st.nextToken();
+            String dip1 = st.nextToken();
+            String slip1 = st.nextToken();
+            String strike2 = st.nextToken();
+            String dip2 = st.nextToken();
+            String slip2 = st.nextToken();
+
+            content = "NP1:\t" + strike1 + "\u00B0\t/\t" + dip1 + "\u00B0\t/\t"
+                    + slip1 + "\u00B0\n" + "NP2:\t" + strike2 + "\u00B0\t/\t"
+                    + dip2 + "\u00B0\t/\t" + slip2 + "\u00B0\n" + "Mww: " + mww
+                    + "\t" + "Depth: " + depth + "km\n" + "RMS: " + rms;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            content = null;
+        }
+        return content;
+    }
 
     @SuppressWarnings("rawtypes")
     class loadResources extends AsyncTask {
@@ -1765,19 +1640,14 @@ public class MapOverlay implements Serializable {
             Log.d(AsyncTaskTag, "In MapOverlay: loadResources: onCancelled");
             super.onCancelled();
         }
-
     }
-
-    final int LOAD_RESOURCE_FINISHED = ConstantVariables.LOAD_RESOURCE_FINISHED;
-    Handler handler = null;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
 
     protected Bitmap scaleBitmapOnScreenSize(Drawable d) {
-        DisplayMetrics metrics = new DisplayMetrics();
-        metrics = fActivity.getResources().getDisplayMetrics();
+        DisplayMetrics metrics = fActivity.getResources().getDisplayMetrics();
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         Log.d("bitmap", "screen width:" + width + " height:" + height);
